@@ -16,6 +16,5 @@ This is a simple redux web app starter.
 - Page Design(flex)
 - Auto import component(components/index.js)
 - Watch Path(jsconfig.json)
-- Forward Proxy(localhost:8080)
 
 > More info will be added sooner or later.

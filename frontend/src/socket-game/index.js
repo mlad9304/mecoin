@@ -22,7 +22,7 @@ function createAction(type, payload) {
 }
 
 export const init = () => {
-  socket = new SockJS("http://18.217.245.201:8080/game");
+  socket = new SockJS(process.env.API_ROOT + "/game");
 
   socket.onopen = () => {
     closing = false;

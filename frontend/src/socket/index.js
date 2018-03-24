@@ -34,7 +34,7 @@ export const configure = (intl) => {
 }
 
 export const init = () => {  
-  socket = new SockJS("http://18.217.245.201:8080/echo");
+  socket = new SockJS(process.env.API_ROOT + "/echo");
   clearInterval(intervalId);
   socket.onopen = () => {
     closing = false;

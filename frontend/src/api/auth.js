@@ -5,13 +5,13 @@ export const localRegister = ({
     // email,
     displayName,
     password    
-}) => axios.post('http://18.217.245.201:8080/api/v1.0/auth/register/local', {
+}) => axios.post(process.env.API_ROOT+'/api/v1.0/auth/register/local', {
     displayName,
     // email,
     password
 });
 
-export const localLogin = ({displayName, password}) => axios.post('/api/v1.0/auth/login/local', {
+export const localLogin = ({displayName, password}) => axios.post(process.env.API_ROOT+'/api/v1.0/auth/login/local', {
     displayName, password
 });
 

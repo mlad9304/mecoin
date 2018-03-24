@@ -52,11 +52,12 @@ class Login extends Component {
 
         if (express) {
             alert('express in');
-            if (process.env.NODE_ENV === 'development') {
-                document.location.href = "http://18.217.245.201:3000" + path;
-            } else {
-                document.location.href = path;
-            }
+            // if (process.env.NODE_ENV === 'development') {
+            //     document.location.href = "http://18.217.245.201:3000" + path;
+            // } else {
+            //     document.location.href = path;
+            // }
+            document.location.href = path;
             return;
         }
         setTimeout(() => this.setState({leave: true}), 700)
