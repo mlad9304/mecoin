@@ -1,7 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config(); // LOAD CONFIG
-
-// console.log('env file initialized....');
 import http from 'http';
 import Koa from 'koa';
 import Router from 'koa-router';
@@ -65,7 +61,7 @@ router.use('/api', api.routes());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 var server = http.createServer(app.callback());
 echo.installHandlers(server, { prefix: '/echo' });
