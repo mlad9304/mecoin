@@ -123,7 +123,7 @@ class Register extends Component {
 
         AuthActions.setSubmitStatus(true);
         try {
-            AuthActions.submit({displayName: username, password});
+            await AuthActions.submit({displayName: username, password});
         } catch ( e ) {
             notify({type: 'error', message: 'Oops, server rejected your request, please try again (' + e.response.data.message + ')'});
             AuthActions.setSubmitStatus(false);

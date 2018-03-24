@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import { Message } from 'components'
 
 import styles from './MessageChunk.scss';
@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-class MessageChunk extends PureComponent {
+class MessageChunk extends Component {
 
     static defaultProps = {
         data: []

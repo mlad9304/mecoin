@@ -28,6 +28,7 @@ app.use((ctx, next) => {
     'bitimulate.com',
     's3.bitimulate.com.s3-website.ap-northeast-2.amazonaws.com',
     'localhost',
+    'https://mecoin.herokuapp.com',
     '192.168.0.116',
     '18.217.245.201'
   ];
