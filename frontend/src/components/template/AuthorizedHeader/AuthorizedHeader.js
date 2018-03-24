@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from 'static/assets/logo.png';
 import styles from './AuthorizedHeader.scss';
-import usrImg from 'static/assets/usrProfile.png';
-import bellImg from 'static/assets/bell.png';
-import mailImg from 'static/assets/mail.png';
+import usrImg from 'static/images/usrProfile.png';
+import bellImg from 'static/images/bell.png';
+import mailImg from 'static/images/mail.png';
 
 const AuthorizedHeader = () => {
     return (
