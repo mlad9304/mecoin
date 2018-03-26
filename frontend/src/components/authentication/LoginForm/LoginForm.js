@@ -1,75 +1,69 @@
 import React from 'react';
-import {injectIntl, defineMessages} from 'react-intl';
+import cx from 'classnames';
 
-const messages = defineMessages({
-    usernameCapitalized: {
-        id: "Login.usernameCapitalized",
-        defaultMessage: "USERNAME"
-    },
-    username: {
-        id: "Login.username",
-        defaultMessage: "Username"
-    },
-    passwordCapitalized: {
-        id: "Login.passwordCapitalized",
-        defaultMessage: "PASSWORD"
-    },
-    password: {
-        id: "Login.password",
-        defaultMessage: "Password"
-    },
-    logIn: {
-        id: "Login.logIn",
-        defaultMessage: "LOGIN"
-    }
-})
+import './LoginForm.scss';
+
 
 const LoginForm = ({
     form,
     status,
     onChange,
-    onSubmit,
-    onKeyPress,
-    intl: {
-        formatMessage
-    }
+    onSubmit
 }) => (
-    <div className="ui massive form">
-        <div className="field">
-            <label>{formatMessage(messages.usernameCapitalized)}</label>
-            <div className="ui left icon input">
-                <input
-                    name="username"
-                    type="text"
-                    placeholder={formatMessage(messages.username)}
-                    value={form.username}
-                    onChange={onChange}/>
-                <i className="user icon"></i>
+    <form className="form">
+        <div className="input-group mb-3">
+            <div className="input-group-prepend">
+                <span className="input-group-text fa fa-user rounded-0 d-inline-flex" />
             </div>
-        </div>
-        <div className="field">
-            <label>{formatMessage(messages.passwordCapitalized)}</label>
-            <div className="ui left icon input">
-                <input
-                    name="password"
-                    type="password"
-                    placeholder={formatMessage(messages.password)}
-                    value={form.password}
-                    onChange={onChange}
-                    onKeyPress={onKeyPress}/>
-                <i className="lock icon"></i>
+            <input
+                type="text"
+                className="form-control form-control-lg rounded-0"
+                placeholder="Username"
+                name="username"
+                value={form.value}
+                onChange={onChange}
+            />
+            <div className="input-group-append">
+                <span className="input-group-text span-check rounded-0" />
             </div>
+            <div className="invalid-feedback">Oops, you missed this one.</div>
         </div>
-        <button
-            className={`massive pink ui button ${status.submitting
-            ? 'loading'
-            : ''}`}
-            type="submit"
-            onClick={onSubmit}
-            disabled={status.submitting}>
-            {formatMessage(messages.logIn)}
-        </button>
-    </div>
+        <div className="input-group mb-3">
+            <div className="input-group-prepend">
+                <span className="input-group-text fa fa-lock rounded-0 d-inline-flex" />
+            </div>
+            <input
+                type="password"
+                className="form-control form-control-lg rounded-0"
+                placeholder="Your password"
+                name="password"
+                value={form.value}
+                onChange={onChange}
+            />
+            <div className="input-group-append">
+                <span className="input-group-text span-check rounded-0"></span>
+            </div>
+            <div className="invalid-feedback">Input your password.</div>
+        </div>
+        <div className="ml-1">
+            <label className="custom-checkbox color-grey">
+                Remember me
+                <input type="checkbox" />
+                <span className="checkmark" />
+            </label>
+        </div>
+        <div className="row">
+            <button 
+                className='btn btn-lg col-8 mx-auto rounded-0 btn_login' 
+                onClick={onSubmit}
+                >
+                <b>Login Now</b>
+                <span>&nbsp;</span>
+                <i className={cx("fa", "fa-circle-o-notch", "fa-spin", { hidden: !status.submitting})}></i>
+            </button>
+        </div>
+        
+    </form>
 )
 
-export default injectIntl(LoginForm);
+export default LoginForm;
