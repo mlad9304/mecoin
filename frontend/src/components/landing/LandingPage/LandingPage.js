@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './LandingPage.scss';
 import classNames from 'classnames/bind';
 
-import { PageTemplate, GameSelector} from 'components';
+import { PageTemplate, GameSelector, Footer} from 'components';
 import { HeaderContainer, ChatBox } from 'containers';
 
 const cx = classNames.bind(styles);
@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 const LandingPage = () => {
 
   return (
-    <PageTemplate header={<HeaderContainer/>}  padding={'3.5rem'} responsive>
+    <PageTemplate header={<HeaderContainer/>}  padding={'3.5rem'} responsive footer={<Footer />}>
       <div className={cx('landing-page')}>
         <GameSelector />
         <ChatBox />

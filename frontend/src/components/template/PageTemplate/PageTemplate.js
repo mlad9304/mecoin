@@ -2,11 +2,9 @@ import React from 'react';
 import styles from './PageTemplate.scss';
 import classNames from 'classnames/bind';
 
-import { Footer } from 'components';
-
 const cx = classNames.bind(styles);
 
-const PageTemplate = ({header, children, responsive, padding}) => {
+const PageTemplate = ({header, children, responsive, padding, footer}) => {
   return (
     <div className={cx('page')}>
       <div className={cx('image')} />
@@ -19,7 +17,9 @@ const PageTemplate = ({header, children, responsive, padding}) => {
       })}>
         {children}
       </main>
-      {/* <Footer/> */}
+      <footer>
+        {footer}
+      </footer>
     </div>
   );
 };

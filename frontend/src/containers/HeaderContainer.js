@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base';
 
 import { AuthorizedHeader, UnAuthorizedHeader } from 'components';
-import './HeaderContainer.scss';
 import logo from 'static/images/logo.png';
 
 const navStyle = {
@@ -19,8 +18,7 @@ class HeaderContainer extends Component {
   
   render() {
     return (
-      <nav
-        id="header"
+      <nav id="header"
         className="navbar navbar-expand-md navbar-dark"
         style={navStyle}
       >

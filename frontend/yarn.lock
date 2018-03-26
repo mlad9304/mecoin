@@ -935,7 +935,7 @@ babel-register@^6.26.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.15"
 
-babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.25.0, babel-runtime@^6.26.0:
+babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   dependencies:
@@ -1070,6 +1070,10 @@ boom@5.x.x:
   resolved "https://registry.yarnpkg.com/boom/-/boom-5.2.0.tgz#5dd9da6ee3a5f302077436290cb717d3f4a54e02"
   dependencies:
     hoek "4.x.x"
+
+bootstrap@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0.tgz#ceb03842c145fcc1b9b4e15da2a05656ba68469a"
 
 boxen@^0.6.0:
   version "0.6.0"
@@ -1901,6 +1905,10 @@ detect-libc@^1.0.2:
 detect-node@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.3.tgz#a2033c09cc8e158d37748fbde7507832bd6ce127"
+
+detect-passive-events@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/detect-passive-events/-/detect-passive-events-1.0.4.tgz#6ed477e6e5bceb79079735dcd357789d37f9a91a"
 
 detect-port-alt@1.1.3:
   version "1.1.3"
@@ -5306,6 +5314,14 @@ prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
+prop-types@^15.5.8:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 proxy-addr@~2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.2.tgz#6571504f47bb988ec8180253f85dd7e14952bdec"
@@ -5434,6 +5450,14 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-alice-carousel@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/react-alice-carousel/-/react-alice-carousel-1.9.1.tgz#5d68fc98d93d47b4fe8b0775550fddd053e5d381"
+  dependencies:
+    prop-types "^15.5.10"
+    react ">=15.4"
+    react-swipeable "^4.0.0"
+
 react-custom-scrollbars@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/react-custom-scrollbars/-/react-custom-scrollbars-4.2.1.tgz#830fd9502927e97e8a78c2086813899b2a8b66db"
@@ -5536,7 +5560,14 @@ react-stand-in@^4.0.0-beta.4:
   version "4.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/react-stand-in/-/react-stand-in-4.0.0-beta.4.tgz#1c33fe0645dfb8f76250e2b1540c8f4a9e0e50a2"
 
-react@^16.0.0:
+react-swipeable@^4.0.0:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-4.2.1.tgz#dae68ecd041c299a9b55b4925baf940195858637"
+  dependencies:
+    detect-passive-events "^1.0.4"
+    prop-types "^15.5.8"
+
+react@>=15.4, react@^16.0.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
@@ -6015,16 +6046,6 @@ selfsigned@^1.9.1:
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.1.tgz#bf8cb7b83256c4551e31347c6311778db99eec52"
   dependencies:
     node-forge "0.6.33"
-
-semantic-ui-react@^0.78.3:
-  version "0.78.3"
-  resolved "https://registry.yarnpkg.com/semantic-ui-react/-/semantic-ui-react-0.78.3.tgz#c45ca374c8f1b61bc4fbe29e564a5fe6af5403f8"
-  dependencies:
-    babel-runtime "^6.25.0"
-    classnames "^2.2.5"
-    fbjs "^0.8.16"
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
 
 semver-diff@^2.0.0:
   version "2.1.0"

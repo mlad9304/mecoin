@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './Root';
-import 'styles/main.scss';
+
 import registerServiceWorker from './registerServiceWorker';
 import store from 'store';
+
+
+import 'bootstrap/scss/bootstrap.scss';
+import 'static/fonts/font-awesome/scss/font-awesome.scss';
+import 'react-alice-carousel/lib/alice-carousel.css';
+import 'styles/main.scss';
 // import { AppContainer as HotContainer } from 'react-hot-loader';
 // import social from 'lib/social';
 // import socket from 'lib/socket';
