@@ -1,30 +1,13 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router';
+import { withRouter } from 'react-router';
 import {Link} from 'react-router-dom';
-import {storage} from 'helpers';
 import notify from 'helpers/notify'
-import {FormattedMessage, injectIntl, defineMessages} from 'react-intl';
 import { LoginForm } from 'components';
 
 // socket
 import sender from 'socket/packetSender';
 
 import './Login.scss';
-
-const messages = defineMessages({
-    greeting: {
-        id: "Login.notify.greeting",
-        defaultMessage: "Hello, {name}!"
-    },
-    failure: {
-        id: "Login.notify.failure",
-        defaultMessage: "Incorrect username or password"
-    },
-    regexFailure: {
-        id: "Login.notify.regexFailure",
-        defaultMessage: "Please check your username or password"
-    }
-})
 
 class Login extends Component {
 
@@ -43,38 +26,18 @@ class Login extends Component {
         FormActions.changeInput({form: 'login', name: e.target.name, value: e.target.value})
     }
 
-
-    leaveTo = ({
-        path,
-        express = false
-    }) => {
-        this.setState({animate: true, path});
-
-        if (express) {
-            alert('express in');
-            // if (process.env.NODE_ENV === 'development') {
-            //     document.location.href = "http://18.217.245.201:3000" + path;
-            // } else {
-            //     document.location.href = path;
-            // }
-            document.location.href = path;
-            return;
-        }
-        setTimeout(() => this.setState({leave: true}), 700)
-    }
-
     connectToChatRoom = () => {
         const { status } = this.props;
        
         const { sessionID } = status.session;
         sender.auth(sessionID, false);
     }
-    
+
     handleSubmit = async (e) => {
         
         e.preventDefault();
 
-        const { form, AuthActions } = this.props;
+        const { form, AuthActions, history } = this.props;
         const { username, password } = form;
 
         notify.clear();
@@ -97,6 +60,7 @@ class Login extends Component {
         }
 
         // Redirect
+        history.push('/');
 
         notify({type: 'success', message: `Hello, ${username}!`});
 
@@ -147,4 +111,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
