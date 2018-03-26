@@ -18,14 +18,14 @@ class HeaderContainer extends Component {
   
   render() {
     return (
-      <Header />
+      <Header {...this.props}/>
     );
   }
 }
 
 export default connect(
   (state) => ({
-    
+    logged: state.auth.getIn(['session', 'logged']),
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch)

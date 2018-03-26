@@ -58,7 +58,7 @@ const AuthorizedNav = () => {
           </Link>
         </li>
         <li className="nav-item dropdown">
-          <a
+          <div
             className="nav-link dropdown-toggle"
             data-toggle="dropdown"
             aria-haspopup="true"
@@ -79,7 +79,7 @@ const AuthorizedNav = () => {
               <a className="dropdown-item">Action 1</a>
               <a className="dropdown-item">Action 2</a>
             </div>
-          </a>
+          </div>
         </li>
       </ul>
     </React.Fragment>
@@ -122,7 +122,9 @@ const navStyle = {
   color: '#9cacae'
 };
 
-const Header = () => {
+const Header = ({logged}) => {
+
+
   return (
     <nav id="header"
       className="navbar navbar-expand-md navbar-dark"
@@ -144,7 +146,7 @@ const Header = () => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-        <UnAuthorizedNav />
+        { logged ? <AuthorizedNav /> : <UnAuthorizedNav />}
       </div>
     </nav>
   );

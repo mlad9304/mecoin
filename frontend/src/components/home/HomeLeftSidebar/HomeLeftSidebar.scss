@@ -1,0 +1,38 @@
+.scroll_table_container {
+    border: 2px solid #222633;
+    height: 100%;
+    overflow: scroll;
+    width: 100%;
+  }
+  
+  .scrollBox {
+    padding-top: 88px;
+    height: 100%;
+  }
+
+  .scroll_table {
+    border-collapse: collapse;
+    
+    th {
+        border-collapse: collapse;
+        padding-left: 15px;
+    }
+    td {
+        border-collapse: collapse;
+        padding: 5px 11px;
+    }
+    thead {
+        background-color: #303341;
+        th {
+            color: #a2a3a2;
+        }
+    }
+  }
+  
+  .sidebarSelectContainer {
+    position: absolute;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 45px;
+  }
+  

@@ -114,21 +114,23 @@ input.form-control {
   height: 100%;
   width: 100%;
   min-width: 46px;
+
+  &:after {
+    position: absolute;
+    content: '';
+    top: 7px;
+    width: 11px;
+    height: 23px;
+    border: solid #161928;
+    border-width: 0 1px 1px 0;
+    color: #161928;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
 }
 
-.span-check:after {
-  position: absolute;
-  content: '';
-  top: 7px;
-  width: 11px;
-  height: 23px;
-  border: solid #161928;
-  border-width: 0 1px 1px 0;
-  color: #161928;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
+
 .custom-checkbox {
   display: block;
   position: relative;
@@ -139,51 +141,55 @@ input.form-control {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 3px;
+    border: 1px solid #727588;
+    background-color: #2f3341;
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    &:after {
+      content: '';
+      position: absolute;
+      display: none;
+
+      left: 7px;
+      top: -4px;
+      width: 10px;
+      height: 20px;
+      border: solid #727588;
+      border-width: 0 4px 4px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+
+  /* Show the checkmark when checked */
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
 }
 
-/* Hide the browser's default checkbox */
-.custom-checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
 
-/* Create a custom checkbox */
-.custom-checkbox .checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 20px;
-  width: 20px;
-  border-radius: 3px;
-  border: 1px solid #727588;
-  background-color: #2f3341;
-}
 
-/* Create the checkmark/indicator (hidden when not checked) */
-.custom-checkbox .checkmark:after {
-  content: '';
-  position: absolute;
-  display: none;
-}
 
-/* Show the checkmark when checked */
-.custom-checkbox input:checked ~ .checkmark:after {
-  display: block;
-}
 
-/* Style the checkmark/indicator */
-.custom-checkbox .checkmark:after {
-  left: 7px;
-  top: -4px;
-  width: 10px;
-  height: 20px;
-  border: solid #727588;
-  border-width: 0 4px 4px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
+
 
 /* Custom dropbox*/
 .select {

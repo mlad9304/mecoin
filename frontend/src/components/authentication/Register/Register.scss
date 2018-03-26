@@ -15,8 +15,8 @@
     background: -webkit-linear-gradient(#b18d2e, #fecc0d);
     border: none;
     color: #3d3e3f;
-  }
-  .btn_singup:active {
-    background: -webkit-linear-gradient(#b18d2e, #fecc0d) !important;
+    &:active {
+      background: -webkit-linear-gradient(#b18d2e, #fecc0d) !important;
+    }
   }
   
