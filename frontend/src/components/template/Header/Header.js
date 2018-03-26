@@ -144,7 +144,7 @@ const Header = () => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-        <AuthorizedNav />
+        <UnAuthorizedNav />
       </div>
     </nav>
   );

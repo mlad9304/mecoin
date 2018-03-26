@@ -5,13 +5,9 @@ import { PageTemplate, Footer } from 'components';
 import styles from './LoginPage.scss';
 import classNames from 'classnames/bind';
 
-const cx = classNames.bind(styles);
-
-
-
 const LoginPage = () => {
   return (
-  <PageTemplate header={<HeaderContainer/>} responsive footer={<Footer/>}>
+  <PageTemplate header={<HeaderContainer/>} footer={<Footer/>}>
       <div>
         <LoginContainer />
       </div>
