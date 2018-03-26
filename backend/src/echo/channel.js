@@ -218,21 +218,25 @@ channel.remove = (name) => {
     // kill channel when there is no new user within 1 minutes.
     console.log('-----------------chanel remove ------------------');
     console.log(name);
+    console.log(channels['all']);
     // console.log( channels['all'].killChannelTimeout);
-    channels['all'].killChannelTimeout = setTimeout(
-        () => {
-            clearTimeout(channels[name].timeout);
-            Message.write({
-                suID: generateUID(),
-                type: "SLEEP",
-                channel: name
-            });
-
-            delete channels[name];
-            log(name + ' channel is dying..');
-            log(Object.keys(channels).length + ' channels alive');
-        }, 1000 * 60 
-    );
+    if(channels['all']) {
+        channels['all'].killChannelTimeout = setTimeout(
+            () => {
+                clearTimeout(channels[name].timeout);
+                Message.write({
+                    suID: generateUID(),
+                    type: "SLEEP",
+                    channel: name
+                });
+    
+                delete channels[name];
+                log(name + ' channel is dying..');
+                log(Object.keys(channels).length + ' channels alive');
+            }, 1000 * 60 
+        );
+    }
+    
 }
 
 channel.get = (name) => {
