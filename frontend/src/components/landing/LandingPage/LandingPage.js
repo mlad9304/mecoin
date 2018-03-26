@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 const LandingPage = () => {
 
   return (
-    <PageTemplate header={<HeaderContainer/>}  padding={'3.5rem'} responsive footer={<Footer />}>
+    <PageTemplate header={<HeaderContainer/>} responsive footer={<Footer />}>
       <div className={cx('landing-page')}>
         <GameSelector />
         <ChatBox />

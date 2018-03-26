@@ -1,42 +1,104 @@
-@import 'utils';
+#header {
+  position: absolute;
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
 
-.header {
-  background: rgba(28, 34, 37, 0.5);
-  height: 7rem;
-  display: flex;
-  padding: 1rem;
-  justify-content: center;
-  align-items: center;
-  color: white;
-
-  box-shadow: 0 1px 3px rgba(226, 213, 213, 0.12), 0 1px 2px rgba(245, 242, 242, 0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-
-  .loger{
-    flex: 1;
-    font-size: 3rem;
-    font-style: italic;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    .markimg{
-      background: url(~static/assets/bitcoin.png);
-      width:70px;
-      height:70px;
-    }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
   }
 
-  .header_buttons{
-    position: absolute;
-    right:100px;
-    font-size: 1.5rem;
-    display: flex;
-    .button_item{
-      padding:1rem;
-      cursor: pointer;
-      &:hover{
-        background: rgb(99, 90, 90);
+  .leftBar {
+    margin-left: 158px;
+
+    .leftBorder {
+      border-left: 1px solid #1c243a;
+
+      .ethValue {
+        color: #dca535 !important;
+        font-size: 0.8rem;
+        float: right;
       }
+    }   
+
+  }
+
+  .userTitle {
+    margin-bottom: 0px;
+    color: white;
+
+    &.goodEvening {
+      font-size: 0.6rem;
+    }
+    &.usrName {
+      font-size: 0.8rem;
+    }
+    &.win {
+      color: #dca535;
+      font-size: 0.4rem;
     }
   }
+
+  .usrImgContainer {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border-radius: 5px;
+    border-color: #dca535;
+    margin-right: 3px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .notificationBox {
+    margin-top: 7px;
+    position: relative;
+    margin-right: 10px;
+
+    .notificationMailItem {
+      position: relative;
+      font-size: 3rem;
+      color: white;
+      width: 35px;
+      height: 28px;
+      margin-top: 4px;
+    }
+
+    .notificationNavItem {
+      position: relative;
+      font-size: 3rem;
+      color: white;
+      width: 30px;
+      height: 35px;
+    }
+
+    .circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #fde34b;
+      position: absolute;
+      top: -3px;
+      right: -1px;
+    }
+
+    .num {
+      position: absolute;
+      line-height: 1;
+      top: 0;
+      right: 5px;
+      color: black;
+    }
+  }
+
+}
+
+
+.navbar-dark .navbar-nav .active > .nav-link {
+  color: #fde34b !important;
 }

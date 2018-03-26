@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {injectIntl, defineMessages} from 'react-intl';
 
 const messages = defineMessages({

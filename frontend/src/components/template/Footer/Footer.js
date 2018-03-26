@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './Footer.scss';
+import './Footer.scss';
 
 const Footer = () => {
   return (
-    <div id="footer" className='row mr-0 ml-0 footer'>
+    <div id="footer" className='footer row mr-0 ml-0'>
       <p className="col ml-auto mt-3">
         <span className="fa fa-copyright" />2018 One Tap Crypto Gambling Game.
         All rights reserved

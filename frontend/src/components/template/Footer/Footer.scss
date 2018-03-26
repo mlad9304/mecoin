@@ -1,4 +1,5 @@
 .footer {
+  width: 100%;
   padding: 0.5rem 1rem;
   color: #a7a9ac;
   margin-left: 0;
@@ -6,25 +7,31 @@
   background-color: #222633;
   position: fixed;
   bottom: 0;
-}
-.footer p {
-  margin-bottom: 0;
-}
-.social {
-  font-size: 1.8em;
-}
 
-.social p {
-  display: inline-block;
-  margin-left: 0.8rem;
-  margin-right: 0.8rem;
-  width: 45px;
-  height: 45px;
-  border: 3px solid #a7a9ac;
-  border-radius: 50%;
-  text-align: center;
-  vertical-align: middle;
-  margin-bottom: 0;
-}
-.social div i {
+  p {
+    margin-bottom: 0;
+  }
+
+  .social {
+    font-size: 1.8em;
+
+    p {
+      display: inline-block;
+      margin-left: 0.8rem;
+      margin-right: 0.8rem;
+      width: 45px;
+      height: 45px;
+      border: 3px solid #a7a9ac;
+      border-radius: 50%;
+      text-align: center;
+      vertical-align: middle;
+      margin-bottom: 0;
+    }
+
+    div i {
+
+    }
+    
+  }
+
 }

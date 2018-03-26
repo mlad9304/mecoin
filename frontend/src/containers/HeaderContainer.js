@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base';
 
-import { AuthorizedHeader, UnAuthorizedHeader } from 'components';
+import { Header } from 'components';
 import logo from 'static/images/logo.png';
 
 const navStyle = {
@@ -18,29 +18,7 @@ class HeaderContainer extends Component {
   
   render() {
     return (
-      <nav id="header"
-        className="navbar navbar-expand-md navbar-dark"
-        style={navStyle}
-      >
-        <Link className="navbar-brand" to="/">
-          <img className="logo" src={logo} role="presentation" />
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarsExampleDefault"
-          aria-controls="navbarsExampleDefault"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-  
-        <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-          <AuthorizedHeader />
-        </div>
-      </nav>
+      <Header />
     );
   }
 }
