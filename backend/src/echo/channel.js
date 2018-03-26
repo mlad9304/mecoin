@@ -218,7 +218,6 @@ channel.remove = (name) => {
     // kill channel when there is no new user within 1 minutes.
     console.log('-----------------chanel remove ------------------');
     console.log(name);
-    console.log(channels['all']);
     // console.log( channels['all'].killChannelTimeout);
     if(channels['all']) {
         channels['all'].killChannelTimeout = setTimeout(
