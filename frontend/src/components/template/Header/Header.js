@@ -98,12 +98,12 @@ const UnAuthorizedNav = () => {
       </ul>
       <ul className="navbar-nav ml-auto">
         <li className="nav-item active">
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/wallet">
             My Wallet <span className="sr-only">(current)</span>
           </Link>
         </li>
         <li className="nav-item active">
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/signup">
             Register <span className="sr-only">(current)</span>
           </Link>
         </li>

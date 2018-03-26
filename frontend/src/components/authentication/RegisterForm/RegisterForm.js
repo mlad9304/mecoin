@@ -1,97 +1,124 @@
 import React from 'react';
-import {injectIntl, defineMessages} from 'react-intl';
+import { Link } from 'react-router-dom';
 
-    // "Register.signUpWith": "SIGN UP WITH",
-    // "Register.signUpWithUsername": "SIGN UP WITH YOUR USERNAME",
-    // "Register.usernameCapitalized": "USERNAME",
-    // "Register.username": "Username",
-    // "Register.passwordCapitalized": "PASSWORD",
-    // "Register.password": "Password",
-    // "Register.already": "Already have an account?",
-    // "Register.logIn": "Login",
-    // "Register.next": "Next"
-    
-const messages = defineMessages({
-    
-    usernameCapitalized: {
-        id: "Register.usernameCapitalized",
-        defaultMessage: "USERNAME"
-    },
-    username: {
-        id: "Register.username",
-        defaultMessage: "Username"
-    },
-    passwordCapitalized: {
-        id: "Register.passwordCapitalized",
-        defaultMessage: "PASSWORD"
-    },
-    password: {
-        id: "Register.password",
-        defaultMessage: "Password"
-    },
-    next: {
-        id: "Register.next",
-        defaultMessage: "NEXT"
-    },
-    signUp: {
-        id: "Additional.signUp",
-        defaultMessage: "SIGN UP"
-    },
-
-})
 
 const RegisterForm = ({
-    username,
-    password,
+    form,
     status,
     onChange,
-    onBlur,
     onSubmit,
-    onKeyPress,
-    error,
-    intl: {
-        formatMessage
-    }
+    error
 }) => {
 
-    // error = {username: 'abc'};
     return (
-    <div className="ui massive form">
-        <div className={`field ${status.usernameExists || error.username ? 'error' : ''}`}>
-            <label>{formatMessage(messages.usernameCapitalized)}</label>
-            <div className={`ui left icon input ${status.isChecking ? 'loading' : ''}`}>
+        <form className="form">
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text fa fa-user rounded-0 d-inline-flex" />
+                </div>
                 <input
-                    name="username"
-                    placeholder={formatMessage(messages.username)}
                     type="text"
-                    value={username}
+                    className="form-control form-control-lg rounded-0"
+                    placeholder="Your Full Name"
+                    name="fullname"
+                    value={form.fullname}
                     onChange={onChange}
-                    onBlur={onBlur}
-                    disabled={status.submitting}/>
-                <i className="icon user"></i>
+                />
+                <div className="input-group-append">
+                    <span className="input-group-text span-check rounded-0" />
+                </div>
+                <div className="invalid-feedback">Oops, you missed this one.</div>
             </div>
-        </div>
-        <div className={`field ${error.password ? 'error' : ''}`}>
-            <label>{formatMessage(messages.passwordCapitalized)}</label>
-            <div className="ui left icon input">
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text fa fa-user rounded-0 d-inline-flex" />
+                </div>
                 <input
-                    name="password"
-                    placeholder={formatMessage(messages.password)}
-                    type="password"
-                    value={password}
+                    type="text"
+                    className="form-control form-control-lg rounded-0"
+                    placeholder="Username"
+                    name="username"
+                    value={form.username}
                     onChange={onChange}
-                    onKeyPress={onKeyPress}
-                    disabled={status.submitting}/>
-                <i className="icon lock"></i>
+                />
+                <div className="input-group-append">
+                    <span className="input-group-text span-check rounded-0" />
+                </div>
+                <div className="invalid-feedback">Oops, you missed this one.</div>
             </div>
-        </div>
-        <div className="button-container">
-            <button className={`massive pink ui button ${status.submitting ? 'loading' : ''}`} onClick={onSubmit} disabled={status.submitting}>
-                {formatMessage(messages.signUp)}
-            </button>
-        </div>
-    </div>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text fa fa-lock rounded-0 d-inline-flex" />
+                </div>
+                <input
+                    type="text"
+                    className="form-control form-control-lg rounded-0"
+                    placeholder="Email"
+                    name="email"
+                    value={form.email}
+                    onChange={onChange}
+                />
+                <div className="input-group-append">
+                    <span className="input-group-text span-check rounded-0" />
+                </div>
+                <div className="invalid-feedback">Input your Email</div>
+            </div>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text fa fa-lock rounded-0 d-inline-flex" />
+                </div>
+                <input
+                    type="text"
+                    className="form-control form-control-lg rounded-0"
+                    placeholder="Your password"
+                    name="password"
+                    value={form.password}
+                    onChange={onChange}
+                />
+                <div className="input-group-append">
+                    <span className="input-group-text span-check rounded-0" />
+                </div>
+                <div className="invalid-feedback">Input your password.</div>
+            </div>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text fa fa-lock rounded-0 d-inline-flex" />
+                </div>
+                <input
+                    type="text"
+                    className="form-control form-control-lg rounded-0"
+                    placeholder="Confirm Your password"
+                    name="confirm_password"
+                    value={form.confirm_password}
+                    onChange={onChange}
+                />
+                <div className="input-group-append">
+                    <span className="input-group-text span-check rounded-0" />
+                </div>
+                <div className="invalid-feedback">Confirm your password.</div>
+            </div>
+            <div className="ml-1">
+                <label className="custom-checkbox color-grey">
+                    By clicking I accept Crypto Gambling Game{' '}
+                    <Link className="color-yellow" to="/">
+                    {' '}
+                    Terms & Conditions.{' '}
+                    </Link>
+                    <input type="checkbox" />
+                    <span className="checkmark" />
+                </label>
+            </div>
+            <div className="row">
+                <button 
+                    onClick={onSubmit}
+                    className='btn btn-lg col-8 mx-auto rounded-0 btn_singup'
+                >
+                    <b>Create an account</b>
+                </button>
+            </div>
+            
+        </form>
     );
 }
 
-export default injectIntl(RegisterForm);
+export default RegisterForm;

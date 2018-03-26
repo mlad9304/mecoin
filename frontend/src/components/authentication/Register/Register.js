@@ -1,30 +1,10 @@
 import React, {Component} from 'react';
-import {Link, Redirect} from 'react-router';
-import {RegisterForm} from 'components';
+import { Link } from 'react-router-dom';
+import { RegisterForm } from 'components';
 import notify from 'helpers/notify';
-import {injectIntl, defineMessages} from 'react-intl';
-import { prepareMessages } from 'locale/helper';
+import { withRouter } from 'react-router';
 
-// import styles from './Register.scss';
-// import classNames from 'classnames/bind';
-
-// const cx = classNames.bind(styles);
 import './Register.scss';
-
-
-
-const messages = prepareMessages ({
-    "Register.signUpWith": "SIGN UP WITH",
-    "Register.signUpWithUsername": "SIGN UP WITH YOUR USERNAME",
-    "Register.already": "Already have an account?",
-    "Register.logIn": "Login",
-    "Register.next": "NEXT",
-    "Register.notify.passwordLength": "Password should be 5~30 characters.",
-    "Register.notify.usernameLength": "Username should be 4~20 alphanumeric characters or an underscore",
-    "Register.notify.duplicatedUsername": "That username is already taken, please try another one.",
-    "Additional.notify.success": "Hello, {name}! Pelase sign in."
-});
-
 
 class Register extends Component {
 
@@ -36,35 +16,16 @@ class Register extends Component {
             path: ''
         };
 
-        // bind
-        this.handleSubmit.bind(this);
-        this.handleBlur.bind(this);
     }
 
-    leaveTo = ({
-        path,
-        express = true
-    }) => {
-        this.setState({animate: true, path});
+    handleSubmit = async (e) => {
 
-        if (express) {
-            // if (process.env.NODE_ENV === 'development') {
-            //     document.location.href = "http://18.217.245.201:3000" + path;
-            // } else {
-            //     document.location.href = path;
-            // }
-            document.location.href = path;
-            return;
-        }
-        setTimeout(() => this.setState({leave: true}), 700)
-    }
+        e.preventDefault();
 
-    
-    handleSubmit = async () => {
-        const {form, status, AuthActions, FormActions, intl: {
-                formatMessage
-            }} = this.props;
-        const {username, password} = form;
+
+
+        const { form, status, AuthActions, FormActions, history } = this.props;
+        const { fullname, username, email, password, confirm_password } = form;
 
         notify.clear();
 
@@ -80,9 +41,8 @@ class Register extends Component {
 
         if (!regex.password.test(password)) {
             error = true;
-            console.log(formatMessage(messages.passwordLength));
-            notify({type: 'error', message: formatMessage(messages.passwordLength)});
-            // toastr.error('<b><i>Password</i></b> should be 5 ~ 30 alphanumericcharacters.');
+
+            notify({type: 'error', message: "Password should be 5~30 characters."});
             FormActions.setInputError({form: 'register', name: 'password', error: true});
         } else {
             FormActions.setInputError({form: 'register', name: 'password', error: false});
@@ -90,9 +50,7 @@ class Register extends Component {
 
         if (!regex.username.test(username)) {
             error = true;
-            notify({type: 'error', message: formatMessage(messages.usernameLength)});
-            // toastr.error('<b><i>Username</i></b> should be 4 ~ 20 alphanumeric characters
-            // or an underscore (_)');
+            notify({type: 'error', message: "Username should be 4~20 alphanumeric characters or an underscore"});
             FormActions.setInputError({form: 'register', name: 'username', error: true});
         } else {
             FormActions.setInputError({form: 'register', name: 'username', error: false});
@@ -131,43 +89,15 @@ class Register extends Component {
             return;
         }
 
-        // this.leaveTo({path: '/auth/register/additional'});
-
         AuthActions.setSubmitStatus(false);
-        notify({type: 'success', message: formatMessage(messages.success, {name: username})});
-        //toastr.success(`Hello, ${firstName}! Please sign in.`);
-        this.leaveTo({path: '/login'});
+        notify({type: 'success', message: `Hello, ${username}! Pelase sign in.`});
+        history.push('/login');
 
     }
 
     handleChange = (e) => {
         const {FormActions} = this.props;
         FormActions.changeInput({form: 'register', name: e.target.name, value: e.target.value})
-    }
-
-    
-    handleBlur = async (e) => {
-/*
-        const {form, AuthActions, intl: {
-                formatMessage
-            }} = this.props;
-
-        if (e.target.name === 'username') {
-            // on username blur, do check username
-            const result = await AuthActions.checkUsername(form.username);
-            if (this.props.status.usernameExists) {
-                // toastr.error('That username is already taken, please try another one.',
-                // 'ERROR');
-                //notify({type: 'error', message: formatMessage(messages.duplicatedUsername)});
-            }
-        }
-*/        
-    }
-
-    handleKeyPress = (e) => {
-        if (e.charCode === 13) {
-            this.handleSubmit();
-        }
     }
 
     componentWillUnmount() {
@@ -182,86 +112,36 @@ class Register extends Component {
     }
 
     render() {
-        const redirect = (<Redirect
-            to={{
-            pathname: this.state.path,
-            state: {
-                from: this.props.location
-            }
-        }}/>);
 
-        const {handleChange, handleSubmit, handleBlur, handleKeyPress, leaveTo} = this;
-        let {form, formError, status, intl: {
-                formatMessage
-            }} = this.props;
-
-        // form = { 
-        //     username: 'abc',
-        //     password: 'aaa'
-        // };
+        const { handleChange, handleSubmit } = this;
+        let { form, formError, status} = this.props;
 
         return (
-            <div className="register">
-                <div
-                    className={"box bounceInRight " + (this.state.animate
-                    ? 'bounceOutLeft'
-                    : '')}>
-                    <div className="social">
-                        <h2>{formatMessage(messages.signUpWith)}</h2>
-                        <div className="ui grid">
-                            <div className="eight wide column">
-                                <button
-                                    onClick={() => leaveTo({path: '/api/authentication/facebook', express: true})}
-                                    className="ui facebook button massive hide-on-mobile">
-                                    <i className="facebook icon"></i>
-                                    Facebook
-                                </button>
-                                <button
-                                    onClick={() => leaveTo({path: '/api/authentication/facebook', express: true})}
-                                    className="ui facebook button icon massive hide-on-desktop">
-                                    <i className="facebook icon"></i>
-                                </button>
-                            </div>
-                            <div className="eight wide column">
-                                <button
-                                    onClick={() => leaveTo({path: '/api/authentication/google', express: true})}
-                                    className="ui google plus button massive hide-on-mobile">
-                                    <i className="google icon"></i>
-                                    Google
-                                </button>
-                                <button
-                                    onClick={() => leaveTo({path: '/api/authentication/google', express: true})}
-                                    className="ui google plus icon button massive hide-on-desktop">
-                                    <i className="google icon"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="divider">
-                        OR
-                    </div>
-                    <div className="local">
-                        <h2>{formatMessage(messages.signUpWithUsername)}</h2>
-                        <RegisterForm
-                            username={form.username}
-                            password={form.password}
-                            status={status}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            onSubmit={handleSubmit}
-                            error={formError}
-                            onKeyPress={handleKeyPress}/>
-                        <div className="side-message">{formatMessage(messages.already)}&nbsp;
-                            <a onClick={() => this.leaveTo({path: "/login"})}>{formatMessage(messages.logIn)}</a>
-                        </div>
+            <div className='card rounded-2 signupform_bkg'>
+                <div className='card-header'>
+                <p className='text-center mb-0 already'>New User?</p>
+                <h3 className="mb-0 text-center text-white">Create an account</h3>
+                </div>
+                <div className="card-body">
+                    <RegisterForm 
+                        form={form} 
+                        status={status}
+                        error={formError}
+                        onChange={handleChange}
+                        onSubmit={handleSubmit}
+                    />
+                    <div className="row mt-2">
+                        <p className="text-center color-grey w-100">
+                            Already have an account{' '}
+                            <Link className="color-yellow" to="/login">
+                            Login here
+                            </Link>
+                        </p>
                     </div>
                 </div>
-                {this.state.leave
-                    ? redirect
-                    : undefined}
             </div>
         );
     }
 }
 
-export default injectIntl(Register);
+export default withRouter(Register);
