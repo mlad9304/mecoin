@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { HomePage, SignupPage, LoginPage, ForgotPage, PricingPage, LivePage, CompanyPage, SettingPage, GameRoomPage } from 'components';
+import Dashboard from 'components/dashboard';
 import { Route } from 'react-router-dom';
 
 class App extends Component {
@@ -15,6 +16,8 @@ class App extends Component {
         <Route path="/company" component={CompanyPage}/>
         <Route path="/setting" component={SettingPage}/>
         <Route path="/game/:type/id/:id" component={GameRoomPage}/>
+
+        <Route path="/dashboard" component={Dashboard}/>
       </div>
     );
   }

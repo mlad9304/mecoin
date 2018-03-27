@@ -23,7 +23,7 @@ const AuthorizedNav = () => {
           </Link>
         </li>
         <li className='nav-item leftBorder'>
-          <Link className="nav-link" to="/wallet">
+          <Link className="nav-link" to="/dashboard/wallet">
             My Wallet
           </Link>
         </li>
@@ -98,7 +98,7 @@ const UnAuthorizedNav = () => {
       </ul>
       <ul className="navbar-nav ml-auto">
         <li className="nav-item active">
-          <Link className="nav-link" to="/wallet">
+          <Link className="nav-link" to="/dashboard/wallet">
             My Wallet <span className="sr-only">(current)</span>
           </Link>
         </li>
