@@ -1,0 +1,54 @@
+.dashboard_leftbar_container {
+  height: 100%;
+  padding: 73px 15px 30px 15px;
+  position: relative;
+
+  .img_container {
+    text-align: center;
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    padding-right: 30px;
+
+    img {
+        border-radius: 50%;
+        border: 7px solid #1c243a;
+        width: 125px;
+        height: 125px;
+    }
+    .name {
+      color: white;
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    
+    .win {
+      color: #dca535;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .side_menu_container {
+    height: 100%;
+    padding-top: 40px;
+    position: relative;
+
+    .side_menu {
+      background-color: #1c243a;
+      display: block;
+      padding-top: 152px;
+      padding-bottom: 20px;
+      border-radius: 1px;
+    }
+    .edit {
+      color: white;
+      position: absolute;
+      right: 5px;
+      top: 48px;
+      font-size: 1.2rem;
+    }
+  }
+}

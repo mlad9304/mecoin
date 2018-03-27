@@ -4,7 +4,7 @@ import {Redirect, Switch, Route, withRouter} from 'react-router';
 import { HeaderContainer } from 'containers';
 import { PageTemplate, Footer } from 'components';
 
-import DashboardLeftbar from './DashboardLeftbar';
+import {DashboardLeftbarContainer} from 'containers';
 import DashboardRightbar from './DashboardRightbar';
 import Wallet from './Wallet';
 import './Dashboard.scss';
@@ -20,7 +20,7 @@ class Dashboard extends Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="leftContainer">
-                            <DashboardLeftbar />
+                            <DashboardLeftbarContainer />
                         </div>
                         <div className="col">
                             <Switch>

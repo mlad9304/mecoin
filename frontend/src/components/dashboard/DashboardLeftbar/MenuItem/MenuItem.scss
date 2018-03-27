@@ -1,0 +1,33 @@
+.menu_item_border {
+    border-top: 1px solid #0d111e;
+}
+  
+.title {
+    color: #4c4c4c;
+    padding-left: 30px;
+    margin-bottom: 0;
+    display: inline-block;
+}
+.title2 {
+    display: inline-block;
+    margin-right: auto;
+    float: right;
+    color: #dca535;
+}
+.active {
+    color: #dca535;
+}
+  
+.icon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+.menu_item_container {
+    padding: 5px 25px;
+}
+  
+.menu_item {
+    cursor: pointer;
+}
+  

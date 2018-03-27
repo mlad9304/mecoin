@@ -7,7 +7,10 @@ import usrImg from 'static/images/usrProfile.png';
 import bellImg from 'static/images/bell.png';
 import mailImg from 'static/images/mail.png';
 
-const AuthorizedNav = () => {
+
+
+const AuthorizedNav = ({ selectMenu }) => {
+
   return (
     <React.Fragment>
       <ul className='navbar-nav mr-auto leftBar'>
@@ -23,7 +26,7 @@ const AuthorizedNav = () => {
           </Link>
         </li>
         <li className='nav-item leftBorder'>
-          <Link className="nav-link" to="/dashboard/wallet">
+          <Link className="nav-link" to="/dashboard/wallet" onClick={() => selectMenu("2")}>
             My Wallet
           </Link>
         </li>
@@ -86,7 +89,8 @@ const AuthorizedNav = () => {
   );
 };
 
-const UnAuthorizedNav = () => {
+const UnAuthorizedNav = ({ selectMenu }) => {
+
   return (
     <React.Fragment>
       <ul className='navbar-nav mr-auto leftBar'>
@@ -98,7 +102,7 @@ const UnAuthorizedNav = () => {
       </ul>
       <ul className="navbar-nav ml-auto">
         <li className="nav-item active">
-          <Link className="nav-link" to="/dashboard/wallet">
+          <Link className="nav-link" to="/dashboard/wallet" onClick={() => selectMenu("2")}>
             My Wallet <span className="sr-only">(current)</span>
           </Link>
         </li>
@@ -122,8 +126,7 @@ const navStyle = {
   color: '#9cacae'
 };
 
-const Header = ({logged}) => {
-
+const Header = ({logged, DashboardActions}) => {
 
   return (
     <nav id="header"
@@ -146,7 +149,7 @@ const Header = ({logged}) => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-        { logged ? <AuthorizedNav /> : <UnAuthorizedNav />}
+        { logged ? <AuthorizedNav selectMenu={DashboardActions.selectMenu} /> : <UnAuthorizedNav selectMenu={DashboardActions.selectMenu} />}
       </div>
     </nav>
   );

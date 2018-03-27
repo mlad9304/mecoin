@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base';
+import * as dashboardActions from 'store/modules/dashboard';
 
 import { Header } from 'components';
 import logo from 'static/images/logo.png';
@@ -28,6 +29,7 @@ export default connect(
     logged: state.auth.getIn(['session', 'logged']),
   }),
   (dispatch) => ({
-    BaseActions: bindActionCreators(baseActions, dispatch)
+    BaseActions: bindActionCreators(baseActions, dispatch),
+    DashboardActions: bindActionCreators(dashboardActions, dispatch)
   })
 )(HeaderContainer);
