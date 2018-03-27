@@ -1,0 +1,53 @@
+.inputBoxContainer {
+  position: absolute;
+  bottom: 0;
+  height: 125px;
+  width: 100%;
+  position: absolute;
+  padding-right: 30px;
+
+  .buttonContainer {
+    width: 100%;
+    padding-right: 100px;
+    position: relative;
+    margin-top: -3px;
+    height: 42px;
+
+    .sendBtn {
+      background-color: #fde34b;
+      width: 100%;
+      display: block;
+      text-align: center;
+      height: 100%;
+      line-height: 100%;
+      -webkit-appearance: none;
+      border: none;
+    }
+  }
+  .emojiBtn {
+    background-color: #7fe533;
+    color: white;
+    position: absolute;
+    right: 0;
+    width: 100px;
+    top: 0;
+    height: 100%;
+    -webkit-appearance: none;
+    border: none;
+    font-size: 1.8rem;
+    text-align: left;
+    padding-left: 25px;
+
+    .select_arrow {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      border-style: solid;
+      border-width: 0 6px 12px 6px;
+      border-color: transparent transparent white transparent;
+    }
+  }
+}

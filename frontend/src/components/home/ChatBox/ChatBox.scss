@@ -2,92 +2,43 @@
     border-top: 1px solid #222633;
     padding-bottom: 125px;
     height: 100%;
-  }
-  .chatBox {
-    height: 100%;
-    overflow-y: scroll;
-  }
-  .chatBoxItems {
-    padding: 0 5px 10px 5px;
-  }
-  .chat_status {
-    font-size: 0.4rem !important;
-    border: 2px solid #9cacae;
-    padding: 3px;
-    position: absolute;
-    margin-top: 8px;
-  }
-  .chat_status_info {
-    padding: 0.4rem;
-    padding-left: 18px !important;
-  }
-  .statusBox {
-    border-bottom: 1px solid #1c243a;
-    padding-right: 30px !important;
-    position: relative;
-  }
-  .statusButton {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 40px;
-    height: 100%;
-    background-color: #13192a;
-    color: #262f46;
-    border: none;
-    border-left: 1px solid #1c243a;
-  }
-  .inputBoxContainer {
-    position: absolute;
-    bottom: 0;
-    height: 125px;
-    width: 100%;
-    position: absolute;
-    padding-right: 30px;
-  }
-  .buttonContainer {
-    width: 100%;
-    padding-right: 100px;
-    position: relative;
-    margin-top: -3px;
-    height: 42px;
-  }
-  
-  .sendBtn {
-    background-color: #fde34b;
-    width: 100%;
-    display: block;
-    text-align: center;
-    height: 100%;
-    line-height: 100%;
-    -webkit-appearance: none;
-    border: none;
-  }
-  
-  .emojiBtn {
-    background-color: #7fe533;
-    color: white;
-    position: absolute;
-    right: 0;
-    width: 100px;
-    top: 0;
-    height: 100%;
-    -webkit-appearance: none;
-    border: none;
-    font-size: 1.8rem;
-    text-align: left;
-    padding-left: 25px;
-  }
-  
-  .select_arrow {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-    border-style: solid;
-    border-width: 0 6px 12px 6px;
-    border-color: transparent transparent white transparent;
-  }
-  
+
+    .chatBox {
+        height: 100%;
+        overflow-y: scroll;
+
+        .statusBox {
+            border-bottom: 1px solid #1c243a;
+            padding-right: 30px !important;
+            position: relative;
+
+            div {
+                .chat_status {
+                    font-size: 0.4rem !important;
+                    border: 2px solid #9cacae;
+                    padding: 3px;
+                    position: absolute;
+                    margin-top: 8px;
+                }
+                .chat_status_info {
+                    padding: 0.4rem;
+                    padding-left: 18px !important;
+                }
+            }
+            .statusButton {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 40px;
+                height: 100%;
+                background-color: #13192a;
+                color: #262f46;
+                border: none;
+                border-left: 1px solid #1c243a;
+              }
+        }
+        .chatBoxItems {
+            padding: 0 5px 10px 5px;
+        }
+    }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import './ChatBoxItem.scss';
 import samplePhoto from 'static/images/meow.jpg';
 
-const TableItem = function TableItemComponent() {
+const ChatBoxItem = () => {
   return (
     <div className='w-100 chatItem'>
       <div className="photoContainer">
@@ -16,4 +16,4 @@ const TableItem = function TableItemComponent() {
   );
 };
 
-export default TableItem;
+export default ChatBoxItem;
