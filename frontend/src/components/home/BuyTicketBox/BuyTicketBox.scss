@@ -1,0 +1,70 @@
+.buytickbox_container {
+    width: 450px;
+    padding: 10px 20px;
+    height: 235px;
+    background-color: #1c243a;
+    position: relative;
+
+    .dice_container {
+        position: relative;
+        text-align: center;
+        margin-bottom: 10px;
+    
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    .rolldice {
+        font-size: 0.8rem;
+        color: white;
+        margin-bottom: 5px;
+
+        .buyTicket {
+            background-color: #fde34b;
+            width: 100%;
+            display: block;
+            text-align: center;
+            height: 40px;
+            -webkit-appearance: none;
+            border: none;
+        }
+    }
+      
+    .ticket {
+        width: 23px;
+        height: 14px;
+        margin-top: -3px;
+    }
+    .chart {
+        width: 100px;
+        height: 100px;
+    }
+      
+    .clock {
+        width: 30px;
+        height: 30px;
+        margin-top: -3px;
+    }
+      
+    .remaining {
+        color: #666666;
+        font-size: 0.8rem;
+        padding-right: 1rem;
+    }
+      
+    .divider {
+        width: 1px;
+        background-color: #0d121f;
+        position: absolute;
+        height: 92%;
+        left: 50%;
+    }
+      
+    .info {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}

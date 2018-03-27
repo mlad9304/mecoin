@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HomePageTemplate, HomeLeftSidebar, Footer } from 'components';
-import { HeaderContainer, HomeLeftSidebarContainer, TopLeadersContainer } from 'containers';
+import { HeaderContainer, HomeLeftSidebarContainer, TopLeadersContainer, BuyTicketBoxContainer } from 'containers';
 
 class HomePage extends Component {
   render() {
@@ -9,7 +9,9 @@ class HomePage extends Component {
         header={<HeaderContainer/>} 
         footer={<Footer/>} 
         leftsidebar={<HomeLeftSidebarContainer/>}
-        topleaders={<TopLeadersContainer/>}/>
+        topleaders={<TopLeadersContainer/>}
+        ticketboxes={<BuyTicketBoxContainer/>}
+        />
     );
   }
 }
