@@ -1,0 +1,45 @@
+.pos,
+.first_pos,
+.second_pos,
+.third_pos {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #0d111e;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  left: 31px;
+  top: 39px;
+  z-index: 3;
+  vertical-align: middle;
+  line-height: 30px;
+  font-size: 0.8rem;
+  background: -webkit-radial-gradient(
+    160% 100% at 50% 0%,
+    hsla(0, 0%, 100%, 0.3) 50%,
+    hsla(0, 0%, 30%, 0) 52%
+  );
+  background-image: radial-gradient(
+    160% 100% at 50% 0%,
+    hsla(0, 0%, 100%, 0.3) 50%,
+    hsla(0, 0%, 30%, 0) 52%
+  );
+}
+.topleaderItem {
+  display: block;
+  width: 52px;
+  height: 55px;
+}
+.first_pos {
+  background-color: orange;
+  box-shadow: inset 0 0 5px #000000;
+}
+.second_pos {
+  background-color: #5bc9fa;
+  box-shadow: inset 0 0 5px #000000;
+}
+.third_pos {
+  background-color: purple;
+  box-shadow: inset 0 0 5px #000000;
+}

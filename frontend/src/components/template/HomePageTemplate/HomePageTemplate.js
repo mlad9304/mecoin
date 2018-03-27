@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './HomePageTemplate.scss';
+import './HomePageTemplate.scss';
 
 const HomePageTemplate = ({header, footer, leftsidebar, rightsidebar, topleaders, ticketboxes, children}) => {
   return (
@@ -14,7 +14,7 @@ const HomePageTemplate = ({header, footer, leftsidebar, rightsidebar, topleaders
               {leftsidebar}
             </div>
             <div className="col-8 pt-3 position-relative">
-              <div className='position-absolute w-100 topLeadersContainer'>
+              <div className='position-absolute w-100 topLeadersContainerWrapper'>
                 {topleaders}
               </div>
               <div className='bkg-lightdarkblue h-100 ticketBoxContainer'>

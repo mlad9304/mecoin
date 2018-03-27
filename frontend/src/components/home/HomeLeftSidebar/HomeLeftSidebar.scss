@@ -5,20 +5,21 @@
     width: 100%;
   }
   
-  .scrollBox {
+.scrollBox {
     padding-top: 88px;
     height: 100%;
-  }
+}
 
-  .scroll_table {
-    border-collapse: collapse;
+.scroll_table {
+    
+    &, th, td {
+        border-collapse: collapse;
+    }
     
     th {
-        border-collapse: collapse;
         padding-left: 15px;
     }
     td {
-        border-collapse: collapse;
         padding: 5px 11px;
     }
     thead {
@@ -27,12 +28,12 @@
             color: #a2a3a2;
         }
     }
-  }
+}
   
-  .sidebarSelectContainer {
+.sidebarSelectContainer {
     position: absolute;
     width: 100%;
     padding-left: 15px;
     padding-right: 45px;
-  }
+}
   

@@ -10,7 +10,7 @@ class HomeLeftSidebar extends React.Component {
           <p className="color-yellow mb-0">History</p>
           <div className="select">
             <select>
-              <option disabled>
+              <option selected disabled>
                 Select a game typo
               </option>
               <option>Select History 1</option>

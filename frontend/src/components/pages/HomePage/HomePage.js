@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { HomePageTemplate, HomeLeftSidebar, Footer } from 'components';
-import { HeaderContainer } from 'containers';
+import { HeaderContainer, HomeLeftSidebarContainer, TopLeadersContainer } from 'containers';
 
 class HomePage extends Component {
   render() {
     return (
-      <HomePageTemplate header={<HeaderContainer/>} footer={<Footer/>} leftsidebar={<HomeLeftSidebar/>}/>
+      <HomePageTemplate 
+        header={<HeaderContainer/>} 
+        footer={<Footer/>} 
+        leftsidebar={<HomeLeftSidebarContainer/>}
+        topleaders={<TopLeadersContainer/>}/>
     );
   }
 }
