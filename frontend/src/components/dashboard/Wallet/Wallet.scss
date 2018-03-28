@@ -1,0 +1,75 @@
+.wallet_container {
+    padding-left: 30px;
+
+    .wallet_title {
+        padding-top: 60px;
+        color: #4c4c4c;
+        margin-bottom: 0;
+    }
+
+    .divider {
+        border-bottom: 1px solid #40434c;
+        margin-left: -45px;
+        margin-right: -15px;
+        margin-top: 0.5rem;
+    }
+      
+    .balance {
+        margin-bottom: 0;
+        color: #4c4c4c;
+    }
+      
+    .value {
+        margin-bottom: 0;
+        font-size: 2rem;
+        color: #dca535;
+    }
+
+    .depositFund {
+        background: -webkit-linear-gradient(#1b5915, #46da33);
+    }
+      
+    .drawFund {
+        background: -webkit-linear-gradient(#b18d2e, #fecc0d);
+    }
+
+    .home {
+        background: -webkit-linear-gradient(#1f628c, #5bcafa);
+        width: 100px;
+        margin-right: 20px;
+        padding: 10px 30px;
+    }
+
+    .depositFund,
+    .drawFund,
+    .home {
+        -moz-box-shadow: inset 0 0 3px #000000;
+        -webkit-box-shadow: inset 0 0 3px #000000;
+        box-shadow: inset 0 0 3px #000000;
+    }
+    
+    .depositFund,
+    .drawFund {
+        width: 200px;
+        margin-right: 20px;
+        padding: 10px 30px;
+    }
+}
+
+
+
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  .home {
+    
+  }
+  

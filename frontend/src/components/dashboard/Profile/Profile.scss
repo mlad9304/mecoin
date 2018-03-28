@@ -1,0 +1,50 @@
+.profile_container {
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #4d4d4d;
+
+    .profile_title {
+        padding-top: 60px;
+        color: #4c4c4c;
+        margin-bottom: 0;
+    }
+
+    .divider {
+        border-bottom: 1px solid #40434c;
+        margin-left: -35px;
+        margin-right: -35px;
+        margin-top: 0.5rem;
+    }
+
+    .inputForm {
+        width: 100%;
+        height: 40px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        background-color: #b5b7ba;
+        border-color: #b5b7ba;
+        border-style: none;
+    }
+
+    .btnSave {
+        -moz-box-shadow: inset 0 0 3px #000000;
+        -webkit-box-shadow: inset 0 0 3px #000000;
+        box-shadow: inset 0 0 3px #000000;
+        background: -webkit-linear-gradient(#164a12, #46da33);
+        width: 200px;
+        padding: 14px 40px;
+        color: white !important;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+      
+    .updateSuccess {
+        color: #7fe533 !important;
+
+        .check {
+            font-size: 1.3rem;
+            font-weight: 300;
+        }
+    }
+}

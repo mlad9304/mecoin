@@ -4,9 +4,8 @@ import {Redirect, Switch, Route, withRouter} from 'react-router';
 import { HeaderContainer } from 'containers';
 import { PageTemplate, Footer } from 'components';
 
-import {DashboardLeftbarContainer} from 'containers';
+import { DashboardLeftbarContainer, ProfileContainer, WalletContainer } from 'containers';
 import DashboardRightbar from './DashboardRightbar';
-import Wallet from './Wallet';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
@@ -25,7 +24,8 @@ class Dashboard extends Component {
                         <div className="col">
                             <Switch>
                                 <Redirect exact from={`${match.url}`} to={`${match.url}/wallet`}/>
-                                <Route path={`${match.url}/wallet`} component={Wallet}/>
+                                <Route path={`${match.url}/wallet`} component={WalletContainer}/>
+                                <Route path={`${match.url}/profile`} component={ProfileContainer}/>
                             </Switch>
                         </div>
                         <div className="rightContainer">
