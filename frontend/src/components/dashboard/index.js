@@ -4,7 +4,15 @@ import {Redirect, Switch, Route, withRouter} from 'react-router';
 import { HeaderContainer } from 'containers';
 import { PageTemplate, Footer } from 'components';
 
-import { DashboardLeftbarContainer, ProfileContainer, WalletContainer, DepositContainer } from 'containers';
+import { DashboardLeftbarContainer, 
+            ProfileContainer, 
+            WalletContainer, 
+            DepositContainer,
+            WithdrawContainer,
+            TransactionsReportContainer,
+            SupportTicketContainer,
+            AffiliateContainer
+        } from 'containers';
 import DashboardRightbar from './DashboardRightbar';
 import './Dashboard.scss';
 
@@ -27,6 +35,10 @@ class Dashboard extends Component {
                                 <Route path={`${match.url}/wallet`} component={WalletContainer}/>
                                 <Route path={`${match.url}/profile`} component={ProfileContainer}/>
                                 <Route path={`${match.url}/deposit`} component={DepositContainer}/>
+                                <Route path={`${match.url}/withdraw`} component={WithdrawContainer}/>
+                                <Route path={`${match.url}/report`} component={TransactionsReportContainer}/>
+                                <Route path={`${match.url}/ticket`} component={SupportTicketContainer}/>
+                                <Route path={`${match.url}/affiliate`} component={AffiliateContainer}/>
                             </Switch>
                         </div>
                         <div className="rightContainer">

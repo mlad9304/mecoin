@@ -1,0 +1,78 @@
+.support_ticket_container {
+    color: #4d4d4d;
+    height: 100%;
+    overflow: hidden;
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .support_ticket_title {
+        padding-top: 60px;
+        color: #4c4c4c;
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+
+    .divider {
+        border-bottom: 1px solid #40434c;
+        margin-left: -31px;
+        margin-right: -15px;
+    }
+    
+    .verticalDivider {
+        border-right: 1px solid #40434c;
+        .inputFormContainer,
+        .textAreaFormContainer {
+            margin-bottom: 15px;
+        }
+        .inputFormContainer {
+            width: 100%;
+            padding-right: 50px;
+            height: 50px;
+
+            input {
+                width: 100%;
+                height: 100%;
+                background-color: #494c52;
+                padding-left: 14px;
+                border: none;
+                &::placeholder {
+                    color: #7f7f7f;
+                }
+            }
+        }
+        .textAreaFormContainer {
+            width: 100%;
+            padding-right: 50px;
+            textarea {
+                width: 100%;
+                height: 100%;
+                background-color: #494c52;
+                padding-left: 14px;
+                border: none;
+                resize: none;
+            }
+        }
+        .btnYellow {
+            width: 80%;
+            text-align: center;
+            padding: 10px 30px;
+            background: -webkit-linear-gradient(#dca835, #99771c);
+            border: 2px;
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+    }
+    .subDivider {
+        border-bottom: 1px solid #40434c;
+        margin-left: -15px;
+        margin-right: -15px;
+        margin-bottom: 10px;
+    }
+      
+    .colorOrange {
+        color: #bfa166 !important;
+    }
+}
