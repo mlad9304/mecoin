@@ -4,7 +4,7 @@ import {Redirect, Switch, Route, withRouter} from 'react-router';
 import { HeaderContainer } from 'containers';
 import { PageTemplate, Footer } from 'components';
 
-import { DashboardLeftbarContainer, ProfileContainer, WalletContainer } from 'containers';
+import { DashboardLeftbarContainer, ProfileContainer, WalletContainer, DepositContainer } from 'containers';
 import DashboardRightbar from './DashboardRightbar';
 import './Dashboard.scss';
 
@@ -26,6 +26,7 @@ class Dashboard extends Component {
                                 <Redirect exact from={`${match.url}`} to={`${match.url}/wallet`}/>
                                 <Route path={`${match.url}/wallet`} component={WalletContainer}/>
                                 <Route path={`${match.url}/profile`} component={ProfileContainer}/>
+                                <Route path={`${match.url}/deposit`} component={DepositContainer}/>
                             </Switch>
                         </div>
                         <div className="rightContainer">
