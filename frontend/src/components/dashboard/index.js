@@ -11,7 +11,8 @@ import { DashboardLeftbarContainer,
             WithdrawContainer,
             TransactionsReportContainer,
             SupportTicketContainer,
-            AffiliateContainer
+            AffiliateContainer,
+            SettingsContainer
         } from 'containers';
 import DashboardRightbar from './DashboardRightbar';
 import './Dashboard.scss';
@@ -39,6 +40,7 @@ class Dashboard extends Component {
                                 <Route path={`${match.url}/report`} component={TransactionsReportContainer}/>
                                 <Route path={`${match.url}/ticket`} component={SupportTicketContainer}/>
                                 <Route path={`${match.url}/affiliate`} component={AffiliateContainer}/>
+                                <Route path={`${match.url}/settings`} component={SettingsContainer}/>
                             </Switch>
                         </div>
                         <div className="rightContainer">

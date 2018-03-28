@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { BuyTicketBox } from 'components';
 import './DashboardRightbar.scss';
 
-class DashboardRightbar extends Component {
+class DashboardRightbar extends React.Component {
   render() {
     return (
-      <div>
-        Dashboard Left Bar
+      <div className='dashboard_rightbar_container'>
+        <BuyTicketBox />
+        <br />
+        <BuyTicketBox />
+        <br />
+        <BuyTicketBox />
       </div>
     );
   }
