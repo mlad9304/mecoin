@@ -4,13 +4,9 @@ import mongoose, { Schema } from 'mongoose';
 const Message = new Schema({
     suID: { type: String, unique: true },
     type: { type: String },
-    channel: { type: String },
-    anonymous: { type: Boolean },
     username: { type: String },
     message: { type: String },
     date: { type: Date, default: Date.now },
-    private: { type: Boolean, default: false },
-    target: { type: String, default: undefined }
 });
 
 Message.statics.getRecent = function({channel}) {
@@ -35,12 +31,10 @@ Message.statics.getBetween = function({channel, startId, endId}) {
 }
 
 
-Message.statics.write = function({suID, type, channel, anonymous, username, message = ''}) {
+Message.statics.write = function({suID, type, username, message = ''}) {
     const msg = new this({
         suID,
         type,
-        channel,
-        anonymous,
         username,
         message
     });
@@ -48,9 +42,8 @@ Message.statics.write = function({suID, type, channel, anonymous, username, mess
     return msg.save();
 }
 
-Message.statics.getLastMessage = function({channel, username}) {
+Message.statics.getLastMessage = function({username}) {
     return this.findOne({
-        channel,
         username
     }).sort({_id: -1}).exec();
 }
