@@ -5,7 +5,7 @@ import notify from 'helpers/notify'
 import { LoginForm } from 'components';
 
 // socket
-import sender from 'socket/packetSender';
+import mesocket from 'mesocket/packetSender';
 
 import './Login.scss';
 
@@ -30,7 +30,7 @@ class Login extends Component {
         const { status } = this.props;
        
         const { sessionID } = status.session;
-        sender.auth(sessionID, false);
+        mesocket.auth(sessionID);
     }
 
     handleSubmit = async (e) => {

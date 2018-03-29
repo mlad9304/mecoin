@@ -30,6 +30,6 @@ export default connect(
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),
-    DashboardActions: bindActionCreators(dashboardActions, dispatch)
+    selectMenu: bindActionCreators(dashboardActions, dispatch).selectMenu
   })
 )(HeaderContainer);

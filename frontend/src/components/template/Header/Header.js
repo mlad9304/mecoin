@@ -31,7 +31,7 @@ const AuthorizedNav = ({ selectMenu }) => {
           </Link>
         </li>
         <li className='nav-item leftBorder'>
-          <Link className="nav-link" to="/report">
+          <Link className="nav-link" to="/dashboard/report" onClick={() => selectMenu("5")}>
             History
           </Link>
         </li>
@@ -126,7 +126,7 @@ const navStyle = {
   color: '#9cacae'
 };
 
-const Header = ({logged, DashboardActions}) => {
+const Header = ({logged, selectMenu}) => {
 
   return (
     <nav id="header"
@@ -149,7 +149,7 @@ const Header = ({logged, DashboardActions}) => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-        { logged ? <AuthorizedNav selectMenu={DashboardActions.selectMenu} /> : <UnAuthorizedNav selectMenu={DashboardActions.selectMenu} />}
+        { logged ? <AuthorizedNav selectMenu={selectMenu} /> : <UnAuthorizedNav selectMenu={selectMenu} />}
       </div>
     </nav>
   );
