@@ -43,6 +43,7 @@ export function connect(connection) {
 export async function disconnect(connection) {
 
     const msg = {
+        type: SEND.LEAVE,
         suID: helper.generateUID(),
         username: connection.data.username,
         date: (new Date()).getTime(),

@@ -9,8 +9,8 @@ const Message = new Schema({
     date: { type: Date, default: Date.now },
 });
 
-Message.statics.getRecent = function({channel}) {
-    return this.find({channel})
+Message.statics.getRecent = function() {
+    return this.find({})
     .sort({"suID": -1})
     .limit(40)
     .exec();

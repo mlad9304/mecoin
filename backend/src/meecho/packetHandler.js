@@ -27,6 +27,7 @@ const auth = async (connection, payload) => {
     helper.emit(connection, helper.createAction(SEND.SUCCESS.AUTH, {username: connection.data.username}));
 
     const msg = {
+        type: SEND.JOIN,
         suID: helper.generateUID(),
         username: connection.data.username,
         date: (new Date()).getTime(),
@@ -40,6 +41,7 @@ const auth = async (connection, payload) => {
 const message = async (connection, payload) => {
   
     const msg = {
+        type: SEND.MSG,
         suID: helper.generateUID(),
         username: connection.data.username,
         message: payload.message,
