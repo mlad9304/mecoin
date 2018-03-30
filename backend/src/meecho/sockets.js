@@ -3,6 +3,8 @@ import {log} from './helper';
 import * as helper from './helper';
 import { server as SEND } from './packetTypes';
 
+import Message from 'db/models/Message';
+
 let counter = 0;
 let freeSlot = [];
 const sockets = {};
@@ -38,7 +40,16 @@ export function connect(connection) {
 }
 
 // unregister lost connection
-export function disconnect(connection) {
+export async function disconnect(connection) {
+
+    const msg = {
+        suID: helper.generateUID(),
+        username: connection.data.username,
+        date: (new Date()).getTime(),
+    }
+
+    const result = await Message.write(msg);
+    helper.emitAll(sockets, helper.createAction(SEND.LEAVE, result));
 
     _.remove(sockets, (socket) => {
         return connection.id === socket.id

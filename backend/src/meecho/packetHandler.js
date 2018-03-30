@@ -37,44 +37,19 @@ const auth = async (connection, payload) => {
 
 }
 
-const message = (connection, payload) => {
-  // check session validity
-  console.log('check session validaity');
-  // console.log(connection);
-  if (!connection.data.valid) {
-    console.log('check session fail');
-    return helper.emit(connection, error(1, RECEIVE.MSG));
-  }
+const message = async (connection, payload) => {
   
+    const msg = {
+        suID: helper.generateUID(),
+        username: connection.data.username,
+        message: payload.message,
+        date: (new Date()).getTime(),
+    }
 
-  if(connection.data.counter > 10) {
-      connection.data.counter = 20;
-      setTimeout(()=>{
-          connection.data.counter = 0;
-      }, 5000);
-      return helper.emit(connection, error(3));
-  }
-
-  chatCount(connection);
-  const ch = channel.get(connection.data.channel);
-
-  ch.broadcast(helper.createAction(SEND.MSG, {
-      anonymous: connection.data.anonymous,
-      username: connection.data.username,
-      message: payload.message,
-      date: (new Date()).getTime(),
-      uID: payload.uID,
-      suID: helper.generateUID()
-  }), connection);
+    const result = await Message.write(msg);
+    helper.emitAll(sockets, helper.createAction(SEND.MSG, result));
 
 
-  const current = new Date();
-
-  if(!connection.data.lastMessageDate) {
-      // it is a first message
-
-      /* create an activity */
-  }
 }
 
 export default function packetHandler(connection, packet) {

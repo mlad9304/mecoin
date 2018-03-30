@@ -1,36 +1,138 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { ChatBoxItem, ChatInput } from 'components';
 import './ChatBox.scss';
 
-const ChatBox = () => {
-  return (
-    <div className="h-100">
-      <div className="chatBoxContainer">
-        <div className="chatBox">
-            <div className="statusBox">
-                <div className="w-100 p-1">
-                    <span className='rounded-circle fa fa-circle color-green chat_status' />
-                    <p className='color-lighgrey mb-0 d-inline-block chat_status_info'>
-                        <span className="ml-1">799 People</span>
-                        <span className="color-green"> &nbsp;Online</span>
-                    </p>
+import { server as RECEIVE } from 'mesocket/packetTypes';
+// socket
+import sender from 'mesocket/packetSender';
+import notify from 'helpers/notify';
+import * as ChatActions from 'store/modules/mechat';
+
+class ChatBox extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            message: ""
+        }
+
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            message: e.target.value
+        })
+    }
+
+    handleSend = () => {
+
+        const { socketAuth } = this.props;
+
+        let message = this.state.message;
+        
+        if(message === '') {
+            return;
+        }
+
+        if(!socketAuth) {
+            notify({type: 'error', message: "Invalid Reguest"});
+            return;
+        }
+
+        sender.message({
+            message
+        });
+
+        this.setState({
+            message: ''
+        });
+
+        document.getElementById('message').value = ''
+
+        this.scrollToBottom();
+    }
+
+    scrollToBottom = () => {
+        // SCROLL TO BOTTOM
+        this
+            .scrollBox
+            .scrollTop(this.scrollBox.getScrollHeight());
+    }
+
+    componentDidMount() {
+        try{
+            this.props.getRecentMsg();
+        }   catch( e ) {
+            console.log(e);
+        }
+    }
+      
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+  
+    render() {
+
+        const { handleSend, handleChange, scrollToButtom } = this;
+        const { messages, socketAuth, logged } = this.props;
+
+        let i = 0
+
+        let chatboxitems = messages.map((msg) => {
+            if(msg.type === RECEIVE.MSG) {
+                return (
+                    <ChatBoxItem key={i++} message={msg.payload.message}/>
+                );
+            } else if(msg.type === RECEIVE.JOIN && msg.payload.username != null) {
+                return (
+                    <ChatBoxItem key={i++} message={msg.payload.username + ' joined'}/>
+                );
+            } else if(msg.type === RECEIVE.LEAVE && msg.payload.username != null) {
+                return (
+                    <ChatBoxItem key={i++} message={msg.payload.username + ' left'}/>
+                );  
+            }
+            
+        });
+
+        return (
+            <div className="h-100">
+                <div className="chatBoxContainer">
+                    <div className="chatBox">
+                        <div className="statusBox">
+                            <div className="w-100 p-1">
+                                <span className='rounded-circle fa fa-circle color-green chat_status' />
+                                <p className='color-lighgrey mb-0 d-inline-block chat_status_info'>
+                                    <span className="ml-1">799 People</span>
+                                    <span className="color-green"> &nbsp;Online</span>
+                                </p>
+                            </div>
+                            <button className="statusButton">
+                                <span className="fa fa-chevron-right" />
+                            </button>
+                        </div>
+                        <Scrollbars
+                            style={{
+                                width: '100%',
+                                height: '90%',
+                                borderBottom: '1px solid rgba(0,0,0,0.10)',
+                                padding: '0 5px 10px 5px'
+                            }} 
+                            ref={(ref) => {
+                                this.scrollBox = ref
+                            }}
+                        >
+                            {chatboxitems}
+
+                        </Scrollbars>
+                    </div>
                 </div>
-                <button className="statusButton">
-                    <span className="fa fa-chevron-right" />
-                </button>
+                {logged ? <ChatInput socketAuth={socketAuth} onSend={handleSend} onChange={handleChange}/> : <div></div>}
             </div>
-            <div className="chatBoxItems">
-                <ChatBoxItem />
-                <ChatBoxItem />
-                <ChatBoxItem />
-                <ChatBoxItem />
-                <ChatBoxItem />
-            </div>
-        </div>
-      </div>
-    <ChatInput />
-    </div>
-  );
+        );
+    }
 };
 
 export default ChatBox;

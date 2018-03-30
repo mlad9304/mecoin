@@ -2,7 +2,7 @@ import React from 'react';
 import './ChatBoxItem.scss';
 import samplePhoto from 'static/images/meow.jpg';
 
-const ChatBoxItem = () => {
+const ChatBoxItem = ({message}) => {
   return (
     <div className='w-100 chatItem'>
       <div className="photoContainer">
@@ -10,7 +10,7 @@ const ChatBoxItem = () => {
         <div className="status" />
       </div>
       <div className="chatText">
-        <p className="mb-0">I'm bad gambler</p>
+        <p className="mb-0">{message}</p>
       </div>
     </div>
   );

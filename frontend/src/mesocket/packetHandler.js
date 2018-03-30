@@ -10,8 +10,7 @@ const setSocketState = (payload) => {
 };
 
 const receiveRealtimeData = (payload) => {
-    // store.dispatch(channel.receiveRealtimeData(payload));
-    
+    store.dispatch(ChatActions.receiveRealtimeData(payload));
 };
 
 const service = {
