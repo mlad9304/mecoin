@@ -45,7 +45,7 @@ const AuthorizedNav = ({ selectMenu }) => {
         <li className="nav-item">
           <Link className="nav-link disabled-link position-relative" to="/help">
             <div className="notificationBox">
-              <img className="notificationMailItem" src={mailImg} />
+              <img className="notificationMailItem" src={mailImg} alt="mail_img"/>
               <span className="circle" />
               <span className="num">5</span>
             </div>
@@ -54,7 +54,7 @@ const AuthorizedNav = ({ selectMenu }) => {
         <li className="nav-item">
           <Link className="nav-link disabled-link position-relative" to="/help">
             <div className="notificationBox">
-              <img className="notificationNavItem" src={bellImg} />
+              <img className="notificationNavItem" src={bellImg} alt="bell_item"/>
               <span className="circle" />
               <span className="num">5</span>
             </div>
@@ -69,7 +69,7 @@ const AuthorizedNav = ({ selectMenu }) => {
           >
             <div className="float-left">
               <div className="usrImgContainer">
-                <img src={usrImg} role="presentation" />
+                <img src={usrImg} role="presentation" alt="user_img"/>
               </div>
             </div>
             <div className="float-left">
@@ -134,7 +134,7 @@ const Header = ({logged, selectMenu}) => {
       style={navStyle}
     >
       <Link className="navbar-brand" to="/">
-        <img className="logo" src={logo} role="presentation" />
+        <img className="logo" src={logo} role="presentation" alt="logo"/>
       </Link>
       <button
         className="navbar-toggler"

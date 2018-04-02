@@ -48,14 +48,14 @@ export default handleActions({
       if(!action.payload.response) return state;
 
       const { key } = action.payload.response.data;
-      const handler = {
-        displayName: () => {
-          return state.set('displayNameExists', true);
-        },
-        email: () => {
-          return state.set('redo', true);
-        }
-      };
+      // const handler = {
+      //   displayName: () => {
+      //     return state.set('displayNameExists', true);
+      //   },
+      //   email: () => {
+      //     return state.set('redo', true);
+      //   }
+      // };
 
       if(status === 409 && key) {
         console.log(key);

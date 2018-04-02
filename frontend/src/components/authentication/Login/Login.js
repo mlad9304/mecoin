@@ -5,7 +5,7 @@ import notify from 'helpers/notify'
 import { LoginForm } from 'components';
 
 // socket
-import sender from 'mesocket/packetSender';
+import sender from 'socket/packetSender';
 
 import './Login.scss';
 
@@ -73,7 +73,7 @@ class Login extends Component {
 
     render() {
 
-        const { handleChange, handleSubmit, handleKeyPress } = this;
+        const { handleChange, handleSubmit } = this;
         const { form, status } = this.props;
 
         return (

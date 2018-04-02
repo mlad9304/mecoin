@@ -24,8 +24,8 @@ class Register extends Component {
 
 
 
-        const { form, status, AuthActions, FormActions, history } = this.props;
-        const { fullname, username, email, password, confirm_password } = form;
+        const { form, AuthActions, FormActions, history } = this.props;
+        const { username, password } = form;
 
         notify.clear();
 

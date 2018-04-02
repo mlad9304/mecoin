@@ -68,7 +68,7 @@ const RegisterForm = ({
                     <span className="input-group-text fa fa-lock rounded-0 d-inline-flex" />
                 </div>
                 <input
-                    type="text"
+                    type="password"
                     className="form-control form-control-lg rounded-0"
                     placeholder="Your password"
                     name="password"
@@ -85,7 +85,7 @@ const RegisterForm = ({
                     <span className="input-group-text fa fa-lock rounded-0 d-inline-flex" />
                 </div>
                 <input
-                    type="text"
+                    type="password"
                     className="form-control form-control-lg rounded-0"
                     placeholder="Confirm Your password"
                     name="confirm_password"

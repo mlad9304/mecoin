@@ -3,11 +3,10 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { ChatBoxItem, ChatInput } from 'components';
 import './ChatBox.scss';
 
-import { server as RECEIVE } from 'mesocket/packetTypes';
+import { server as RECEIVE } from 'socket/packetTypes';
 // socket
-import sender from 'mesocket/packetSender';
+import sender from 'socket/packetSender';
 import notify from 'helpers/notify';
-import * as ChatActions from 'store/modules/mechat';
 
 class ChatBox extends Component {
 
@@ -75,25 +74,30 @@ class ChatBox extends Component {
   
     render() {
 
-        const { handleSend, handleChange, scrollToButtom } = this;
+        const { handleSend, handleChange } = this;
         const { messages, socketAuth, logged } = this.props;
 
         let i = 0
-
+console.log(messages);
         let chatboxitems = messages.map((msg) => {
-            if(msg.type === RECEIVE.MSG) {
+            if(String(msg.type) === RECEIVE.MSG) {
                 return (
                     <ChatBoxItem key={i++} message={msg.payload.message}/>
                 );
-            } else if(msg.type === RECEIVE.JOIN && msg.payload.username != null) {
+            } else if(String(msg.type) === RECEIVE.JOIN && msg.payload.username != null) {
                 return (
                     <ChatBoxItem key={i++} message={msg.payload.username + ' joined'}/>
                 );
-            } else if(msg.type === RECEIVE.LEAVE && msg.payload.username != null) {
+            } else if(String(msg.type) === RECEIVE.LEAVE && msg.payload.username != null) {
                 return (
                     <ChatBoxItem key={i++} message={msg.payload.username + ' left'}/>
                 );  
+            } else {
+                return (
+                    <ChatBoxItem key={i++} message={msg.payload.message}/>
+                );
             }
+            
             
         });
 

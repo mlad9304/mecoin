@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HomePageTemplate, HomeLeftSidebar, Footer } from 'components';
+import { HomePageTemplate, Footer } from 'components';
 import { HeaderContainer, HomeLeftSidebarContainer, TopLeadersContainer, BuyTicketBoxContainer, ChatBoxContainer } from 'containers';
 
 class HomePage extends Component {

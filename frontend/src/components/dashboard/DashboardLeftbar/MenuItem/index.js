@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import './MenuItem.scss';
@@ -19,7 +18,7 @@ class MenuItem extends Component {
                 className={cx('d-block w-100', 'menu_item_container', {menu_item_border: hasBorder, 'disabled-link': !activeLink, 'menu_item': activeLink})} 
                 to={url}
             >
-                <img src={imgSrc} className="icon" />
+                <img src={imgSrc} className="icon" alt="img"/>
                 <p className={cx('title', {active})}>{title}</p>
                 <div className="title2">{title2}</div>
             </Link>

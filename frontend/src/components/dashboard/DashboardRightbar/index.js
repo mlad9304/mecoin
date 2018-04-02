@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BuyTicketBox } from 'components';
 import './DashboardRightbar.scss';
 
-class DashboardRightbar extends React.Component {
+class DashboardRightbar extends Component {
   render() {
     return (
       <div className='dashboard_rightbar_container'>

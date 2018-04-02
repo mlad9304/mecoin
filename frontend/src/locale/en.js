@@ -179,7 +179,7 @@ export default {
 
     "MyPage.notify.invalidRequest": "Invalid Request",
     "MyPage.notify.cpMissMatch": "Confirm Password does not match",
-    "MyPage.notify.wrongPassword": "You\'ve input wrong password",
+    "MyPage.notify.wrongPassword": "You've input wrong password",
     "MyPage.notify.passwordShort": "Your new password is too short",
     "MyPage.notify.emailExists": "That email exists"
 }

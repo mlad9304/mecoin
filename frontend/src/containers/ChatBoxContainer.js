@@ -5,7 +5,7 @@ import { ChatBox } from 'components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as chatActions from 'store/modules/mechat';
+import * as chatActions from 'store/modules/chat';
 
 class ChatBoxContainer extends Component {
   render () {
@@ -18,8 +18,8 @@ class ChatBoxContainer extends Component {
 export default connect(
   (state) => ({
     logged: state.auth.getIn(['session', 'logged']),
-    socketAuth: state.mechat.getIn(['chat', 'socket', 'auth']),
-    messages: state.mechat.getIn(['chat', 'data']).toJS(),
+    socketAuth: state.chat.getIn(['chat', 'socket', 'auth']),
+    messages: state.chat.getIn(['chat', 'data']).toJS(),
   }),
   (dispatch) => ({
     getRecentMsg: bindActionCreators(chatActions, dispatch).getRecentMsg,

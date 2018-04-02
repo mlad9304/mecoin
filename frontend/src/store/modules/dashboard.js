@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 
-import { Map, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 
 // action types
 const DASHBOARD_MENU_SELECTED = 'dashboard/DASHBOARD_MENU_SELECTED';

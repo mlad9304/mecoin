@@ -31,7 +31,7 @@ class DashboardLeftbar extends Component {
     return (
       <div className="dashboard_leftbar_container">
         <div className="img_container">
-          <img src={profileImg} />
+          <img src={profileImg} alt="profileimage"/>
           <p className="name">Tom Smith</p>
           <p className="win">Win:779</p>
         </div>

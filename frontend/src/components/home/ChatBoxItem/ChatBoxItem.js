@@ -6,7 +6,7 @@ const ChatBoxItem = ({message}) => {
   return (
     <div className='w-100 chatItem'>
       <div className="photoContainer">
-        <img className="photo" src={samplePhoto} />
+        <img className="photo" src={samplePhoto} alt="photo_img"/>
         <div className="status" />
       </div>
       <div className="chatText">
