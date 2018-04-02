@@ -42,6 +42,16 @@ export function connect(connection) {
 // unregister lost connection
 export async function disconnect(connection) {
 
+
+//////////////////////////////
+
+    if(!connection.data.username) {
+        return;
+    }
+
+//////////////////////////////
+
+
     const msg = {
         type: SEND.LEAVE,
         suID: helper.generateUID(),

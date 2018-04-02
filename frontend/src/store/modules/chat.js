@@ -59,7 +59,6 @@ function mapDataToMessages(data) {
       return {
           type: message.type,
           payload: {
-              anonymous: message.anonymous,
               date: Date.parse(message.date),
               suID: message.suID,
               username: message.username,

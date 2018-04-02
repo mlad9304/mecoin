@@ -9,13 +9,13 @@ class HomeLeftSidebar extends React.Component {
         <div className="sidebarSelectContainer">
           <p className="color-yellow mb-0">History</p>
           <div className="select">
-            <select>
-              <option selected disabled>
+            <select defaultValue="title">
+              <option value="title" disabled>
                 Select a game typo
               </option>
-              <option>Select History 1</option>
-              <option>Select History 2</option>
-              <option>Select History 3</option>
+              <option value="history1">Select History 1</option>
+              <option value="history2">Select History 2</option>
+              <option value="history3">Select History 3</option>
             </select>
             <div className="select_arrow" />
           </div>

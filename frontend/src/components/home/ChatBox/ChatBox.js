@@ -78,7 +78,7 @@ class ChatBox extends Component {
         const { messages, socketAuth, logged } = this.props;
 
         let i = 0
-console.log(messages);
+
         let chatboxitems = messages.map((msg) => {
             if(String(msg.type) === RECEIVE.MSG) {
                 return (
@@ -93,9 +93,7 @@ console.log(messages);
                     <ChatBoxItem key={i++} message={msg.payload.username + ' left'}/>
                 );  
             } else {
-                return (
-                    <ChatBoxItem key={i++} message={msg.payload.message}/>
-                );
+                return null;
             }
             
             

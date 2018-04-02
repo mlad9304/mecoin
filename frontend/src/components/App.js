@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import { HomePage, SignupPage, LoginPage, ForgotPage, PricingPage, LivePage, CompanyPage, SettingPage, GameRoomPage } from 'components';
+import { Switch, Route } from 'react-router';
+
+import { SignupPage, LoginPage } from 'components';
+import Home from 'components/home';
 import Dashboard from 'components/dashboard';
-import { Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
+    
+    const { match } = this.props;
+
     return (
       <div>
-        <Route exact path="/" component={HomePage}/>
-        <Route path="/signup" component={SignupPage}/>
-        <Route path="/login" component={LoginPage}/>
-        <Route path="/forgot" component={ForgotPage}/>
-        <Route path="/pricing" component={PricingPage}/>
-        <Route path="/live" component={LivePage}/>
-        <Route path="/company" component={CompanyPage}/>
-        <Route path="/setting" component={SettingPage}/>
-        <Route path="/game/:type/id/:id" component={GameRoomPage}/>
+        <Switch>
+        
+          <Route path="/signup" component={SignupPage}/>
+          <Route path="/login" component={LoginPage}/>
 
-        <Route path="/dashboard" component={Dashboard}/>
+          <Route path="/dashboard" component={Dashboard}/>
+          <Route path="/" component={Home}/>
+        </Switch>
       </div>
     );
   }

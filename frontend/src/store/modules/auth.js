@@ -56,8 +56,8 @@ export default handleActions({
       const { data: loginResult } = action.payload;
       const { displayName: username, _id } = loginResult;
       const sessionID = _id;
-      console.log('LOCAL_LOGIN Successed');
-      console.log(loginResult);
+      // console.log('LOCAL_LOGIN Successed');
+      // console.log(loginResult);
       return state.setIn(['session', 'user', 'username'], username).setIn(['session', 'logged'], true)
         .setIn(['session', 'sessionID'], sessionID)
         .setIn(['session', 'user', '_id'], _id);
