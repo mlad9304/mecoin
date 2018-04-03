@@ -30,6 +30,12 @@
         height: 40px;
         -webkit-appearance: none;
         border: none;
+        color: inherit;
+        padding: 7px 7px 2px;
+
+        &:link {
+            text-decoration: none;
+        }
     }
       
     .ticket {

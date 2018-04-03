@@ -11,7 +11,7 @@ let reconnected = false;
 let intervalId = null;
 
 export const init = () => {  
-  socket = new SockJS(process.env.API_ROOT + "/meecho");
+  socket = new SockJS(process.env.API_ROOT + "/echo");
   clearInterval(intervalId);
 
   socket.onopen = () => {

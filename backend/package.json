@@ -16,6 +16,7 @@
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",
+    "koa-static": "^4.0.2",
     "moment": "^2.19.1",
     "mongoose": "4.11.4",
     "mongoose-double": "0.0.1",

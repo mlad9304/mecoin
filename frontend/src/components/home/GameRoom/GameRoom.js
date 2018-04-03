@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './GameRoom.scss';
 import mark from 'static/images/gameroom_mark.png';
 import diceImg from 'static/images/gameroom_img.png';
@@ -7,13 +8,13 @@ const GameRoom = () => {
   return (
     <div className="gameroomContainer">
         <div className="markContainer">
-            <img src={mark} role="presentation" />
+            <img src={mark} role="presentation" alt="mark"/>
             <p className="markLetter">0/100</p>
         </div>
         <div className="row">
             <div className="col text-center">
             <p className="diceContainer">
-                <img src={diceImg} role="presentation" />
+                <img src={diceImg} role="presentation" alt="dice"/>
             </p>
             <br />
             <p className="text-center">
@@ -22,7 +23,7 @@ const GameRoom = () => {
             </p>
             <br />
             <p className="text-center">
-                <a className="btnLeave">HOME</a>
+                <Link to="/home" className="btnLeave">HOME</Link>
             </p>
             </div>
             <div className="col text-center" />

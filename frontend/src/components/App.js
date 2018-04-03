@@ -8,8 +8,6 @@ import Dashboard from 'components/dashboard';
 class App extends Component {
   render() {
     
-    const { match } = this.props;
-
     return (
       <div>
         <Switch>

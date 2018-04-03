@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import {log} from './helper';
-import channel from './channel';
 import * as helper from './helper';
 import { server as SEND } from './packetTypes';
+
+import Message from 'db/models/Message';
 
 let counter = 0;
 let freeSlot = [];
@@ -34,37 +35,32 @@ export function connect(connection) {
         valid: false,
         counter: 0
     };
-
-    // const test = () => {     connection.write('you alive');     setTimeout(test,
-    // 1000); } test();
-
-    log(`Socket ${connection.id} Connected - ${getSocketsLength()}`);
+    
+    log(`Socket ${connection.id} Connected - ${getSocketsLength()} socket(s)`);
 }
 
 // unregister lost connection
-export function disconnect(connection) {
+export async function disconnect(connection) {
 
-    const ch = channel.get(connection.data.channel);
-    if(ch) {
-        ch.remove(connection.id);
-        if (connection.data.valid) {
-            if (!ch.countUser(connection.data.username)) {
-                ch.broadcast(helper.createAction(SEND.LEAVE, {
-                    date: (new Date()).getTime(),
-                    suID: helper.generateUID(),
-                    username: connection.data.username,
-                    anonymous: connection.data.anonymous
-                }));
-            }
-        }
+    const msg = {
+        type: SEND.LEAVE,
+        suID: helper.generateUID(),
+        username: connection.data.username,
+        date: (new Date()).getTime(),
     }
+
+    if(connection.data.username) {
+        const result = await Message.write(msg);
+    }
+
+    helper.emitAll(sockets, helper.createAction(SEND.LEAVE, msg));
 
     _.remove(sockets, (socket) => {
         return connection.id === socket.id
     });
 
     freeSlot.push(connection.id);
-    log(`Socket ${connection.id} Disconnected - ${getSocketsLength()}`);
+    log(`Socket ${connection.id} Disconnected - ${getSocketsLength()} socket(s)`);
 }
 
 export default sockets;

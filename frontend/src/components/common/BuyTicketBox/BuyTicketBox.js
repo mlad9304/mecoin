@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import './BuyTicketBox.scss';
 import dice from 'static/images/dice.png';
 import ticket from 'static/images/ticket.png';
@@ -15,7 +17,7 @@ const BuyTicketBox = () => {
           </p>
           <h4 className="text-white text-center">0/10</h4>
           <p className="rolldice">Roll the dice</p>
-          <button className="buyTicket">Buy Ticket</button>
+          <Link to="/game" className="buyTicket">Buy Ticket</Link>
         </div>
         <div className="col text-center pt-3">
           <p className="text-center color-whitegrey">

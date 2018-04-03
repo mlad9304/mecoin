@@ -11,6 +11,13 @@ export function emit(connection, data) {
     connection.write(JSON.stringify(data));
 }
 
+// emits data to all connection
+export function emitAll(sockets, data) {
+    for(let connection_id in sockets) {
+        emit(sockets[connection_id], data);
+    }
+}
+
 // creates action object
 export function createAction(type, payload) {
     return {

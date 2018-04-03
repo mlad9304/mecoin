@@ -4,13 +4,15 @@ import Router from 'koa-router';
 
 import echo from './echo';
 import game from './game';
-import meecho from './meecho';
 
 import bodyParser from 'koa-bodyparser';
 
 import gameEngine from 'engine/gameEngine';
 // import db from './db';
 
+const koaStatic = require('koa-static');
+const path = require('path');
+const fs = require('fs');
 
 // db connect
 const db = require('./db');
@@ -23,11 +25,17 @@ gameEngine.init();
 const app = new Koa();
 const router = new Router();
 
+const frontendBuild = path.join(__dirname, '../../frontend/build');
+const indexPagePath = path.join(frontendBuild, 'index.html');
+const indexPage = fs.readFileSync(indexPagePath);
+
 // CORS
 app.use((ctx, next) => {
   const allowedHosts = [
     'localhost',
     'https://mecoin.herokuapp.com',
+    'mecoin.herokuapp.com',
+    '18.217.60.113'
   ];
   const origin = ctx.header['origin'];
   allowedHosts.every(el => {
@@ -63,8 +71,13 @@ const port = process.env.PORT || 5000;
 
 var server = http.createServer(app.callback());
 // echo.installHandlers(server, { prefix: '/echo' });
-// game.installHandlers(server, { prefix: '/game' });
-meecho.installHandlers(server, { prefix: '/meecho'});
+game.installHandlers(server, { prefix: '/game' });
+echo.installHandlers(server, { prefix: '/echo'});
+
+app.use(koaStatic(frontendBuild));
+app.use((ctx) => {
+  ctx.body = indexPage.toString();
+});
 
 server.listen(port, () => {
     console.log(`Server is listening to port ${port}`);

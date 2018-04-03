@@ -51,10 +51,11 @@ export const createGame = async (ctx) => {
 export const deposit = async (ctx) => {
   const { user } = ctx.request;
   let result_cc = DEPOSIT_CC.DEPOSIT_OK;
-
+console.log("This is user " + user);
   // needs auth
   if(!user) {
     ctx.status = 401;
+    console.log("This is user " + user);
     return;
   }
 
