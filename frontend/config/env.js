@@ -76,7 +76,7 @@ function getClientEnvironment(publicUrl) {
         PUBLIC_URL: publicUrl,
         // API_ROOT: 'http://localhost:5000',
         // API_ROOT: 'http://mecoin.herokuapp.com',
-        API_ROOT: 'http://18.217.60.113:3000',
+        API_ROOT: 'http://18.217.60.113:5000',
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
