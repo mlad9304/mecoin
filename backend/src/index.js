@@ -25,7 +25,7 @@ gameEngine.init();
 const app = new Koa();
 const router = new Router();
 
-const frontendBuild = path.join(__dirname, '../../frontend/build');
+const frontendBuild = path.join(__dirname, '../public');
 const indexPagePath = path.join(frontendBuild, 'index.html');
 const indexPage = fs.readFileSync(indexPagePath);
 
