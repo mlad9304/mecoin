@@ -7,7 +7,7 @@ import ticket from 'static/images/ticket.png';
 import chart from 'static/images/chart.png';
 import clock from 'static/images/clock.png';
 
-const BuyTicketBox = () => {
+const BuyTicketBox = ({ roomSize, onClick }) => {
   return (
     <div className="buytickbox_container">
       <div className="row">
@@ -15,9 +15,9 @@ const BuyTicketBox = () => {
           <p className="dice_container">
             <img src={dice} role="presentation" alt="dice"/>
           </p>
-          <h4 className="text-white text-center">0/10</h4>
+          <h4 className="text-white text-center">0/{roomSize}</h4>
           <p className="rolldice">Roll the dice</p>
-          <Link to="/game" className="buyTicket">Buy Ticket</Link>
+          <button className="buyTicket" onClick={onClick}>Buy Ticket</button>
         </div>
         <div className="col text-center pt-3">
           <p className="text-center color-whitegrey">

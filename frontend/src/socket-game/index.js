@@ -27,9 +27,10 @@ export const init = () => {
   socket.onopen = () => {
     closing = false;
 
-    console.log('--------------------------init()--------------------');
+    console.log('--------------------------game init()--------------------');
     const channel = store.getState().game.getIn(['channel', 'game', '_id']);
-    console.log(channel);
+    console.log("Game Channel: ", channel);
+
     sender.enter(channel);
 
     if(reconnected) {

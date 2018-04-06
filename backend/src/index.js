@@ -32,10 +32,10 @@ const indexPage = fs.readFileSync(indexPagePath);
 // CORS
 app.use((ctx, next) => {
   const allowedHosts = [
-    'localhost',
     'https://mecoin.herokuapp.com',
     'mecoin.herokuapp.com',
-    '18.217.60.113'
+    '18.217.60.113',
+    'localhost'
   ];
   const origin = ctx.header['origin'];
   allowedHosts.every(el => {

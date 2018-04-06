@@ -1,4 +1,5 @@
 import React from 'react';
+import './PageTemplate.scss';
 
 const PageTemplate = ({header, children, footer}) => {
   return (
