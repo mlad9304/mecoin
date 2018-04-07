@@ -11,6 +11,8 @@ import * as gameSocket from 'socket-game';
 import store from 'store';
 import * as gameActions from 'store/modules/game';
 
+import TimeCountDown from 'components/common/TimeCountDown';
+
 const GAME_STATE = {
     OPEN : 0, 
     PLAY : 1, 
@@ -113,6 +115,7 @@ class GameRoom extends Component {
 
         // deposit process
         try {
+            console.log(userId, type, gameId, amount);
             await GameActions.deposit(userId, type, gameId, amount);
             const { join, depositResult } = this.props.status;
             
@@ -128,6 +131,8 @@ class GameRoom extends Component {
             notify({type: 'error', message: 'Failed to deposit'});
             return;
         }
+
+        this.setState({depositForm: false});
     }
 
     handleChange = (e) => {
@@ -145,7 +150,7 @@ class GameRoom extends Component {
         const { handleJoin, handleDeposit, handleChange, leaveGame } = this;
         const { form, status } = this.props;
         const { game, gameState } = status;
-        const { users, usernames, winners } = game;
+        const { users, usernames, winners, currentTimeLimit } = game;
 
         let winner_name = '';
         if(gameState === GAME_STATE.CLOSE && winners.length > 0 && Object.keys(usernames).length > 0 ){
@@ -169,7 +174,7 @@ class GameRoom extends Component {
                                 <br />
                                 <p className="text-center">
                                     {
-                                    (!status.join && gameState === GAME_STATE.OPEN) &&
+                                    !status.join && (gameState === GAME_STATE.OPEN || gameState === GAME_STATE.PLAY) &&
                                     <a className="btnJoin" onClick={() => handleJoin()}>JOIN</a>
                                     }
                                     <a className="btnLeave" onClick={() => leaveGame()}>LEAVE</a>
@@ -177,17 +182,38 @@ class GameRoom extends Component {
                             </div>
                         </div>
                     </div>
+                    
+                    { this.state.depositForm && 
                     <div className="col">
-                        { this.state.depositForm && 
                         <BuyTicketForm 
                             onBuyTicket={handleDeposit}
                             onChange={handleChange}
                             form = {form}
                             status = {status}    
                         />
-                        }
                     </div>
-                    {this.state.depositForm && <div className="divider"/>}
+                    }
+                
+                    { !this.state.depositForm && gameState === GAME_STATE.CLOSE && 
+                    <div className="col">
+                        <div className="winners">
+                        Winner : @{winner_name}@
+                        </div>
+                    </div>
+                    }
+
+                    { !this.state.depositForm && gameState === GAME_STATE.PLAY && 
+                    <div className="col">
+                        <TimeCountDown milliseconds={currentTimeLimit}/>
+                    </div>
+                    }
+
+                    {(this.state.depositForm || gameState === GAME_STATE.CLOSE || gameState === GAME_STATE.PLAY) && 
+                    <div className="divider"/>
+                    }
+
+                    
+                    
                 </div>
             </div>
         );

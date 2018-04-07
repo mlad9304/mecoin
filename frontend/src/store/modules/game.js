@@ -55,6 +55,7 @@ const initialState = Map({
       deposits: {},
       state: 0, // OPEN
       winners: [],
+      currentTimeLimit: 0,
       // usernames : [],
       // depositHistory : [],
     }),

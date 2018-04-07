@@ -82,7 +82,7 @@ export const deposit = async (ctx) => {
   console.log('ccc');
   // check amount
 
-  if(!game.isOpen()){
+  if(!game.isOpen() && !game.isPlay()){
     result_cc = DEPOSIT_CC.GAME_CLOSED;
     ctx.body = {
       cc : result_cc

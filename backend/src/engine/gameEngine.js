@@ -10,7 +10,7 @@ import * as helper from 'game/helper';
 import { client as RECEIVE, server as SEND } from 'game/packetTypes';
 
 const TIME_OUT = {
-  [GAME_TYPE.ONE] : 1000 * 60, // 1 minute
+  [GAME_TYPE.ONE] : 1000 * 30, // 1 minute
   [GAME_TYPE.TEN] : 1000 * 60 * 10, // 10 minutes
   [GAME_TYPE.HUNDRED] : 1000 * 60 * 10 * 10, // 100 minutes
   [GAME_TYPE.TENTHOUSAND] : 1000 * 60 * 10 * 10 * 10, // 1000 minutes =~ 16 hours
@@ -41,6 +41,8 @@ function Game(type, gameId) {
   this.winners =  [];
   this.killGameTimeout = null;
   this.tickets = new Array(this.numberOfTickets).fill(null); // generate ticket array
+  this.currentTimeLimit = this.timeLimit;
+  this.killGameTimeInterval = null;
 
   /* example
   { aaa : { rank: 1, price:3928.2, percent: 80}, 
@@ -72,6 +74,10 @@ function Game(type, gameId) {
   // check whether game is still opened
   this.isOpen = () => {
     return this.state === GAME_STATE.OPEN;
+  }
+
+  this.isPlay = () => {
+    return this.state === GAME_STATE.PLAY;
   }
 
   // check already deposited
@@ -112,7 +118,8 @@ function Game(type, gameId) {
       usernames: this.usernames,
       deposits: this.deposits,
       state: this.state,
-      winners: this.winners
+      winners: this.winners,
+      currentTimeLimit: this.currentTimeLimit
     };
 
     if(rm) {
@@ -124,21 +131,32 @@ function Game(type, gameId) {
 
     // when first user enter, start timer 
     // play game within timeLimit 
-    if (0) { // to discuss later
-      if(this.users.length === 1){
-        this.killGameTimeout = setTimeout(
-          () => {
-            this.play();
-          }, this.timeLimit
-        );
-      }
+    if(this.users.length === 1){
+      this.updateState(GAME_STATE.PLAY);
+      this.killGameTimeout = setTimeout(
+        () => {
+          this.play();
+          clearInterval(this.currentTimeLimit);
+          this.currentTimeLimit = null;
+        }, this.timeLimit
+      );
+
+      this.killGameTimeInterval = setInterval(
+        () => {
+          this.currentTimeLimit -= 5 * 1000
+        }, 5 * 1000
+      )
     }
 
-    // if game is full, start game within 1 second.
-    if(this.sold === this.numberOfTickets  ){
-      this.updateState(GAME_STATE.PLAY);
-      setTimeout( () => {this.play();}, 5000);
-    }
+    // // if game is full, start game within 5 second.
+    // if(this.sold === this.numberOfTickets  ){
+    //   this.updateState(GAME_STATE.PLAY);
+    //   this.killGameTimeout = setTimeout( 
+    //     () => {
+    //       this.play();        
+    //     }, 5000
+    //   );
+    // }
 
     return true;
   }
@@ -164,7 +182,8 @@ function Game(type, gameId) {
         usernames: this.usernames,
         deposits: this.deposits,
         state: this.state,
-        winners: this.winners
+        winners: this.winners,
+        currentTimeLimit: this.currentTimeLimit
       };
   
       if(rm) {
@@ -218,7 +237,7 @@ function Game(type, gameId) {
       this.killGameTimeout = null; 
     }
 */    
-    try{
+    try {
       this.chooseWinner();
 
       const result = await this.payforWinners();
@@ -232,7 +251,7 @@ function Game(type, gameId) {
         delete games[this._id];
       }, 3000);
 
-    }catch(e){
+    } catch(e){
       console.log(e);
     }
   }
@@ -282,7 +301,7 @@ gameEngine.get = (gameId) => {
   console.log(`[GAME ENGINE] gameId=${gameId}`);
   console.log(games);
   if(gameId !== undefined && 
-      games[gameId] && games[gameId].state === GAME_STATE.OPEN) {
+      games[gameId] && (games[gameId].state === GAME_STATE.OPEN || games[gameId].state === GAME_STATE.PLAY)) {
     return games[gameId];
   }
   return null;
@@ -294,7 +313,7 @@ gameEngine.find = async (type) => {
   //find open game
   let gameId = Object.keys(games).find(_id => (
     games[_id].type === type 
-    && games[_id].state === GAME_STATE.OPEN
+    && (games[_id].state === GAME_STATE.OPEN || games[_id].state === GAME_STATE.PLAY)
   ));
 
   // not found
