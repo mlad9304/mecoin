@@ -9,6 +9,10 @@ const updateGame = (payload) => {
   store.dispatch(gameActions.updateGameData(payload));
 }
 
+const updateGameRoomInfo = (payload) => {
+  store.dispatch(gameActions.updateGameRoomInfo(payload));
+}
+
 const service = {
   success: {
     enter: (packet) => {
@@ -34,6 +38,12 @@ const service = {
     notify({type: 'success', message: '[GAME] RECEIVE UPDATED GAME DATA'});
     if( packet && packet.payload )
     updateGame(packet.payload);
+  },
+  
+  gameRoomInfo: (packet) => {
+    log('RECEIVE UPDATED GAME ROOM INFORMATION');
+    if( packet && packet.payload )
+    updateGameRoomInfo(packet.payload);
   }
 
 }
@@ -57,6 +67,9 @@ export default function packetHandler(packet) {
       break;
     case RECEIVE.GAMEDATA:
       service.gameData(o);
+      break;
+    case RECEIVE.GAMEROOMINFO:
+      service.gameRoomInfo(o);
       break;
     default:
       break;

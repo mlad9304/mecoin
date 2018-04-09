@@ -14,3 +14,7 @@ export const deposit = (userId, type, gameId, amount) => {
 export const getGameData = (gameId) => {
   return axios.get(process.env.API_ROOT+`/api/v1.0/game/id/${gameId}`);
 }
+
+export const getGameRoomInfo = () => {
+  return axios.post(process.env.API_ROOT+`/api/v1.0/game/gameroominfo`);
+}

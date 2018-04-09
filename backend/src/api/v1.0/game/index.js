@@ -14,7 +14,7 @@ game.get('/', (ctx) => {
 game.get('/find/type/:type', gameCtrl.findGame);
 game.get('/create/type/:type', needAuth, gameCtrl.createGame);
 game.post('/deposit', needAuth, gameCtrl.deposit);
-game.get('/id/:id', gameCtrl.getGameData);
+game.post('/gameroominfo', gameCtrl.getGameRoomInfo);
 
 // auth.get('/exists/email/:email', authCtrl.checkEmail);
 // auth.get('/exists/display-name/', authCtrl.checkDisplayName);

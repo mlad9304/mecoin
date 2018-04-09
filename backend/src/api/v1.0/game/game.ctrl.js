@@ -2,6 +2,9 @@ import Game from 'db/models/Game';
 import Transaction from 'db/models/Transaction';
 
 import GamdEngine from 'engine/gameEngine';
+import GAME_STATE from 'engine/gameStates';
+import RoomManager from 'game/room';
+import gameEngine from 'engine/gameEngine';
 
 const DEPOSIT_CC = {
   DEPOSIT_OK: 0x00,
@@ -20,8 +23,12 @@ export const findGame = async (ctx) => {
       _id : game._id,
       total: game.numberOfTickets,
       sold: game.sold,
-      // usernames : [],
-      // depositHistory : [],
+      users: game.users,
+      usernames: game.usernames,
+      deposits: game.deposits,
+      state: game.state,
+      winners: game.winners,
+      currentTimeLimit: game.currentTimeLimit
     };
 
     ctx.body = {
@@ -50,7 +57,7 @@ export const createGame = async (ctx) => {
 
 export const deposit = async (ctx) => {
 
-  console.log('Deposit', ctx.request);
+  // console.log('Deposit', ctx.request);
   
   const { user } = ctx.request;
   let result_cc = DEPOSIT_CC.DEPOSIT_OK;
@@ -71,10 +78,10 @@ export const deposit = async (ctx) => {
     return;
   }
 
-  console.log(gameId);
+  // console.log(gameId);
   const game = GamdEngine.get(gameId);
-  console.log('kkk');
-  console.log(game);
+  // console.log('kkk');
+  // console.log(game);
   if(!game){
     ctx.status = 400;
     return;
@@ -108,7 +115,6 @@ export const deposit = async (ctx) => {
     //  Transaction.update(transId);
     //  return;
     //}
-    console.log('123');
     const result = await game.deposit(user, amount);
 
     if(!result) result_cc = 'DEPOSIT_FAIL';
@@ -121,42 +127,25 @@ export const deposit = async (ctx) => {
   }
 }
 
-export const getGameData = async (ctx) => {
-  try {
-    const { id } = ctx.params;
+export const getGameRoomInfo = (ctx) => {
 
-    const game = await Game.findById(id);
-    console.log('--------------------getGameData---------------');
-    console.log('gameID = ' + id);
+  const games = gameEngine.getGames();
 
-    const users = game.depositList.map(item => (item.userId)),
-          usernames = {},
-          deposits = {};
+  let retData = [];
+  for(let game_id in games) {
+    const game = games[game_id];
 
-    game.depositList.forEach( item => {
-      usernames[item.userId] = item.username;
-      deposits[item.userId] = item.deposit;
-    });
-
-    const temp =  {
-      _id : game._id,
-      total: game.total,
-      sold: game.sold,
-      users,
-      usernames,
-      deposits,
+    retData.push({
+      type: game.type,
       state: game.state,
-      winners: game.winners,
-      // usernames : [],
-      // depositHistory : [],
-    };
-
-    ctx.body = {
-      game: temp
-    };
-
-  } catch (e) {
-    ctx.throw(e, 500);
+      total: game.numberOfTickets,
+      sold: game.sold,
+      currentTimeLimit: game.currentTimeLimit
+    })
   }
+  ctx.body = {
+    games: retData
+  }
+  
 }
 

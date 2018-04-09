@@ -29,8 +29,7 @@ class GameRoom extends Component {
     }
 
     componentDidMount() {
-        const { connectToGame } = this;
-        connectToGame();
+        
     }
 
     componentWillUnmount() {
@@ -46,38 +45,13 @@ class GameRoom extends Component {
           .formReset();
     
         //disconnect socket
-        console.log("Disconnect Game Socket", gameSocket);
+        // console.log("Disconnect Game Socket", gameSocket);
 
-        if (gameSocket.getSocket()) {
-            gameSocket.close();
-        }
-      }
-
-    connectToGame = async () => {
-        const { GameActions } = this.props;
-        const { type, id: gameId } = this.props.match.params;
-        
-    
-        /*
-        setTimeout(() => {
-          sender.auth(userId, false);
-        }, 5000);
-        */
-
-        try {
-            await GameActions.getGameData(gameId);
-            
-            const { status } = this.props;
-            const { userId, session, game } = status;
-
-            console.log('UserID::::::', userId, 'Users:::::', game.users);
-
-            if(session.logged && userId !== null && game.users.indexOf(userId) > -1)
-                store.dispatch(gameActions.setJoin(true));
-        } catch(e) {
-          console.log(e);
-        }
+        // if (gameSocket.getSocket()) {
+        //     gameSocket.close();
+        // }
     }
+
 
     handleJoin = () => {
         this.setState({depositForm: true});
@@ -157,6 +131,19 @@ class GameRoom extends Component {
             winner_name = usernames[winners[0]];
         }
 
+        const totalAlias = (total) => {
+            if(total === 1000)
+                return '1K';
+            else if(total === 10000)
+                return '10K';
+            else if(total === 100000)
+                return '100K';
+            else if(total === 1000000)
+                return '1M';
+
+            return total;
+        }
+
         return (
             
             <div className="gameroomContainer">
@@ -164,7 +151,7 @@ class GameRoom extends Component {
                     <div className="col">
                         <div className="markContainer">
                             <img src={mark} role="presentation" alt="mark"/>
-                            <p className="markLetter">{game.sold}/{game.total}</p>
+                            <p className="markLetter">{game.sold}/{totalAlias(game.total)}</p>
                         </div>
                         <div className="row">
                             <div className="col text-center">

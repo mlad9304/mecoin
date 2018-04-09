@@ -59,7 +59,6 @@ function Room(name) {
   //broadcast the data to this Channel
   this.broadcast = async (data, connection) => {
     console.log('<==============>[broadcast]<===================>');
-    console.log(this.users.length);
     for (let i = 0; i < this.users.length; i ++) {
       emit(sockets[this.users[i]], data);
     }

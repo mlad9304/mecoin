@@ -12,8 +12,8 @@ const game = {
     const rm = RoomManager.get(payload.channel);
     rm.push(connection.id);
     console.log('----------------GAME SOCKET ENTER-------------');
-    console.log(payload.channel);
-    console.log(rm);
+    // console.log(payload.channel);
+    // console.log(rm);
     connection.data.channel = payload.channel;
 
     helper.emit(connection, helper.createAction(SEND.SUCCESS.ENTER, {

@@ -12,9 +12,10 @@ import { DashboardLeftbarContainer,
             TransactionsReportContainer,
             SupportTicketContainer,
             AffiliateContainer,
-            SettingsContainer
+            SettingsContainer,
+            DashboardRightbarConainer,
+            BuyTicketBoxContainer
         } from 'containers';
-import DashboardRightbar from './DashboardRightbar';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
@@ -44,7 +45,7 @@ class Dashboard extends Component {
                             </Switch>
                         </div>
                         <div className="rightContainer">
-                            <DashboardRightbar />
+                            <BuyTicketBoxContainer mode="dashboard"/>
                         </div>
                     </div>
                 </div>

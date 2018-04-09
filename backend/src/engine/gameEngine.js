@@ -8,6 +8,7 @@ import {log} from './helper';
 import RoomManager from 'game/room';
 import * as helper from 'game/helper';
 import { client as RECEIVE, server as SEND } from 'game/packetTypes';
+import sockets from 'game/sockets';
 
 const TIME_OUT = {
   [GAME_TYPE.ONE] : 1000 * 30, // 1 minute
@@ -128,6 +129,7 @@ function Game(type, gameId) {
       }));
     }
 
+    
 
     // when first user enter, start timer 
     // play game within timeLimit 
@@ -135,9 +137,13 @@ function Game(type, gameId) {
       this.updateState(GAME_STATE.PLAY);
       this.killGameTimeout = setTimeout(
         () => {
+          clearInterval(this.killGameTimeInterval);
+          this.killGameTimeInterval = null;
+          this.currentTimeLimit = 0;
+
           this.play();
-          clearInterval(this.currentTimeLimit);
-          this.currentTimeLimit = null;
+
+          
         }, this.timeLimit
       );
 
@@ -157,6 +163,8 @@ function Game(type, gameId) {
     //     }, 5000
     //   );
     // }
+
+    gameEngine.sendGameRoomInfo();
 
     return true;
   }
@@ -249,6 +257,8 @@ function Game(type, gameId) {
       setTimeout( () => {
         log(`GAME(id = ${this._id}) is destroying..`);
         delete games[this._id];
+        
+        gameEngine.sendGameRoomInfo();
       }, 3000);
 
     } catch(e){
@@ -299,7 +309,7 @@ gameEngine.create = async (type) => {
 
 gameEngine.get = (gameId) => {
   console.log(`[GAME ENGINE] gameId=${gameId}`);
-  console.log(games);
+  // console.log(games);
   if(gameId !== undefined && 
       games[gameId] && (games[gameId].state === GAME_STATE.OPEN || games[gameId].state === GAME_STATE.PLAY)) {
     return games[gameId];
@@ -327,5 +337,28 @@ gameEngine.find = async (type) => {
 // when app exiting, save game of data to db
 gameEngine.save = async () => {
   log('save game data to db ...');
+}
+
+gameEngine.getGames = () => {
+  return games;
+}
+
+gameEngine.sendGameRoomInfo = () => {
+
+  let retData = [];
+  for(let game_id in games) {
+    const game = games[game_id];
+    retData.push({
+      type: game.type,
+      state: game.state,
+      total: game.numberOfTickets,
+      sold: game.sold,
+      currentTimeLimit: game.currentTimeLimit
+    })
+  }
+
+  helper.emitAll(sockets, helper.createAction(SEND.GAMEROOMINFO, {
+    games: retData
+  }));
 }
 export default gameEngine;
