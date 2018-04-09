@@ -13,6 +13,10 @@ const DEPOSIT_CC = {
   DEPOSIT_FAIL : 0xFF
 };
 
+const TRANSACTION_TYPE = {
+  BUY_TICKET: 'BUY_TICKET'
+}
+
 export const findGame = async (ctx) => {
   try {
     const { type } = ctx.params;
@@ -107,7 +111,7 @@ export const deposit = async (ctx) => {
 
   console.log('------------Game Deposit request-------------');
   try {
-    const transId = await Transaction.create(userId, gameId, amount);
+    const transId = await Transaction.create(userId, TRANSACTION_TYPE.BUY_TICKET, gameId, -amount);
 
     // crypto coin transaction process 
     // const result = transfer();

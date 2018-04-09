@@ -12,15 +12,16 @@ const TRANS_FAIL = 0xFF;
 
 const Transaction = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: User },
+  type: Schema.Types.String,
   amount: Schema.Types.Double,
   gameId: { type: Schema.Types.ObjectId, ref: Game },
   cc: { type:Number, default: TRANS_SUCCESS },
   createdAt: { type: Date, default: Date.now },
 });
 
-Transaction.statics.create = async function(userId, gameId, amount) {
+Transaction.statics.create = async function(userId, type, gameId, amount) {
   const game = new this({
-    userId, gameId, amount
+    userId, type, gameId, amount
   });
 
   return game.save();
