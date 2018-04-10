@@ -59,13 +59,13 @@ class GameRoom extends Component {
 
     handleDeposit = async() => {
 
-        const { form, status, GameActions, history } = this.props;
+        const { form, status, GameActions, DashboardActions, history } = this.props;
         const { type, id: gameId } = this.props.match.params;
         const { amount } = form;
-        const { userId, session, game } = status;
-        const balance = game.total - game.sold;
+        const { logged, userId, game, balance } = status;
+        const roomBalance = game.total - game.sold;
 
-        if(!session.logged || userId === null) {
+        if(!logged || userId === null) {
             // alert('login first');
             notify({type: 'error', message: 'Please Login'});
             setTimeout( ()=> {
@@ -82,8 +82,13 @@ class GameRoom extends Component {
             return;
         }
 
-        if ( amount > balance ){
+        if ( amount > roomBalance ){
             notify({type: 'error', message: 'Too much'});
+            return;
+        }
+
+        if(amount > balance) {
+            notify({type: 'error', message: 'Not enough gems. Please deposit'});
             return;
         }
 
@@ -97,8 +102,8 @@ class GameRoom extends Component {
 
 
             if(!join) {
-            notify({type: 'error', message: depositResult});
-            return;
+                notify({type: 'error', message: depositResult});
+                return;
             }
             notify({type: 'success', message: 'Successfully joined to this game'});
         } catch(e) {
@@ -107,6 +112,7 @@ class GameRoom extends Component {
         }
 
         this.setState({depositForm: false});
+        DashboardActions.getBalance(userId);
     }
 
     handleChange = (e) => {

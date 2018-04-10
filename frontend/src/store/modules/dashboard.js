@@ -1,12 +1,16 @@
 import { createAction, handleActions } from 'redux-actions';
 
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
+import * as DashboardApi from 'api/dashboard';
+import { pender } from 'redux-pender';
 
 // action types
 const DASHBOARD_MENU_SELECTED = 'dashboard/DASHBOARD_MENU_SELECTED';
+const GET_BALANCE = 'dashboard/GET_BALANCE';
 
 // action creator
 export const selectMenu = createAction(DASHBOARD_MENU_SELECTED);
+export const getBalance = createAction(GET_BALANCE, DashboardApi.getBalance);
 
 // initial state
 const initialState = fromJS({
@@ -71,6 +75,10 @@ const initialState = fromJS({
         ],
         active_menu_id: 1
     },
+
+    transaction: Map({
+        balance: 0
+    })
     
 });
 
@@ -79,5 +87,18 @@ export default handleActions({
   [DASHBOARD_MENU_SELECTED]: (state, action) => {
     return state.setIn(['dashboardLeftBar', 'active_menu_id'], action.payload);
   },
+  ...pender({
+    type: GET_BALANCE,
+    onSuccess: (state, action) => {
+      const { data: result } = action.payload;
+      const { balance } = result;
+      if( balance ){
+        return state.setIn(['transaction', 'balance'], balance);
+      }
+    },
+    onFailure: (state, action) => {
+      
+    }
+  }),
 
 }, initialState);

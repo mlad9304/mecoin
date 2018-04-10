@@ -26,18 +26,16 @@ class Login extends Component {
         FormActions.changeInput({form: 'login', name: e.target.name, value: e.target.value})
     }
 
-    connectToChatRoom = () => {
-        const { status } = this.props;
+    connectToChatRoom = (userId) => {
        
-        const { sessionID } = status.session;
-        sender.auth(sessionID);
+        sender.auth(userId);
     }
 
     handleSubmit = async (e) => {
         
         e.preventDefault();
 
-        const { form, AuthActions, history } = this.props;
+        const { form, AuthActions, DashboardActions, history } = this.props;
         const { username, password } = form;
 
         notify.clear();
@@ -59,14 +57,17 @@ class Login extends Component {
             return;
         }
 
-        // Redirect
-        history.push('/');
+        
 
         notify({type: 'success', message: `Hello, ${username}!`});
 
-        this.connectToChatRoom();
-        
+        const { userId } = this.props.status;
+        this.connectToChatRoom(userId);
         AuthActions.setSubmitStatus(false);
+        DashboardActions.getBalance(userId);
+
+        // Redirect
+        history.push('/');
 
     }
 

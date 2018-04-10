@@ -33,9 +33,6 @@ const BuyTicketBox = ({ total, sold, onClick, currentTimeLimit }) => {
             <img className="clock" src={clock} alt="clock"/>
             &nbsp;<CountDown time={currentTimeLimit}/>
           </p>
-          <p className="'text-right remaining'">
-            Remaining to start
-          </p>
         </div>
         <div className="divider" />
       </div>

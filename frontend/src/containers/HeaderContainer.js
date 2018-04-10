@@ -20,9 +20,10 @@ class HeaderContainer extends Component {
 export default connect(
   (state) => ({
     logged: state.auth.getIn(['session', 'logged']),
+    balance: state.dashboard.getIn(['transaction', 'balance']),
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),
-    selectMenu: bindActionCreators(dashboardActions, dispatch).selectMenu
+    selectMenu: bindActionCreators(dashboardActions, dispatch).selectMenu,
   })
 )(HeaderContainer);

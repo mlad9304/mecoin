@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Header.scss';
 import { Link } from 'react-router-dom';
 
@@ -9,85 +9,92 @@ import mailImg from 'static/images/mail.png';
 
 
 
-const AuthorizedNav = ({ selectMenu }) => {
+class AuthorizedNav extends Component {
 
-  return (
-    <React.Fragment>
-      <ul className='navbar-nav mr-auto leftBar'>
-        <li className="nav-item active">
-          <Link className="nav-link" to="/">
-            Home <span className="sr-only">(current)</span>
-          </Link>
-        </li>
-        <li className='nav-item leftBorder'>
-          <Link className="nav-link disabled-link" to="/">
-            Balance: 20 Dimonds <br />
-            <span className='ethValue'>Eth Value: 0.20</span>
-          </Link>
-        </li>
-        <li className='nav-item leftBorder'>
-          <Link className="nav-link" to="/dashboard/wallet" onClick={() => selectMenu("2")}>
-            My Wallet
-          </Link>
-        </li>
-        <li className='nav-item leftBorder'>
-          <Link className="nav-link" to="/dashboard/report" onClick={() => selectMenu("5")}>
-            History
-          </Link>
-        </li>
-        <li className='nav-item leftBorder'>
-          <Link className="nav-link disabled-link" to="/help">
-            Help
-          </Link>
-        </li>
-      </ul>
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link disabled-link position-relative" to="/help">
-            <div className="notificationBox">
-              <img className="notificationMailItem" src={mailImg} alt="mail_img"/>
-              <span className="circle" />
-              <span className="num">5</span>
-            </div>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link disabled-link position-relative" to="/help">
-            <div className="notificationBox">
-              <img className="notificationNavItem" src={bellImg} alt="bell_item"/>
-              <span className="circle" />
-              <span className="num">5</span>
-            </div>
-          </Link>
-        </li>
-        <li className="nav-item dropdown">
-          <div
-            className="nav-link dropdown-toggle"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <div className="float-left">
-              <div className="usrImgContainer">
-                <img src={usrImg} role="presentation" alt="user_img"/>
+  render() {
+    
+    const { selectMenu, balance } = this.props;
+    
+    return (
+      <React.Fragment>
+        <ul className='navbar-nav mr-auto leftBar'>
+          <li className="nav-item active">
+            <Link className="nav-link" to="/">
+              Home <span className="sr-only">(current)</span>
+            </Link>
+          </li>
+          <li className='nav-item leftBorder'>
+            <Link className="nav-link disabled-link" to="/">
+              Balance: {balance} Gems <br />
+              <span className='ethValue'>Eth Value: {parseFloat(balance) / 1000}</span>
+            </Link>
+          </li>
+          <li className='nav-item leftBorder'>
+            <Link className="nav-link" to="/dashboard/wallet" onClick={() => selectMenu("2")}>
+              My Wallet
+            </Link>
+          </li>
+          <li className='nav-item leftBorder'>
+            <Link className="nav-link" to="/dashboard/report" onClick={() => selectMenu("5")}>
+              History
+            </Link>
+          </li>
+          <li className='nav-item leftBorder'>
+            <Link className="nav-link disabled-link" to="/help">
+              Help
+            </Link>
+          </li>
+        </ul>
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link disabled-link position-relative" to="/help">
+              <div className="notificationBox">
+                <img className="notificationMailItem" src={mailImg} alt="mail_img"/>
+                <span className="circle" />
+                <span className="num">5</span>
+              </div>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link disabled-link position-relative" to="/help">
+              <div className="notificationBox">
+                <img className="notificationNavItem" src={bellImg} alt="bell_item"/>
+                <span className="circle" />
+                <span className="num">5</span>
+              </div>
+            </Link>
+          </li>
+          <li className="nav-item dropdown">
+            <div
+              className="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <div className="float-left">
+                <div className="usrImgContainer">
+                  <img src={usrImg} role="presentation" alt="user_img"/>
+                </div>
+              </div>
+              <div className="float-left">
+                <p className="userTitle goodEvening">Good evening</p>
+                <p className="userTitle usrName">Tom Smith</p>
+                <p className="userTitle win">Win: 779</p>
+              </div>
+              <div className="dropdown-menu">
+                <a className="dropdown-item">Action 0</a>
+                <a className="dropdown-item">Action 1</a>
+                <a className="dropdown-item">Action 2</a>
               </div>
             </div>
-            <div className="float-left">
-              <p className="userTitle goodEvening">Good evening</p>
-              <p className="userTitle usrName">Tom Smith</p>
-              <p className="userTitle win">Win: 779</p>
-            </div>
-            <div className="dropdown-menu">
-              <a className="dropdown-item">Action 0</a>
-              <a className="dropdown-item">Action 1</a>
-              <a className="dropdown-item">Action 2</a>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </React.Fragment>
-  );
-};
+          </li>
+        </ul>
+      </React.Fragment>
+    );
+  }
+
+  
+}
 
 const UnAuthorizedNav = ({ selectMenu }) => {
 
@@ -126,7 +133,7 @@ const navStyle = {
   color: '#9cacae'
 };
 
-const Header = ({logged, selectMenu}) => {
+const Header = ({logged, selectMenu, getBalance, balance}) => {
 
   return (
     <nav id="header"
@@ -149,7 +156,7 @@ const Header = ({logged, selectMenu}) => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-        { logged ? <AuthorizedNav selectMenu={selectMenu} /> : <UnAuthorizedNav selectMenu={selectMenu} />}
+        { logged ? <AuthorizedNav selectMenu={selectMenu} getBalance={getBalance} balance={balance} /> : <UnAuthorizedNav selectMenu={selectMenu} />}
       </div>
     </nav>
   );

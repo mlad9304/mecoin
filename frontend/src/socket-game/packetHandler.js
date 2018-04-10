@@ -4,8 +4,13 @@ import {client as SEND, server as RECEIVE} from './packetTypes';
 import notify from 'helpers/notify';
 import store from 'store';
 import * as gameActions from 'store/modules/game';
+import * as dashboardActions from 'store/modules/dashboard';
 
 const updateGame = (payload) => {
+  if(payload.game.winners.length > 0) {
+    const winner = payload.game.winners[0];
+    store.dispatch(dashboardActions.getBalance(winner));
+  }
   store.dispatch(gameActions.updateGameData(payload));
 }
 

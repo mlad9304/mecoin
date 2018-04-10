@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from 'store/modules/auth';
 import * as formActions from 'store/modules/form';
+import * as dashboardActions from 'store/modules/dashboard';
 
 class LoginContainer extends Component {
   render () {
@@ -23,11 +24,12 @@ export default connect(
     status: {
         logged: state.auth.getIn(['session', 'logged']),
         submitting: state.auth.get('submitStatus'),
-        session: state.auth.get('session').toJS()   
+        userId: state.auth.getIn(['session', 'sessionID']),
     }
   }),
   (dispatch) => ({
     AuthActions: bindActionCreators(authActions, dispatch),
     FormActions: bindActionCreators(formActions, dispatch),
+    DashboardActions: bindActionCreators(dashboardActions, dispatch),
   })
 )(LoginContainer);

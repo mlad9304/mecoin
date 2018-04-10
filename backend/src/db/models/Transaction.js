@@ -27,5 +27,16 @@ Transaction.statics.create = async function(userId, type, gameId, amount) {
   return game.save();
 }
 
+Transaction.statics.getBalance = async function(userId) {
+  return this.aggregate([
+    { $match: {
+      userId: new mongoose.Types.ObjectId(userId)
+    }},
+    { $group: {
+      _id: "$userId",
+      amount: { $sum: "$amount" }
+    }}
+  ])
+}
 
 module.exports = mongoose.model('Transaction', Transaction);

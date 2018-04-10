@@ -6,16 +6,7 @@ import GAME_STATE from 'engine/gameStates';
 import RoomManager from 'game/room';
 import gameEngine from 'engine/gameEngine';
 
-const DEPOSIT_CC = {
-  DEPOSIT_OK: 0x00,
-  ALREADY_DEPOSIT: 0x01,
-  GAME_CLOSED: 0x02,
-  DEPOSIT_FAIL : 0xFF
-};
-
-const TRANSACTION_TYPE = {
-  BUY_TICKET: 'BUY_TICKET'
-}
+import { TRANSACTION_TYPE, DEPOSIT_CC } from 'constants/transaction';
 
 export const findGame = async (ctx) => {
   try {

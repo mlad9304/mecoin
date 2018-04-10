@@ -4,6 +4,8 @@ import GAME_STATE from './gameStates';
 import GAME_TYPE from './gameTypes';
 
 import GameTbl from 'db/models/Game';
+import Transaction from 'db/models/Transaction';
+import { TRANSACTION_TYPE } from 'constants/transaction';
 import {log} from './helper';
 import RoomManager from 'game/room';
 import * as helper from 'game/helper';
@@ -234,6 +236,15 @@ function Game(type, gameId) {
     // const escrowAddr = "0x48493";
     // const price = this.sold * 0.8;
     // await cryptoWallet.transfer(escrowAddr, w_addr, price );
+
+    if(this.winners.length === 0) {
+      console.log('[Error]: Pay for Winners');
+      return;
+    }
+
+    const userId = this.winners[0];
+
+    const transId = await Transaction.create(userId, TRANSACTION_TYPE.WINNING, this._id, this.sold);
   }
 
   // play game
