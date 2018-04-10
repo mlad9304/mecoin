@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { Wallet } from 'components';
 
+//redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as dashboardActions from 'store/modules/dashboard';
+
 
 class WalletContainer extends Component {
   render () {
@@ -10,4 +15,11 @@ class WalletContainer extends Component {
   }
 }
 
-export default WalletContainer;
+export default connect(
+  (state) => ({
+    balance: state.dashboard.getIn(['transaction', 'balance']),
+  }),
+  (dispatch) => ({
+    DashboardActions: bindActionCreators(dashboardActions, dispatch),
+  })
+)(WalletContainer);

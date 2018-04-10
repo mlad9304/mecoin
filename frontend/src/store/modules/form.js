@@ -95,6 +95,9 @@ const initialState = Map({
         balance: '500',
         amount: ''
     }),
+    walletDeposit: Map({
+        amount: 0
+    })
 });
 
 // reducer
