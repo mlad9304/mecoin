@@ -8,11 +8,13 @@ import { pender } from 'redux-pender';
 const DASHBOARD_MENU_SELECTED = 'dashboard/DASHBOARD_MENU_SELECTED';
 const GET_BALANCE = 'dashboard/GET_BALANCE';
 const DEPOSIT = 'dashboard/DEPOSIT';
+const GET_DEPOSIT_HISTORY = 'dashboard/GET_DEPOSIT_HISTORY';
 
 // action creator
 export const selectMenu = createAction(DASHBOARD_MENU_SELECTED);
 export const getBalance = createAction(GET_BALANCE, DashboardApi.getBalance);
 export const deposit = createAction(DEPOSIT, DashboardApi.deposit);
+export const getDepositHistory = createAction(GET_DEPOSIT_HISTORY, DashboardApi.getDepositHistory);
 
 // initial state
 const initialState = fromJS({
@@ -79,7 +81,8 @@ const initialState = fromJS({
     },
 
     transaction: Map({
-        balance: 0
+        balance: 0,
+        depositHistory: [],
     })
     
 });
@@ -109,6 +112,19 @@ export default handleActions({
       const { balance } = result;
       if( balance ){
         return state.setIn(['transaction', 'balance'], balance);
+      }
+    },
+    onFailure: (state, action) => {
+      
+    }
+  }),
+  ...pender({
+    type: GET_DEPOSIT_HISTORY,
+    onSuccess: (state, action) => {
+      const { data: result } = action.payload;
+      const { depositHistory } = result;
+      if( depositHistory ){
+        return state.setIn(['transaction', 'depositHistory'], depositHistory);
       }
     },
     onFailure: (state, action) => {

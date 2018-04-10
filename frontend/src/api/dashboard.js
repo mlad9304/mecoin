@@ -11,3 +11,9 @@ export const deposit = (userid, deposit, fee) => {
         fee
     });
 }
+
+export const getDepositHistory = (userid) => {
+    return axios.post(process.env.API_ROOT+`/api/v1.0/dashboard/deposit/history`, {
+        userid
+    });
+}

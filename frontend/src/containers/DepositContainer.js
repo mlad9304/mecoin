@@ -21,6 +21,7 @@ export default connect(
     balance: state.dashboard.getIn(['transaction', 'balance']),
     logged: state.auth.getIn(['session', 'logged']),
     userId: state.auth.getIn(['session', 'sessionID']),
+    depositHistory: state.dashboard.getIn(['transaction', 'depositHistory']),
   }),
   (dispatch) => ({
     FormActions: bindActionCreators(formActions, dispatch),

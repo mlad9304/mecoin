@@ -13,6 +13,11 @@ class Deposit extends Component {
         }
     }
 
+    componentWillMount() {
+        const { DashboardActions, userId } = this.props;
+        DashboardActions.getDepositHistory(userId);
+    }
+
     handleChange = (e) => {
         const gemamount = e.target.value;
         const { FormActions } = this.props;
@@ -66,14 +71,25 @@ class Deposit extends Component {
         }
 
         notify({type: 'success', message: 'Successfully deposited'});
+
+        DashboardActions.getDepositHistory(userId);
         
     }
 
     render() {
 
         const { handleChange, handleSubmit } = this;
-        const { form, balance } = this.props;
+        const { form, balance, depositHistory } = this.props;
         const { gemamount } = form;
+
+        const depositHistoryView = depositHistory.map(item => {
+            return (
+                <div key={item._id}>
+                    <p>{item.type === "DEPOSIT_FEE" ? "Fee" : "Deposit"} {Math.abs(item.amount/1000)} Eth at {item.createdAt}</p>
+                    <hr className="subDivider" />
+                </div>
+            )
+        })
 
         return (
             <div className="deposit_container">
@@ -82,9 +98,9 @@ class Deposit extends Component {
                 </p>
                 <hr className="divider" />
                 <p className="text-right">
-                    My Wallet Balance:{' '}
+                    My Wallet Balance:&nbsp;
                     <span className="balance">
-                        <b>{balance}</b>
+                        <b>{balance/1000}</b>
                     </span>
                     &nbsp;eth
                 </p>
@@ -116,11 +132,7 @@ class Deposit extends Component {
                         </p>
                         <hr className="mt-0 subDivider" />
                         <div className="depositHistory">
-                            <p>Tom S, deposit $10 Eth at 6:00PM, 10-Jan-2018</p>
-                            <hr className="subDivider" />
-                            <p>Tom S, deposit $2 Eth at 1:00PM, 08-Jan-2018</p>
-                            <hr className="subDivider" />
-                            <p>Tom S, deposit $11 Eth at 5:00PM, 06-Jan-2018</p>
+                            {depositHistoryView}
                         </div>
                     </div>
                 </div>

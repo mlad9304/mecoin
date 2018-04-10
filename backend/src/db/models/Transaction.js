@@ -4,11 +4,9 @@ import User from './User';
 
 require('mongoose-double')(mongoose);
 
-const { Schema } = mongoose;
+import { TRANSACTION_TYPE } from 'constants/transaction';
 
-const TRANS_SUCCESS = 0x00;
-const TRANS_BAL_NOT_ENOUGH = 0x01;
-const TRANS_FAIL = 0xFF;
+const { Schema } = mongoose;
 
 const Transaction = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: User },
@@ -35,6 +33,50 @@ Transaction.statics.getBalance = async function(userId) {
       amount: { $sum: "$amount" }
     }}
   ])
+}
+
+Transaction.statics.depositHistory = async function(userId) {
+  return this.aggregate([
+    {
+      $match: {
+        userId: new mongoose.Types.ObjectId(userId),
+        type: {$in: [TRANSACTION_TYPE.DEPOSIT, TRANSACTION_TYPE.DEPOSIT_FEE]}
+      }
+    },
+    {
+      $project: {
+        type: 1,
+        amount: 1,
+        createdAt: {
+          $dateToString: {
+            format: '%H:%M, %d-%m-%Y',
+            date: "$createdAt"
+          }
+        }
+      }
+    },
+    {
+      $sort: {
+        createdAt: -1
+      }
+    },
+    {
+      $limit: 7
+    }
+  ])
+  // return this.find({
+  //     userId, 
+  //     type: {$in: [TRANSACTION_TYPE.DEPOSIT, TRANSACTION_TYPE.DEPOSIT_FEE]}
+  //   }, {
+  //     type: 1,
+  //     amount: 1,
+  //     createdAt: 1,
+  //   })
+  //   .sort({"createdAt": -1})
+  //   .limit(10)
+  //   .exec();
+
+  
 }
 
 module.exports = mongoose.model('Transaction', Transaction);

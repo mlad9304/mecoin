@@ -84,3 +84,33 @@ export const deposit = async (ctx) => {
         ctx.throw(e, 500);
     }
 }
+
+export const depositHistory = async (ctx) => {
+
+    const { user, body } = ctx.request;
+
+    if(!user) {
+        ctx.status = 401;
+        return;
+    }
+
+    const { _id } = user;
+    const { userid } = body;
+
+    if( _id !== userid ) {
+        ctx.status = 400;
+        return;
+    }
+
+    try {
+
+        const depositHistory = await Transaction.depositHistory(userid);
+
+        ctx.body = {
+            depositHistory
+        };
+    } catch (e) {
+        ctx.throw(e, 500);
+    }
+
+}
