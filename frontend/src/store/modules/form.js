@@ -96,7 +96,7 @@ const initialState = Map({
         amount: ''
     }),
     walletDeposit: Map({
-        amount: 0
+        gemamount: 0
     })
 });
 

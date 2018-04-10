@@ -102,7 +102,7 @@ export const deposit = async (ctx) => {
 
   console.log('------------Game Deposit request-------------');
   try {
-    const transId = await Transaction.create(userId, TRANSACTION_TYPE.BUY_TICKET, gameId, -amount);
+    const transId = await Transaction.create(userId, TRANSACTION_TYPE.BUY_TICKET, -amount);
 
     // crypto coin transaction process 
     // const result = transfer();

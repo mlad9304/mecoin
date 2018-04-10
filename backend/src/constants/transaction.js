@@ -8,4 +8,6 @@ export const DEPOSIT_CC = {
 export const TRANSACTION_TYPE = {
     BUY_TICKET: 'BUY_TICKET',
     WINNING: 'WINNING',
+    DEPOSIT: 'DEPOSIT',
+    DEPOSIT_FEE: 'DEPOSIT_FEE',
 }

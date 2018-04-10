@@ -14,14 +14,12 @@ const Transaction = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: User },
   type: Schema.Types.String,
   amount: Schema.Types.Double,
-  gameId: { type: Schema.Types.ObjectId, ref: Game },
-  cc: { type:Number, default: TRANS_SUCCESS },
   createdAt: { type: Date, default: Date.now },
 });
 
-Transaction.statics.create = async function(userId, type, gameId, amount) {
+Transaction.statics.create = async function(userId, type, amount) {
   const game = new this({
-    userId, type, gameId, amount
+    userId, type, amount
   });
 
   return game.save();

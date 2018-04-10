@@ -28,17 +28,25 @@
     .verticalDivider {
         border-right: 1px solid #40434c;
 
+        .depositRule, 
+        .gemAmount,
         .depositAmount {
             color: #4c4c4c;
             font-size: 1.2rem;
             font-weight: 800;
+
         }
 
-        .depositInputContainer {
+        .number, .depositRule {
+            color: #dca535 !important;
+        }
+
+
+        .gemInputContainer {
             width: 100%;
             height: 60px;
 
-            .depositInput {
+            .gemInput {
                 background-color: #b5b7ba;
                 color: #f2f2f2;
                 &::placeholder {
@@ -68,6 +76,7 @@
             background: -webkit-linear-gradient(#1e6017, #46da33);
             color: #082f0f !important;
             border: 2px;
+            cursor: pointer;
         }
     }
       

@@ -244,7 +244,7 @@ function Game(type, gameId) {
 
     const userId = this.winners[0];
 
-    const transId = await Transaction.create(userId, TRANSACTION_TYPE.WINNING, this._id, this.sold);
+    const transId = await Transaction.create(userId, TRANSACTION_TYPE.WINNING, this.sold);
   }
 
   // play game
