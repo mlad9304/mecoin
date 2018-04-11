@@ -72,6 +72,12 @@ class Deposit extends Component {
 
         notify({type: 'success', message: 'Successfully deposited'});
 
+        FormActions.formReset();
+        this.setState({
+            deposit: 0,
+            fee: 0
+        });
+
         DashboardActions.getDepositHistory(userId);
         
     }
@@ -80,6 +86,7 @@ class Deposit extends Component {
 
         const { handleChange, handleSubmit } = this;
         const { form, balance, depositHistory } = this.props;
+        const { balanceGem, balanceEth } = balance;
         const { gemamount } = form;
 
         const depositHistoryView = depositHistory.map(item => {
@@ -89,7 +96,7 @@ class Deposit extends Component {
                     <hr className="subDivider" />
                 </div>
             )
-        })
+        });
 
         return (
             <div className="deposit_container">
@@ -100,7 +107,7 @@ class Deposit extends Component {
                 <p className="text-right">
                     My Wallet Balance:&nbsp;
                     <span className="balance">
-                        <b>{balance/1000}</b>
+                        <b>{balanceEth}</b>
                     </span>
                     &nbsp;eth
                 </p>

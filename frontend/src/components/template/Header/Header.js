@@ -14,6 +14,7 @@ class AuthorizedNav extends Component {
   render() {
     
     const { selectMenu, balance } = this.props;
+    const { balanceGem, balanceEth } = balance;
     
     return (
       <React.Fragment>
@@ -25,8 +26,8 @@ class AuthorizedNav extends Component {
           </li>
           <li className='nav-item leftBorder'>
             <Link className="nav-link disabled-link" to="/">
-              Balance: {balance} Gems <br />
-              <span className='ethValue'>Eth Value: {parseFloat(balance) / 1000}</span>
+              Balance: {balanceGem} Gems <br />
+              <span className='ethValue'>Eth Value: {balanceEth}</span>
             </Link>
           </li>
           <li className='nav-item leftBorder'>

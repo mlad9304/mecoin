@@ -23,6 +23,7 @@ class Wallet extends Component {
   render() {
 
     const { balance } = this.props;
+    const { balanceEth } = balance;
     const { gotoDeposit, gotoWithdraw, gotoHome } = this;
 
     return (
@@ -30,7 +31,7 @@ class Wallet extends Component {
         <p className="wallet_title">My Wallet</p>
         <hr className="divider" />
         <p className="balance">Available Balance</p>
-        <p className="value">{balance/1000} Eth</p>
+        <p className="value">{balanceEth} Eth</p>
         <hr className="divider" />
         <br />
         <div>

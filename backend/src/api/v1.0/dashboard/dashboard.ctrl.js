@@ -11,9 +11,15 @@ const getBalanceFunc = async (userid) => {
 
     const { amount: balance } = result[0];
 
-    const roundedBalance = Math.round(balance * 10) / 10;
+    const balanceGem = balance;
+    const balanceEth = balanceGem / 1000;
 
-    return roundedBalance;
+    const roundedBalanceGem = Math.round(balanceGem * 100) / 100;
+    const roundedBalanceEth = Math.round(balanceEth * 100000) / 100000;
+    return {
+        balanceGem: roundedBalanceGem,
+        balanceEth: roundedBalanceEth
+    };
 }
 
 export const getBalance = async (ctx) => {
@@ -108,6 +114,101 @@ export const depositHistory = async (ctx) => {
 
         ctx.body = {
             depositHistory
+        };
+    } catch (e) {
+        ctx.throw(e, 500);
+    }
+
+}
+
+export const withdraw = async (ctx) => {
+    const { user, body } = ctx.request;
+
+    if(!user) {
+        ctx.status = 401;
+        return;
+    }
+
+    const { _id } = user;
+    const { userid, withdraw } = body;
+
+    if( _id !== userid ) {
+        ctx.status = 400;
+        return;
+    }
+
+    try {
+
+        await Transaction.create(userid, TRANSACTION_TYPE.WITHDRAW, -withdraw * 1000);
+
+        const balance = await getBalanceFunc(userid);
+
+        if(balance === 'error') {
+            ctx.status = 400;
+            return;
+        }
+
+        ctx.body = {
+            balance
+        };
+    } catch (e) {
+        ctx.throw(e, 500);
+    }
+}
+
+export const withdrawHistory = async (ctx) => {
+
+    const { user, body } = ctx.request;
+
+    if(!user) {
+        ctx.status = 401;
+        return;
+    }
+
+    const { _id } = user;
+    const { userid } = body;
+
+    if( _id !== userid ) {
+        ctx.status = 400;
+        return;
+    }
+
+    try {
+
+        const withdrawHistory = await Transaction.withdrawHistory(userid);
+
+        ctx.body = {
+            withdrawHistory
+        };
+    } catch (e) {
+        ctx.throw(e, 500);
+    }
+
+}
+
+export const transactionHistory = async (ctx) => {
+
+    const { user, body } = ctx.request;
+
+    if(!user) {
+        ctx.status = 401;
+        return;
+    }
+
+    const { _id } = user;
+    const { userid } = body;
+
+    if( _id !== userid ) {
+        ctx.status = 400;
+        return;
+    }
+
+    try {
+
+        const transactionHistory = await Transaction.transactionHistory(userid);
+
+        ctx.body = {
+            transactionHistory
         };
     } catch (e) {
         ctx.throw(e, 500);

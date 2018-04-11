@@ -44,6 +44,11 @@ Transaction.statics.depositHistory = async function(userId) {
       }
     },
     {
+      $sort: {
+        createdAt: -1
+      }
+    },
+    {
       $project: {
         type: 1,
         amount: 1,
@@ -53,11 +58,6 @@ Transaction.statics.depositHistory = async function(userId) {
             date: "$createdAt"
           }
         }
-      }
-    },
-    {
-      $sort: {
-        createdAt: -1
       }
     },
     {
@@ -76,6 +76,71 @@ Transaction.statics.depositHistory = async function(userId) {
   //   .limit(10)
   //   .exec();
 
+  
+}
+
+Transaction.statics.withdrawHistory = async function(userId) {
+  return this.aggregate([
+    {
+      $match: {
+        userId: new mongoose.Types.ObjectId(userId),
+        type: TRANSACTION_TYPE.WITHDRAW
+      }
+    },
+    {
+      $sort: {
+        createdAt: -1
+      }
+    },
+    {
+      $project: {
+        type: 1,
+        amount: 1,
+        createdAt: {
+          $dateToString: {
+            format: '%H:%M, %d-%m-%Y',
+            date: "$createdAt"
+          }
+        }
+      }
+    },
+    {
+      $limit: 7
+    }
+  ])
+  
+}
+
+Transaction.statics.transactionHistory = async function(userId) {
+  return this.aggregate([
+    {
+      $match: {
+        userId: new mongoose.Types.ObjectId(userId),
+        type: {$in: [TRANSACTION_TYPE.BUY_TICKET, 
+          TRANSACTION_TYPE.WINNING, 
+          TRANSACTION_TYPE.DEPOSIT, 
+          TRANSACTION_TYPE.DEPOSIT_FEE, 
+          TRANSACTION_TYPE.WITHDRAW]}
+      }
+    },
+    {
+      $sort: {
+        createdAt: -1
+      }
+    },
+    {
+      $project: {
+        type: 1,
+        amount: 1,
+        createdAt: {
+          $dateToString: {
+            format: '%H:%M, %d-%m-%Y',
+            date: "$createdAt"
+          }
+        }
+      }
+    },
+  ])
   
 }
 
