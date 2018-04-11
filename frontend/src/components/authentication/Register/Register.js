@@ -25,7 +25,7 @@ class Register extends Component {
 
 
         const { form, AuthActions, FormActions, history } = this.props;
-        const { username, password } = form;
+        const { firstname, lastname, username, password, confirm_password, email } = form;
 
         notify.clear();
 
@@ -33,16 +33,45 @@ class Register extends Component {
 
         // do username / password regex check
         const regex = {
+            firstname: /[a-zA-Z]{3,30}/,
+            lastname: /[a-zA-Z]{3,30}/,
             username: /^[0-9a-z_]{4,20}$/,
-            password: /^.{5,30}$/
+            password: /^.{5,30}$/,
+            email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         }
 
         let error = false;
+
+        if (!regex.firstname.test(firstname)) {
+            error = true;
+
+            notify({type: 'error', message: "Firstname should be 3~30 characters."});
+            FormActions.setInputError({form: 'register', name: 'firstname', error: true});
+        } else {
+            FormActions.setInputError({form: 'register', name: 'firstname', error: false});
+        }
+
+        if (!regex.lastname.test(lastname)) {
+            error = true;
+
+            notify({type: 'error', message: "Lastname should be 3~30 characters."});
+            FormActions.setInputError({form: 'register', name: 'lastname', error: true});
+        } else {
+            FormActions.setInputError({form: 'register', name: 'lastname', error: false});
+        }
 
         if (!regex.password.test(password)) {
             error = true;
 
             notify({type: 'error', message: "Password should be 5~30 characters."});
+            FormActions.setInputError({form: 'register', name: 'password', error: true});
+        } else {
+            FormActions.setInputError({form: 'register', name: 'password', error: false});
+        }
+
+        if(password !== confirm_password) {
+            error = true;
+            notify({type: 'error', message: "Password not matching"});
             FormActions.setInputError({form: 'register', name: 'password', error: true});
         } else {
             FormActions.setInputError({form: 'register', name: 'password', error: false});
@@ -55,6 +84,16 @@ class Register extends Component {
         } else {
             FormActions.setInputError({form: 'register', name: 'username', error: false});
         }
+
+        if (!regex.email.test(email)) {
+            error = true;
+            notify({type: 'error', message: "Email invalid"});
+            FormActions.setInputError({form: 'register', name: 'email', error: true});
+        } else {
+            FormActions.setInputError({form: 'register', name: 'email', error: false});
+        }
+
+        
 
         // if (!error) {
         //     try {
@@ -81,9 +120,9 @@ class Register extends Component {
 
         AuthActions.setSubmitStatus(true);
         try {
-            await AuthActions.submit({displayName: username, password});
+            await AuthActions.submit({username, password, firstname, lastname, email});
         } catch ( e ) {
-            notify({type: 'error', message: 'Oops, server rejected your request, please try again (' + e.response.data.message + ')'});
+            notify({type: 'error', message: 'Oops, server rejected your request, please try again'});
             AuthActions.setSubmitStatus(false);
             // this.leaveTo('/auth');
             return;

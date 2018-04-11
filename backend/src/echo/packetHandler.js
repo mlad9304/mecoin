@@ -16,7 +16,7 @@ const auth = async (connection, payload) => {
     }
 
     // account is valid
-    const username = account.displayName;
+    const username = account.username;
     
     connection.data.username = username;
     connection.data.userId = account._id;

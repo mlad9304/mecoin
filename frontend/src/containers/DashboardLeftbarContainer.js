@@ -6,6 +6,7 @@ import DashboardLeftbar from 'components/dashboard/DashboardLeftbar';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActions from 'store/modules/dashboard';
+import * as authActions from 'store/modules/auth';
 
 class DashboardLeftbarContainer extends Component {
   render () {
@@ -25,5 +26,6 @@ export default connect(
   }),
   (dispatch) => ({
     DashboardActions: bindActionCreators(dashboardActions, dispatch),
+    AuthActions: bindActionCreators(authActions, dispatch),
   })
 )(withRouter(DashboardLeftbarContainer));

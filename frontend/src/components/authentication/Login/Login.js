@@ -51,7 +51,7 @@ class Login extends Component {
         AuthActions.setSubmitStatus(true);
 
         try {
-            await AuthActions.localLogin({displayName:username, password});
+            await AuthActions.localLogin({username, password});
         } catch (e) {
             notify({type: 'error', message: "Incorrect username or password"});
             AuthActions.setSubmitStatus(false);

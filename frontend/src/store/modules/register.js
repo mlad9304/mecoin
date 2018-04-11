@@ -40,6 +40,7 @@ export default handleActions({
   ...pender({
     type: SUBMIT,
     onSuccess: (state, action) => {
+      console.log(action.payload);
       const { data: user } = action.payload;
       return state.set('result', user);
     },
@@ -49,8 +50,8 @@ export default handleActions({
 
       const { key } = action.payload.response.data;
       // const handler = {
-      //   displayName: () => {
-      //     return state.set('displayNameExists', true);
+      //   username: () => {
+      //     return state.set('usernameExists', true);
       //   },
       //   email: () => {
       //     return state.set('redo', true);

@@ -24,7 +24,8 @@ export const resetError = createAction(FORM_ERROR_RESET);
 // initial state
 const initialState = Map({
     register: Map({
-        fullname: '',
+        firstname: '',
+        lastname: '',
         username: '',
         email: '',
         password: '',
@@ -48,11 +49,11 @@ const initialState = Map({
     }),
     error: Map({
         register: Map({
-            fullname: false,
+            firstname: false,
+            lastname: false,
             username: false,
             email: false,
             password: false,
-            confirm_password: false
         }),
         additional: Map({
             firstName: false,

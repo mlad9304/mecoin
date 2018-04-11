@@ -19,9 +19,26 @@ const RegisterForm = ({
                 <input
                     type="text"
                     className="form-control form-control-lg rounded-0"
-                    placeholder="Your Full Name"
-                    name="fullname"
-                    value={form.fullname}
+                    placeholder="First Name"
+                    name="firstname"
+                    value={form.firstname}
+                    onChange={onChange}
+                />
+                <div className="input-group-append">
+                    <span className="input-group-text span-check rounded-0" />
+                </div>
+                <div className="invalid-feedback">Oops, you missed this one.</div>
+            </div>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text fa fa-user rounded-0 d-inline-flex" />
+                </div>
+                <input
+                    type="text"
+                    className="form-control form-control-lg rounded-0"
+                    placeholder="Last Name"
+                    name="lastname"
+                    value={form.lastname}
                     onChange={onChange}
                 />
                 <div className="input-group-append">

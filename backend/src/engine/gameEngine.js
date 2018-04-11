@@ -95,8 +95,8 @@ function Game(type, gameId) {
   // deposit to escrow for game
   this.deposit = async (user, amount) => {
   
-    const {_id, displayName} = user;
-    const userId = _id, username = displayName;
+    const {_id, username} = user;
+    const userId = _id;
     // add userID
     this.users.push(userId);
     this.usernames[userId] = username;

@@ -6,6 +6,6 @@ const chatCtrl = require('./chat.ctrl');
 chat.get('/broadcast', chatCtrl.getRecentMsg);
 
 // auth.get('/exists/email/:email', authCtrl.checkEmail);
-// auth.get('/exists/display-name/', authCtrl.checkDisplayName);
+// auth.get('/exists/username/:username', authCtrl.checkUsername);
 
 module.exports = chat;

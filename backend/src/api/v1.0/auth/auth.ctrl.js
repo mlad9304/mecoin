@@ -20,16 +20,16 @@ exports.checkEmail = async (ctx) => {
   }
 };
 
-exports.checkDisplayName = async (ctx) => {
-  const { displayName } = ctx.params;
+exports.checkUsername = async (ctx) => {
+  const { username } = ctx.params;
 
-  if(!displayName) {
+  if(!username) {
     ctx.status = 400;
     return;
   }
 
   try {
-    const account = await User.findByDisplayName(displayName);
+    const account = await User.findByUsername(username);
     ctx.body = {
       exists: !!account
     };
@@ -43,16 +43,13 @@ exports.localRegister = async (ctx) => {
 
   // console.log(ctx.request);
   const schema = Joi.object({
-    displayName: Joi.string().regex(/^[a-zA-Z0-9ㄱ-힣]{3,12}$/).required(),
-    // email: Joi.string().email(),
-    password: Joi.string().min(5).max(30)
-    // ,initialMoney: Joi.object({
-    //   currency: Joi.string().allow('BTC', 'USD', 'BTC').required(),
-    //   index: Joi.number().min(0).max(2).required()
-    // }).required()
+    username: Joi.string().regex(/^[0-9a-z_]{4,20}$/).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(5).max(30).required(),
+    firstname: Joi.string().regex(/[a-zA-Z]{3,30}/).required(),
+    lastname: Joi.string().regex(/[a-zA-Z]{3,30}/).required(),
   });
 
-  console.log(body);
   const result = Joi.validate(body, schema);
 
   // Schema Error
@@ -61,20 +58,20 @@ exports.localRegister = async (ctx) => {
     ctx.body = result.error;
     return;
   }
-  console.log(body);
-  const { displayName, /*email,*/ password } = body;
+  
+  const { username, /*email,*/ password, email, firstname, lastname } = body;
 
   try {
-    // check email / displayName existancy
+    // check email / username existancy
 /*    
     const exists = await User.findExistancy({
-      displayName,
+      username,
       email
     });
 
     if(exists) {
       ctx.status = 409;
-      const key = exists.email === email ? 'email' : 'displayName';
+      const key = exists.email === email ? 'email' : 'username';
       ctx.body = {
         key
       };
@@ -92,11 +89,11 @@ exports.localRegister = async (ctx) => {
     
     // creates user account
     const user = await User.localRegister({
-      displayName, /*email,*/ password /*, initial */
+      username, email, password, firstname, lastname, /*, initial */
     });
 
     ctx.body = {
-      displayName,
+      username,
       _id: user._id
       // metaInfo: user.metaInfo
     };
@@ -118,7 +115,7 @@ exports.localLogin = async (ctx) => {
   const { body } = ctx.request;
 
   const schema = Joi.object({
-    displayName: Joi.string().regex(/^[a-zA-Z0-9ㄱ-힣]{3,12}$/).required(),
+    username: Joi.string().regex(/^[a-zA-Z0-9]{3,12}$/).required(),
     // email: Joi.string().email().required(),
     password: Joi.string().min(5).max(30)
   });
@@ -130,11 +127,11 @@ exports.localLogin = async (ctx) => {
     return;
   }
 
-  const { displayName, /*email,*/ password } = body;
+  const { username, password } = body;
 
   try {
     // find user
-    const user = await User.findByDisplayName(displayName);
+    const user = await User.findByUsername(username);
     // const user = await User.findByEmail(email);
 
     if(!user) {
@@ -158,15 +155,23 @@ exports.localLogin = async (ctx) => {
       maxAge: 1000 * 60 * 60 * 24 * 7
     });
 
-    const { /*displayName,*/ _id, metaInfo } = user;
+    const { /*username,*/ _id } = user;
 
     ctx.body = {
       _id,
-      displayName
+      username
       // metaInfo
     };
     console.log('Successfully logined.');
   } catch (e) {
     ctx.throw(e, 500);
   }
+};
+
+exports.logout = (ctx) => {
+  ctx.cookies.set('access_token', null, {
+    maxAge: 0,
+    httpOnly: true
+  });
+  ctx.status = 204;
 };

@@ -31,7 +31,7 @@ const game = {
     }
 
     // account is valid
-    const username1 = account.displayName;
+    const username1 = account.username;
     connection.data.username = username1;
     connection.data.userId = account._id;
     // connection.data.anonymous = false;

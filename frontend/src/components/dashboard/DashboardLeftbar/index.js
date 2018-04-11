@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import MenuItem from './MenuItem';
 import './DashboardLeftbar.scss';
 import profileImg from 'static/images/profile.png';
+import logoutImg from 'static/images/logout.png';
+import storage from 'helpers/storage';
 
 const createMenuItems = (menu_items, active_menu_id, selectMenu) => {
 
@@ -25,10 +27,20 @@ const createMenuItems = (menu_items, active_menu_id, selectMenu) => {
 
 class DashboardLeftbar extends Component {
 
+  handleLogout = async () => {
+    const { history, AuthActions } = this.props;
+
+    await AuthActions.logout();
+    storage.remove('__USER__');
+
+    history.push('/home');
+  }
+
   render() {
 
     const { menu_items, active_menu_id, statisticsInfo, DashboardActions } = this.props;
     const { totalSpent, gameWon, totalEarned } = statisticsInfo;
+    const { handleLogout } = this;
 
     return (
       <div className="dashboard_leftbar_container">
@@ -64,7 +76,13 @@ class DashboardLeftbar extends Component {
               DashboardActions.selectMenu
             )}
             
-            <MenuItem image="logout.png" title="Logout" />
+            <a 
+                onClick={handleLogout} 
+                className='d-block w-100 menu_item_container menu_item' 
+            >
+                <img src={logoutImg} className="icon" alt="img"/>
+                <p className='title'>Logout</p>
+            </a>
           </div>
           <span className='fa fa-pencil-square-o edit' />
         </div>

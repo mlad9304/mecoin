@@ -63,6 +63,7 @@ class GameRoom extends Component {
         const { type, id: gameId } = this.props.match.params;
         const { amount } = form;
         const { logged, userId, game, balance } = status;
+        const { balanceGem } = balance;
         const roomBalance = game.total - game.sold;
 
         if(!logged || userId === null) {
@@ -87,8 +88,11 @@ class GameRoom extends Component {
             return;
         }
 
-        if(amount > balance) {
+        if(amount > balanceGem) {
             notify({type: 'error', message: 'Not enough gems. Please deposit'});
+            setTimeout( ()=> {
+                history.push('/dashboard/deposit');
+            }, 700);
             return;
         }
 

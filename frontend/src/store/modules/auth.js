@@ -7,10 +7,12 @@ import * as AuthAPI from 'api/auth';
 // action types
 const LOCAL_LOGIN = 'auth/LOCAL_LOGIN';
 const SET_SUBMIT_STATUS = 'auth/SET_SUBMIT_STATUS';
+const LOGOUT = 'auth/LOGOUT';
 
 // action creator
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin); // ({email, password})
 export const setSubmitStatus = createAction(SET_SUBMIT_STATUS);
+export const logout = createAction(LOGOUT, AuthAPI.logout);
 
 // initial state
 const initialState = Map({
@@ -32,12 +34,7 @@ const initialState = Map({
     sessionID: null,
     user: Map({
         _id: null,
-        common_profile: Map({
-            email: null,
-            thumbnail: "none",
-            username: null
-        }),
-        type: null
+        username: ""
     }),
     logged: false
   }),
@@ -54,7 +51,7 @@ export default handleActions({
     type: LOCAL_LOGIN,
     onSuccess: (state, action) => {
       const { data: loginResult } = action.payload;
-      const { displayName: username, _id } = loginResult;
+      const { username, _id } = loginResult;
       const sessionID = _id;
       // console.log('LOCAL_LOGIN Successed');
       // console.log(loginResult);
@@ -66,6 +63,19 @@ export default handleActions({
       return state.set('error', fromJS({
         localLogin: ['Wrong user information.']
       }))
+    }
+  }),
+  ...pender({
+    type: LOGOUT,
+    onSuccess: (state, action) => {
+      return state
+      .setIn(['session', 'logged'], false)
+      .setIn(['session', 'sessionID'], null)
+      .setIn(['session', 'user', '_id'], null)
+      .setIn(['session', 'user', 'username'], "");
+    },
+    onFailure: (state, action) => {
+      
     }
   })
 }, initialState);

@@ -67,9 +67,10 @@ export const deposit = async (ctx) => {
     }
 
     try {
-
+        
+        await Transaction.create(userid, TRANSACTION_TYPE.DEPOSIT_FEE, -fee * 1000);        
         await Transaction.create(userid, TRANSACTION_TYPE.DEPOSIT, deposit * 1000);
-        await Transaction.create(userid, TRANSACTION_TYPE.DEPOSIT_FEE, -fee * 1000);
+
 
         const balance = await getBalanceFunc(userid);
 

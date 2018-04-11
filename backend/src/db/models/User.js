@@ -15,8 +15,11 @@ function hash(password) {
 }
 
 const User = new Schema({
-  displayName: String,
+  username: String,
   email: String,
+  password: String,
+  firstname: String,
+  lastname: String,
   social: {
     facebook: {
       id: String,
@@ -27,7 +30,6 @@ const User = new Schema({
       accessToken: String
     }
   },
-  password: String,
   createdAt: {
     type: Date,
     default: Date.now
@@ -91,15 +93,15 @@ User.statics.findByEmail = function(email) {
   return this.findOne({email}).exec();
 };
 
-User.statics.findByDisplayName = function(displayName) {
-  return this.findOne({displayName}).exec();
+User.statics.findByUsername = function(username) {
+  return this.findOne({username}).exec();
 };
 
-User.statics.findExistancy = function({email, displayName}) {
+User.statics.findExistancy = function({email, username}) {
   return this.findOne({
     $or: [
       {email},
-      {displayName}
+      {username}
     ]
   }).exec();
 };
@@ -112,18 +114,15 @@ User.statics.findSocialId = function({provider, id}) {
   });
 };
 
-User.statics.localRegister = async function({ displayName, email, password /*, initial */}) {
-  console.log('localRegister');
-  console.log(displayName);
+User.statics.localRegister = async function({ username, email, password, firstname, lastname}) {
+  
   let temp = hash(password);
   const user = new this({
-    displayName, 
+    username, 
     email,
-    password: temp 
-    /*,
-    metaInfo: {
-      initial
-    }*/
+    password: temp, 
+    firstname,
+    lastname,
   });
 
   // sets initial money
@@ -143,7 +142,7 @@ User.statics.localRegister = async function({ displayName, email, password /*, i
 };
 
 // User.statics.socialRegister = async function({
-//   displayName,
+//   username,
 //   email,
 //   provider,
 //   accessToken,
@@ -151,7 +150,7 @@ User.statics.localRegister = async function({ displayName, email, password /*, i
 //   initial
 // }) {
 //   const user = new this({
-//     displayName,
+//     username,
 //     email,
 //     social: {
 //       [provider]: {
@@ -185,11 +184,11 @@ User.methods.validatePassword = function(password) {
 };
 
 User.methods.generateToken = function() {
-  const { _id, displayName } = this;
+  const { _id, username } = this;
   return token.generateToken({
     user: {
       _id,
-      displayName
+      username
     }
   }, 'user');
 };
@@ -227,7 +226,7 @@ User.methods.generateToken = function() {
 // User.statics.getTopRanking = function(monthly) {
 //   const key = monthly ? 'monthlyRatio' : 'earningsRatio';
 
-//   return this.find({}, { _id: false, displayName: true, [key]: true }).sort({ [key]: -1 }).limit(100).exec();
+//   return this.find({}, { _id: false, username: true, [key]: true }).sort({ [key]: -1 }).limit(100).exec();
 // };
 
 // User.methods.getRank = function(monthly) {
