@@ -6,6 +6,7 @@ import { LoginForm } from 'components';
 
 // socket
 import sender from 'socket/packetSender';
+import storage from 'helpers/storage';
 
 import './Login.scss';
 
@@ -57,11 +58,14 @@ class Login extends Component {
             return;
         }
 
-        
-
         notify({type: 'success', message: `Hello, ${username}!`});
 
         const { userId } = this.props.status;
+
+        storage.set('__USER__', {
+            userId
+        });
+
         this.connectToChatRoom(userId);
         AuthActions.setSubmitStatus(false);
         DashboardActions.getBalance(userId);

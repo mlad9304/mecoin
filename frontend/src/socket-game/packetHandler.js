@@ -5,12 +5,15 @@ import notify from 'helpers/notify';
 import store from 'store';
 import * as gameActions from 'store/modules/game';
 import * as dashboardActions from 'store/modules/dashboard';
+import storage from 'helpers/storage';
 
 const updateGame = (payload) => {
   if(payload.game.winners.length > 0) {
-    const winner = payload.game.winners[0];
-    store.dispatch(dashboardActions.getBalance(winner));
-    store.dispatch(dashboardActions.getStatisticsInfo(winner));
+    const { userId } = storage.get('__USER__');
+    
+    store.dispatch(dashboardActions.getBalance(userId));
+    store.dispatch(dashboardActions.getStatisticsInfo(userId));
+    
   }
   store.dispatch(gameActions.updateGameData(payload));
 }
