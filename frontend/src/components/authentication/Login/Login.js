@@ -65,7 +65,7 @@ class Login extends Component {
         this.connectToChatRoom(userId);
         AuthActions.setSubmitStatus(false);
         DashboardActions.getBalance(userId);
-
+        DashboardActions.getStatisticsInfo(userId);
         // Redirect
         history.push('/');
 

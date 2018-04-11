@@ -10,5 +10,6 @@ dashboard.post('/deposit/history', needAuth, dashboardCtrl.depositHistory);
 dashboard.post('/withdraw', needAuth, dashboardCtrl.withdraw);
 dashboard.post('/withdraw/history', needAuth, dashboardCtrl.withdrawHistory);
 dashboard.post('/transaction/history', needAuth, dashboardCtrl.transactionHistory);
+dashboard.post('/statisticsinfo', needAuth, dashboardCtrl.getStatisticsInfo);
 
 module.exports = dashboard;

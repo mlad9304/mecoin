@@ -10,6 +10,7 @@ const updateGame = (payload) => {
   if(payload.game.winners.length > 0) {
     const winner = payload.game.winners[0];
     store.dispatch(dashboardActions.getBalance(winner));
+    store.dispatch(dashboardActions.getStatisticsInfo(winner));
   }
   store.dispatch(gameActions.updateGameData(payload));
 }

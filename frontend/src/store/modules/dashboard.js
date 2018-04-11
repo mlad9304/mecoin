@@ -96,13 +96,15 @@ const initialState = fromJS({
         depositHistory: [],
         withdrawHistory: [],
         transactionHistory: [],
+
+        statisticsInfo: Map({
+          totalSpent: 0,
+          gameWon: 0,
+          totalEarned: 0,
+        }),
     }),
 
-    statisticsInfo: {
-      totalSpent: 0,
-      gameWon: 0,
-      totalEarned: 0,
-    }
+    
     
 });
 
@@ -198,7 +200,7 @@ export default handleActions({
       const { data: result } = action.payload;
       const { statisticsInfo } = result;
       if( statisticsInfo ){
-        return state.set('statisticsInfo', statisticsInfo);
+        return state.setIn(['transaction', 'statisticsInfo'], fromJS(statisticsInfo));
       }
     },
     onFailure: (state, action) => {

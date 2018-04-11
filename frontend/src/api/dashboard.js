@@ -36,3 +36,9 @@ export const getTransactionHistory = (userid) => {
         userid
     });
 }
+
+export const getStatisticsInfo = (userid) => {
+    return axios.post(process.env.API_ROOT+`/api/v1.0/dashboard/statisticsinfo`, {
+        userid
+    });
+}

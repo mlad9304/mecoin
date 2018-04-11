@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router';
 import DashboardLeftbar from 'components/dashboard/DashboardLeftbar';
 
 //redux
@@ -19,9 +20,10 @@ class DashboardLeftbarContainer extends Component {
 export default connect(
   (state) => ({
     menu_items: state.dashboard.getIn(['dashboardLeftBar', 'dashboard_menu_items']).toJS(),
-    active_menu_id: state.dashboard.getIn(['dashboardLeftBar', 'active_menu_id'])
+    active_menu_id: state.dashboard.getIn(['dashboardLeftBar', 'active_menu_id']),
+    statisticsInfo: state.dashboard.getIn(['transaction', 'statisticsInfo']).toJS()
   }),
   (dispatch) => ({
     DashboardActions: bindActionCreators(dashboardActions, dispatch),
   })
-)(DashboardLeftbarContainer);
+)(withRouter(DashboardLeftbarContainer));

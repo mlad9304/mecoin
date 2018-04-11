@@ -3,13 +3,13 @@ import { TRANSACTION_TYPE } from 'constants/transaction';
 
 const getBalanceFunc = async (userid) => {
     const result = await Transaction.getBalance(userid);
+    let balance;
 
-    if(result.length !== 1) {
-        
-        return 'error';
+    if(result.length === 0) {
+        balance = 0;        
+    } else {
+        balance = result[0].amount;
     }
-
-    const { amount: balance } = result[0];
 
     const balanceGem = balance;
     const balanceEth = balanceGem / 1000;
@@ -42,11 +42,6 @@ export const getBalance = async (ctx) => {
     try {
         const balance = await getBalanceFunc(userid);
 
-        if(balance === 'error') {
-            ctx.status = 400;
-            return;
-        }
-
         ctx.body = {
             balance
         }
@@ -77,11 +72,6 @@ export const deposit = async (ctx) => {
         await Transaction.create(userid, TRANSACTION_TYPE.DEPOSIT_FEE, -fee * 1000);
 
         const balance = await getBalanceFunc(userid);
-
-        if(balance === 'error') {
-            ctx.status = 400;
-            return;
-        }
 
         ctx.body = {
             balance
@@ -214,4 +204,62 @@ export const transactionHistory = async (ctx) => {
         ctx.throw(e, 500);
     }
 
+}
+
+export const getStatisticsInfo = async (ctx) => {
+    const { user, body } = ctx.request;
+
+    if(!user) {
+        ctx.status = 401;
+        return;
+    }
+
+    const { _id } = user;
+    const { userid } = body;
+
+    if( _id !== userid ) {
+        ctx.status = 400;
+        return;
+    }
+
+    try {
+
+        const resultTotalSpent = await Transaction.getTotalSpent(userid);
+        const resultGameWon = await Transaction.getGameWon(userid);
+        const resultTotalEarned = await Transaction.getTotalEarned(userid);
+
+        let totalSpent, gameWon, totalEarned;
+
+        if(resultTotalSpent.length === 0) {
+            totalSpent = 0;
+        } else {
+            totalSpent = Math.abs(resultTotalSpent[0].amount)/1000;
+        }
+
+        if(resultGameWon.length === 0) {
+            gameWon = 0;
+        } else {
+            gameWon = resultGameWon[0].amount;
+        }
+
+        if(resultTotalEarned.length === 0) {
+            totalEarned = 0;
+        } else {
+            totalEarned = resultTotalEarned[0].amount/1000;
+        }
+
+        const roundedTotalSpent = Math.round(totalSpent * 100000) / 100000;
+        const roundedGameWon = Math.round(gameWon * 10) / 10;
+        const roundedTotalEarned = Math.round(totalEarned * 100000) / 100000;
+
+        ctx.body = {
+            statisticsInfo: {
+                totalSpent: roundedTotalSpent,
+                gameWon: roundedGameWon,
+                totalEarned: roundedTotalEarned
+            }
+        };
+    } catch (e) {
+        ctx.throw(e, 500);
+    }
 }

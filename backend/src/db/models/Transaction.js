@@ -144,4 +144,43 @@ Transaction.statics.transactionHistory = async function(userId) {
   
 }
 
+Transaction.statics.getTotalSpent = async function(userId) {
+  return this.aggregate([
+    { $match: {
+      userId: new mongoose.Types.ObjectId(userId),
+      type: TRANSACTION_TYPE.BUY_TICKET
+    }},
+    { $group: {
+      _id: "$userId",
+      amount: { $sum: "$amount" }
+    }}
+  ])
+}
+
+Transaction.statics.getGameWon = async function(userId) {
+  return this.aggregate([
+    { $match: {
+      userId: new mongoose.Types.ObjectId(userId),
+      type: TRANSACTION_TYPE.WINNING
+    }},
+    { $group: {
+      _id: "$userId",
+      amount: { $sum: 1 }
+    }}
+  ])
+}
+
+Transaction.statics.getTotalEarned = async function(userId) {
+  return this.aggregate([
+    { $match: {
+      userId: new mongoose.Types.ObjectId(userId),
+      type: TRANSACTION_TYPE.WINNING
+    }},
+    { $group: {
+      _id: "$userId",
+      amount: { $sum: "$amount" }
+    }}
+  ])
+}
+
 module.exports = mongoose.model('Transaction', Transaction);

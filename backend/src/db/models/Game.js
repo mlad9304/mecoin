@@ -54,7 +54,6 @@ Game.statics.updateByDeposit = function(gameObj) {
       users,
       depositList,
       sold,
-      tickets
     }
   }).exec();
   // this.update({
