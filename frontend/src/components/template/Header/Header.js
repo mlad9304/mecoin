@@ -13,7 +13,7 @@ class AuthorizedNav extends Component {
 
   render() {
     
-    const { selectMenu, balance } = this.props;
+    const { selectMenu, balance, user, gameWon } = this.props;
     const { balanceGem, balanceEth } = balance;
     
     return (
@@ -79,8 +79,8 @@ class AuthorizedNav extends Component {
               </div>
               <div className="float-left">
                 <p className="userTitle goodEvening">Good evening</p>
-                <p className="userTitle usrName">Tom Smith</p>
-                <p className="userTitle win">Win: 779</p>
+                <p className="userTitle usrName">{user.firstname} {user.lastname}</p>
+                <p className="userTitle win">Win: {gameWon}</p>
               </div>
               <div className="dropdown-menu">
                 <a className="dropdown-item">Action 0</a>
@@ -134,7 +134,7 @@ const navStyle = {
   color: '#9cacae'
 };
 
-const Header = ({logged, selectMenu, getBalance, balance}) => {
+const Header = ({logged, selectMenu, getBalance, balance, user, gameWon}) => {
 
   return (
     <nav id="header"
@@ -157,7 +157,7 @@ const Header = ({logged, selectMenu, getBalance, balance}) => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-        { logged ? <AuthorizedNav selectMenu={selectMenu} getBalance={getBalance} balance={balance} /> : <UnAuthorizedNav selectMenu={selectMenu} />}
+        { logged ? <AuthorizedNav selectMenu={selectMenu} getBalance={getBalance} balance={balance} user={user} gameWon={gameWon} /> : <UnAuthorizedNav selectMenu={selectMenu} />}
       </div>
     </nav>
   );

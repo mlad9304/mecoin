@@ -21,7 +21,7 @@ export default connect(
       form: state.form.get('deposit').toJS(),
       status: {
         logged: state.auth.getIn('session', 'logged'),
-        userId:  state.auth.getIn(['session', 'user', 'userId']),
+        userId:  state.auth.getIn(['session', 'user', '_id']),
         join: state.game.getIn(['channel', 'join']),
         depositResult: state.game.getIn(['error', 'deposit']),
         game: state.game.getIn(['channel', 'game']).toJS(),

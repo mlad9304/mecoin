@@ -3,7 +3,32 @@ import './Profile.scss';
 
 class Profile extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      updated: false
+    }
+  }
+
+  handleChange = (e) => {
+    const { FormActions } = this.props;
+    FormActions.changeInput({form: 'profile', name: e.target.name, value: e.target.value});
+  }
+
+  handleSubmit = () => {
+    const { AuthActions, form, user } = this.props;
+    const { firstname, lastname } = form;
+    const { userId } = user;
+    // AuthActions.updateUserInfo({userId, firstname, lastname});
+  }
+
   render() {
+
+    const { handleChange, handleSubmit } = this;
+    const { user, form } = this.props;
+    const { firstname, lastname } = user;
+
     return (
       <div className="profile_container">
           <p className="profile_title">My Profile</p>
@@ -11,11 +36,11 @@ class Profile extends Component {
           <div className="row">
             <div className="col-5">
               <p className="mb-1">First Name</p>
-              <input className="inputForm" />
+              <input className="inputForm" defaultValue={firstname} name="firstname" onChange={handleChange}/>
             </div>
             <div className="col-5 offset-2">
               <p className="mb-1">Last Name</p>
-              <input className="inputForm" />
+              <input className="inputForm" defaultValue={lastname} name="lastname" onChange={handleChange}/>
             </div>
           </div>
           <br />
@@ -46,12 +71,13 @@ class Profile extends Component {
           </div>
           <br />
           <br />
-          <a className="btnSave">Save Update</a>
+          <a className="btnSave" onClick={handleSubmit}>Save Update</a>
+          {this.state.updated && 
           <p className='d-inline-block updateSuccess'>
-            &nbsp;&nbsp;<i
-              className='fa fa-check check'
-            />Update Change Successfully
+            &nbsp;&nbsp;<i className='fa fa-check check' />
+            Update Change Successfully
           </p>
+          }
         </div>
     );
   }

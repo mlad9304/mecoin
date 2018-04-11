@@ -101,6 +101,10 @@ const initialState = Map({
     }),
     withdraw: Map({
         amount: 0
+    }),
+    profile: Map({
+        firstname: '',
+        lastname: ''
     })
 });
 

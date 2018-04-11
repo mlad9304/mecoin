@@ -20,7 +20,7 @@ export default connect(
     form: state.form.get('walletDeposit').toJS(),
     balance: state.dashboard.getIn(['transaction', 'balance']),
     logged: state.auth.getIn(['session', 'logged']),
-    userId: state.auth.getIn(['session', 'user', 'userId']),
+    userId: state.auth.getIn(['session', 'user', '_id']),
     depositHistory: state.dashboard.getIn(['transaction', 'depositHistory']),
   }),
   (dispatch) => ({

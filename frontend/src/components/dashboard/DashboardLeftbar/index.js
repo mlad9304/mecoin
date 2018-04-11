@@ -38,7 +38,7 @@ class DashboardLeftbar extends Component {
 
   render() {
 
-    const { menu_items, active_menu_id, statisticsInfo, DashboardActions } = this.props;
+    const { menu_items, active_menu_id, statisticsInfo, DashboardActions, user } = this.props;
     const { totalSpent, gameWon, totalEarned } = statisticsInfo;
     const { handleLogout } = this;
 
@@ -46,7 +46,7 @@ class DashboardLeftbar extends Component {
       <div className="dashboard_leftbar_container">
         <div className="img_container">
           <img src={profileImg} alt="profileimage"/>
-          <p className="name">Tom Smith</p>
+          <p className="name">{user.firstname} {user.lastname}</p>
           <p className="win">Win: {gameWon}</p>
         </div>
         <div className="side_menu_container">

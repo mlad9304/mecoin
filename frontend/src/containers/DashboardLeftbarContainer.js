@@ -22,7 +22,8 @@ export default connect(
   (state) => ({
     menu_items: state.dashboard.getIn(['dashboardLeftBar', 'dashboard_menu_items']).toJS(),
     active_menu_id: state.dashboard.getIn(['dashboardLeftBar', 'active_menu_id']),
-    statisticsInfo: state.dashboard.getIn(['transaction', 'statisticsInfo']).toJS()
+    statisticsInfo: state.dashboard.getIn(['transaction', 'statisticsInfo']).toJS(),
+    user: state.auth.getIn(['session', 'user']).toJS()
   }),
   (dispatch) => ({
     DashboardActions: bindActionCreators(dashboardActions, dispatch),

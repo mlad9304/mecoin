@@ -19,8 +19,10 @@ class HeaderContainer extends Component {
 
 export default connect(
   (state) => ({
+    user: state.auth.getIn(['session', 'user']).toJS(),
     logged: state.auth.getIn(['session', 'logged']),
     balance: state.dashboard.getIn(['transaction', 'balance']),
+    gameWon: state.dashboard.getIn(['transaction', 'statisticsInfo', 'gameWon']),
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

@@ -24,7 +24,7 @@ export default connect(
     status: {
         logged: state.auth.getIn(['session', 'logged']),
         submitting: state.auth.get('submitStatus'),
-        userId: state.auth.getIn(['session', 'user', 'userId']),
+        userId: state.auth.getIn(['session', 'user', '_id']),
     }
   }),
   (dispatch) => ({

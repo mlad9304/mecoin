@@ -225,4 +225,9 @@ User.statics.findById = function(id) {
   });
 };
 
+User.statics.updateInfo = (userId, firstname, lastname) => {
+  console.log(userId, firstname, lastname);
+  
+} 
+
 module.exports = mongoose.model('User', User);

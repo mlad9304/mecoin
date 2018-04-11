@@ -153,16 +153,8 @@ exports.localLogin = async (ctx) => {
       maxAge: 1000 * 60 * 60 * 24 * 7
     });
 
-    const { _id: userId, email, firstname, lastname } = user;
-
     ctx.body = {
-      user: {
-        userId,
-        username,
-        email,
-        firstname,
-        lastname
-      }
+      user
     };
     console.log('Successfully logined.');
   } catch (e) {
