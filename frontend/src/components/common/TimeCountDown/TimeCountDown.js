@@ -15,6 +15,19 @@ class TimeCountDown extends Component {
         });
     }    
 
+    componentWillReceiveProps(nextProps) {
+        const { milliseconds } = nextProps;
+
+        if(window.$('.your-clock').FlipClock) {
+            var clock = window.$('.your-clock').FlipClock(milliseconds/1000, {
+                // clockFace: 'DailyCounter',
+                // clockFace: 'HourlyCounter',
+                countdown: true
+            });
+        }
+        
+    }
+
     render() {
 
         const { init } = this;

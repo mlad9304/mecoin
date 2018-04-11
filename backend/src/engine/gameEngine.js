@@ -131,11 +131,31 @@ function Game(type, gameId) {
       }));
     }
 
-    
 
+    // if game is full, start game within 10 second.
+    if(this.sold === this.numberOfTickets  ){
+      
+      this.currentTimeLimit = 10000;
+      this.updateState(GAME_STATE.PLAY, true);
+      this.killGameTimeout = setTimeout( 
+        () => {
+          clearInterval(this.killGameTimeInterval);
+          this.killGameTimeInterval = null;
+          this.currentTimeLimit = 0;
+
+          this.play();   
+
+        }, 10000
+      );
+    }
     // when first user enter, start timer 
     // play game within timeLimit 
-    if(this.users.length === 1){
+    else if(this.users.length === 1){
+      this.killGameTimeInterval = setInterval(
+        () => {
+          this.currentTimeLimit -= 5 * 1000
+        }, 5 * 1000
+      )
       this.updateState(GAME_STATE.PLAY);
       this.killGameTimeout = setTimeout(
         () => {
@@ -144,27 +164,12 @@ function Game(type, gameId) {
           this.currentTimeLimit = 0;
 
           this.play();
-
           
         }, this.timeLimit
       );
-
-      this.killGameTimeInterval = setInterval(
-        () => {
-          this.currentTimeLimit -= 5 * 1000
-        }, 5 * 1000
-      )
     }
 
-    // // if game is full, start game within 5 second.
-    // if(this.sold === this.numberOfTickets  ){
-    //   this.updateState(GAME_STATE.PLAY);
-    //   this.killGameTimeout = setTimeout( 
-    //     () => {
-    //       this.play();        
-    //     }, 5000
-    //   );
-    // }
+    
 
     gameEngine.sendGameRoomInfo();
 
@@ -172,8 +177,8 @@ function Game(type, gameId) {
   }
 
   // update state and broadcast new state to all in the chanel of this game
-  this.updateState = async (newState) => {
-    if(this.state !== newState) {
+  this.updateState = async (newState, interrupt=false) => {
+    if(this.state !== newState || interrupt) {
       this.state = newState;
 
       // save to db
