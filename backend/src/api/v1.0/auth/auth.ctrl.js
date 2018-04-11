@@ -115,8 +115,7 @@ exports.localLogin = async (ctx) => {
   const { body } = ctx.request;
 
   const schema = Joi.object({
-    username: Joi.string().regex(/^[a-zA-Z0-9]{3,12}$/).required(),
-    // email: Joi.string().email().required(),
+    username: Joi.string().regex(/^[0-9a-z_]{4,20}$/).required(),
     password: Joi.string().min(5).max(30)
   });
   
@@ -130,10 +129,9 @@ exports.localLogin = async (ctx) => {
   const { username, password } = body;
 
   try {
-    // find user
-    const user = await User.findByUsername(username);
-    // const user = await User.findByEmail(email);
 
+    const user = await User.findByUsername(username);
+    
     if(!user) {
       // user does not exist
       console.log('user does not exist');
@@ -155,12 +153,16 @@ exports.localLogin = async (ctx) => {
       maxAge: 1000 * 60 * 60 * 24 * 7
     });
 
-    const { /*username,*/ _id } = user;
+    const { _id: userId, email, firstname, lastname } = user;
 
     ctx.body = {
-      _id,
-      username
-      // metaInfo
+      user: {
+        userId,
+        username,
+        email,
+        firstname,
+        lastname
+      }
     };
     console.log('Successfully logined.');
   } catch (e) {

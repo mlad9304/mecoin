@@ -34,59 +34,6 @@ const User = new Schema({
     type: Date,
     default: Date.now
   },
-  // metaInfo: {
-  //   initial: {
-  //     currency: String,
-  //     value: Schema.Types.Double,
-  //     usdRate: Schema.Types.Double
-  //   },
-  //   monthly: {
-  //     usdValue: Schema.Types.Double,
-  //     usdRate: Schema.Types.Double
-  //   },
-  //   rewardWallet: {
-  //     address: String,
-  //     destinationTag: String
-  //   }
-  // },
-  // wallet: {
-  //   type: Schema.Types.Mixed,
-  //   default: {
-  //     BTC: 0,
-  //     USD: 0
-  //   }
-  // },
-  // walletOnOrder: {
-  //   type: Schema.Types.Mixed,
-  //   default: {
-  //     BTC: 0,
-  //     USD: 0
-  //   }
-  // },
-  // balanceHistory: {
-  //   type: [{
-  //     value: Schema.Types.Double,
-  //     date: Date
-  //   }],
-  //   default: []
-  // },
-  // earningsHistory: {
-  //   type: [{
-  //     ratio: Schema.Types.Double,
-  //     date: Date
-  //   }],
-  //   default: []
-  // },
-  // earningsRatio: {
-  //   type: Schema.Types.Double,
-  //   default: 0,
-  //   index: true
-  // },
-  // monthlyRatio: {
-  //   type: Schema.Types.Double,
-  //   default: 0,
-  //   index: true
-  // }
 });
 
 User.statics.findByEmail = function(email) {
@@ -94,6 +41,7 @@ User.statics.findByEmail = function(email) {
 };
 
 User.statics.findByUsername = function(username) {
+  console.log('Userrrrrr', username);
   return this.findOne({username}).exec();
 };
 

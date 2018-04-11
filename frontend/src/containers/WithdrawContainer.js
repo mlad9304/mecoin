@@ -20,7 +20,7 @@ export default connect(
     form: state.form.get('withdraw').toJS(),
     balance: state.dashboard.getIn(['transaction', 'balance']),
     logged: state.auth.getIn(['session', 'logged']),
-    userId: state.auth.getIn(['session', 'sessionID']),
+    userId: state.auth.getIn(['session', 'user', 'userId']),
     withdrawHistory: state.dashboard.getIn(['transaction', 'withdrawHistory']),
   }),
   (dispatch) => ({

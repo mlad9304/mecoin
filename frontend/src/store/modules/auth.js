@@ -31,10 +31,12 @@ const initialState = Map({
 
   //session info
   session: Map({
-    sessionID: null,
     user: Map({
-        _id: null,
-        username: ""
+        userId: null,
+        username: null,
+        email: null,
+        firstname: null,
+        lastname: null
     }),
     logged: false
   }),
@@ -51,13 +53,10 @@ export default handleActions({
     type: LOCAL_LOGIN,
     onSuccess: (state, action) => {
       const { data: loginResult } = action.payload;
-      const { username, _id } = loginResult;
-      const sessionID = _id;
-      // console.log('LOCAL_LOGIN Successed');
-      // console.log(loginResult);
-      return state.setIn(['session', 'user', 'username'], username).setIn(['session', 'logged'], true)
-        .setIn(['session', 'sessionID'], sessionID)
-        .setIn(['session', 'user', '_id'], _id);
+      const { user } = loginResult;
+      
+      return state.setIn(['session', 'user'], fromJS(user))
+        .setIn(['session', 'logged'], true);
     },
     onFailure: (state, action) => {
       return state.set('error', fromJS({
@@ -70,9 +69,11 @@ export default handleActions({
     onSuccess: (state, action) => {
       return state
       .setIn(['session', 'logged'], false)
-      .setIn(['session', 'sessionID'], null)
-      .setIn(['session', 'user', '_id'], null)
-      .setIn(['session', 'user', 'username'], "");
+      .setIn(['session', 'user', 'userId'], null)
+      .setIn(['session', 'user', 'username'], null)
+      .setIn(['session', 'user', 'email'], null)
+      .setIn(['session', 'user', 'firstname'], null)
+      .setIn(['session', 'user', 'lastname'], null);
     },
     onFailure: (state, action) => {
       

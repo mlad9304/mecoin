@@ -17,7 +17,7 @@ class TransactionsReportContainer extends Component {
 export default connect(
   (state) => ({
     logged: state.auth.getIn(['session', 'logged']),
-    userId: state.auth.getIn(['session', 'sessionID']),
+    userId: state.auth.getIn(['session', 'user', 'userId']),
     transactionHistory: state.dashboard.getIn(['transaction', 'transactionHistory']),
   }),
   (dispatch) => ({
