@@ -94,13 +94,13 @@ const initialState = Map({
     },
     deposit: Map({
         balance: '500',
-        amount: ''
+        amount: null
     }),
     walletDeposit: Map({
-        gemamount: 0
+        gemamount: null
     }),
     withdraw: Map({
-        amount: 0
+        amount: null
     }),
     profile: Map({
         firstname: '',

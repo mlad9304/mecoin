@@ -1,37 +1,44 @@
 .footer {
   width: 100%;
-  padding: 0.5rem 1rem;
-  color: #a7a9ac;
-  margin-left: 0;
-  margin-right: 0;
-  background-color: #222633;
   position: fixed;
   bottom: 0;
 
-  p {
-    margin-bottom: 0;
-  }
 
-  .social {
-    font-size: 1.8em;
+  .footer-brand-wrapper {
+    background-color: #10141d;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.90), 20px 20px 15px 12px rgba(0,0,0,0.22);
 
-    p {
-      display: inline-block;
-      margin-left: 0.8rem;
-      margin-right: 0.8rem;
-      width: 45px;
-      height: 45px;
-      border: 3px solid #a7a9ac;
-      border-radius: 50%;
+    .brand_list {
       text-align: center;
-      vertical-align: middle;
-      margin-bottom: 0;
-    }
+      .brand-anim {
+        display: inline-block;
+        
+      }
+      img {
+        display: inline-block;
+        padding: 10px;
+        transition: transform 1.2s linear;
+        height: 84px;
 
-    div i {
-
+        &:hover {
+          transform: rotateY(360deg)
+        }
+      }
     }
     
   }
 
+  .copyright {
+    background-color: #0c0f13;
+    padding: 10px;
+
+    a {
+      margin-top : 60px;
+      padding: 0 10px;
+      text-align: center;
+      color: #EAE7E7 !important;
+      text-decoration: none;
+    }
+  }
+  
 }
