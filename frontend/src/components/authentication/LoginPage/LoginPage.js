@@ -8,7 +8,7 @@ const LoginPage = () => {
   return (
   <PageTemplate header={<HeaderContainer/>} footer={<Footer/>}>
   
-      <div className="container h-100">
+      <div className="container h-100 login-page">
         <div className="row h-100 justify-content-center align-items-center">
           <div className="col-md-6 mx-auto">
             <LoginContainer />
