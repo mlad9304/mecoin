@@ -6,6 +6,7 @@ import logo from 'static/images/logo.png';
 import usrImg from 'static/images/usrProfile.png';
 import bellImg from 'static/images/bell.png';
 import mailImg from 'static/images/mail.png';
+import gemImg from 'static/images/gem.png';
 
 
 
@@ -26,7 +27,8 @@ class AuthorizedNav extends Component {
           </li>
           <li className='nav-item leftBorder'>
             <Link className="nav-link disabled-link" to="/">
-              Balance: {balanceGem} Gems <br />
+              Balance: {balanceGem} <img className="gemImg" src={gemImg} alt="gem_img"/> 
+              <br />              
               <span className='ethValue'>Eth Value: {balanceEth}</span>
             </Link>
           </li>

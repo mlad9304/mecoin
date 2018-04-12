@@ -13,9 +13,10 @@ import store from 'store';
 const GAME_TYPE = {
     ONE : 0, // 1/1 
     TEN : 1, // 1/10
-    HUNDRED : 2, // 1/100
-    TENTHOUSAND : 3, // 1/10000
-    MILLION : 4, // 1/1000000
+    HUNDRED : 2, // 1/100,
+    THOUSAND : 3, // 1/1000,
+    TENTHOUSAND : 4, // 1/10000
+    MILLION : 5, // 1/1000000
 }
 
 // GAME ROOM TYPE
@@ -44,11 +45,16 @@ class BuyTicketBoxContainer extends Component {
             currentTimeLimit: 0
         },
         game3: {
-            total: 10000,
+            total: 1000,
             sold: 0,
             currentTimeLimit: 0
         },
         game4: {
+            total: 10000,
+            sold: 0,
+            currentTimeLimit: 0
+        },
+        game5: {
             total: 1000000,
             sold: 0,
             currentTimeLimit: 0
@@ -127,67 +133,62 @@ class BuyTicketBoxContainer extends Component {
 
         return (
             <div>
-            { mode === "home" &&
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                        <div className="m-3 d-inline-block">
-                            <BuyTicketBox 
-                                total={this.state.game0.total} 
-                                sold={this.state.game0.sold} 
-                                currentTimeLimit={this.state.game0.currentTimeLimit}
-                                onClick={() => handleSelect(GAME_TYPE.ONE)} 
-                            />
-                        </div>
-                        </td>
-                        <td>
-                        <div className="m-3 d-inline-block">
-                            <BuyTicketBox 
-                                total={this.state.game1.total} 
-                                sold={this.state.game1.sold} 
-                                currentTimeLimit={this.state.game1.currentTimeLimit}
-                                onClick={() => handleSelect(GAME_TYPE.TEN)} 
-                            />
-                        </div>
-                        </td>
-                        <td>
-                        <div className="m-3 d-inline-block">
-                            <BuyTicketBox 
-                                total={this.state.game2.total} 
-                                sold={this.state.game2.sold} 
-                                currentTimeLimit={this.state.game2.currentTimeLimit}
-                                onClick={() => handleSelect(GAME_TYPE.HUNDRED)} 
-                            />
-                        </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <div className="m-3 d-inline-block">
-                            <BuyTicketBox 
-                                total={this.state.game3.total} 
-                                sold={this.state.game3.sold} 
-                                currentTimeLimit={this.state.game3.currentTimeLimit}
-                                onClick={() => handleSelect(GAME_TYPE.TENTHOUSAND)} 
-                            />
-                        </div>
-                        </td>
-                        <td>
-                        <div className="m-3 d-inline-block">
-                            <BuyTicketBox 
-                                total={this.state.game4.total} 
-                                sold={this.state.game4.sold} 
-                                currentTimeLimit={this.state.game4.currentTimeLimit}
-                                onClick={() => handleSelect(GAME_TYPE.MILLION)} 
-                            />
-                        </div>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>   
+                
+            { mode === "home" && 
+            <div className="col">
+                <div className="row mt-3">
+                    <div className="col sm-4">
+                        <BuyTicketBox 
+                            total={this.state.game0.total} 
+                            sold={this.state.game0.sold} 
+                            currentTimeLimit={this.state.game0.currentTimeLimit}
+                            onClick={() => handleSelect(GAME_TYPE.ONE)} 
+                        />
+                    </div>
+                    <div className="col sm-4">
+                        <BuyTicketBox 
+                            total={this.state.game1.total} 
+                            sold={this.state.game1.sold} 
+                            currentTimeLimit={this.state.game1.currentTimeLimit}
+                            onClick={() => handleSelect(GAME_TYPE.TEN)} 
+                        />
+                    </div>
+                    <div className="col sm-4">
+                        <BuyTicketBox 
+                            total={this.state.game2.total} 
+                            sold={this.state.game2.sold} 
+                            currentTimeLimit={this.state.game2.currentTimeLimit}
+                            onClick={() => handleSelect(GAME_TYPE.HUNDRED)} 
+                        />
+                    </div>
+                </div>
+                <div className="row mt-3 mb-3">
+                    <div className="col sm-4">
+                        <BuyTicketBox 
+                            total={this.state.game3.total} 
+                            sold={this.state.game3.sold} 
+                            currentTimeLimit={this.state.game3.currentTimeLimit}
+                            onClick={() => handleSelect(GAME_TYPE.THOUSAND)} 
+                        />
+                    </div>
+                    <div className="col sm-4">
+                        <BuyTicketBox 
+                            total={this.state.game4.total} 
+                            sold={this.state.game4.sold} 
+                            currentTimeLimit={this.state.game4.currentTimeLimit}
+                            onClick={() => handleSelect(GAME_TYPE.TENTHOUSAND)} 
+                        />
+                    </div>
+                    <div className="col sm-4">
+                        <BuyTicketBox 
+                            total={this.state.game5.total} 
+                            sold={this.state.game5.sold} 
+                            currentTimeLimit={this.state.game5.currentTimeLimit}
+                            onClick={() => handleSelect(GAME_TYPE.MILLION)} 
+                        />
+                    </div>
+                </div>
+            </div>
             }
             { mode === "dashboard" &&
             <div style={{padding: '30px'}}>

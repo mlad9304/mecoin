@@ -16,6 +16,7 @@ const TIME_OUT = {
   [GAME_TYPE.ONE] : 1000 * 30, // 1 minute
   [GAME_TYPE.TEN] : 1000 * 60 * 10, // 10 minutes
   [GAME_TYPE.HUNDRED] : 1000 * 60 * 10 * 10, // 100 minutes
+  [GAME_TYPE.THOUSAND] : 1000 * 60 * 10 * 10 * 5, // 500 minutes
   [GAME_TYPE.TENTHOUSAND] : 1000 * 60 * 10 * 10 * 10, // 1000 minutes =~ 16 hours
   [GAME_TYPE.MILLION] : 1000 * 60 * 10 * 10 * 10 * 10, // 10000 minutes =~ 1 week
 }
@@ -24,6 +25,7 @@ const MAX_LIMIT = {
   [GAME_TYPE.ONE] : 2, 
   [GAME_TYPE.TEN] : 10,
   [GAME_TYPE.HUNDRED] : 100,
+  [GAME_TYPE.THOUSAND] : 1000,
   [GAME_TYPE.TENTHOUSAND] : 10000,
   [GAME_TYPE.MILLION] : 1000000
 }

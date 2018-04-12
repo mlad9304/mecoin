@@ -12,13 +12,12 @@ import CountDown from 'components/common/CountDown';
 const BuyTicketBox = ({ total, sold, onClick, currentTimeLimit }) => {
   return (
     <div className="buytickbox_container">
-      <div className="row">
-        <div className="col text-center pl-4 pr-4">
+      <div className="row h-100">
+        <div className="col text-center pl-4 pr-4 pt-2">
           <p className="dice_container">
             <img src={dice} role="presentation" alt="dice"/>
           </p>
           <h4 className="text-white text-center">{sold}/{total}</h4>
-          <p className="rolldice">Roll the dice</p>
           <button className="buyTicket" onClick={onClick}>Buy Ticket</button>
         </div>
         <div className="col text-center pt-3">
