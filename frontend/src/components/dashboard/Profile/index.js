@@ -64,7 +64,6 @@ class Profile extends Component {
             <div className="col-3 pl-1">
               <p className="mb-1">Country</p>
               <select className="inputForm">
-                <option>China</option>
                 <option>United States</option>
               </select>
             </div>
