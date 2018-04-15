@@ -1,11 +1,12 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 // action types
 const CHANGE_INPUT = 'form/CHANGE_INPUT';
 const SET_INPUT_ERROR = 'form/SET_INPUT_ERROR';
 const FORM_RESET = 'form/FORM_RESET';
 const FORM_ERROR_RESET = 'form/FORM_ERROR_RESET';
+const SET_PROFILE_FORM = 'form/SET_PROFILE_FORM';
 
 // action creator
 /*
@@ -20,6 +21,8 @@ export const setInputError = createAction(SET_INPUT_ERROR);
 /* empty payload */
 export const formReset = createAction(FORM_RESET);
 export const resetError = createAction(FORM_ERROR_RESET);
+
+export const setProfileForm = createAction(SET_PROFILE_FORM);
 
 // initial state
 const initialState = Map({
@@ -104,7 +107,20 @@ const initialState = Map({
     }),
     profile: Map({
         firstname: '',
-        lastname: ''
+        lastname: '', 
+        address1: '',
+        address2: '',
+        zipcode: '',
+        city: ''
+    }),
+    passwordSetting: Map({
+        oldpassword: '',
+        newpassword: '',
+        confirmpassword: ''
+    }),
+    emailSetting: Map({
+        email: '',
+        newEmail: ''
     })
 });
 
@@ -124,5 +140,17 @@ export default handleActions({
     [FORM_RESET]: (state, action) => {
         return initialState;
     },
+
+    [SET_PROFILE_FORM]: (state, action) => {
+
+        let cur_profile = state.get('profile').toJS();
+        let new_profile = action.payload;
+        for(let prop in cur_profile) {
+            if(new_profile[prop])
+                cur_profile[prop] = new_profile[prop];
+        }
+
+        return state.set('profile', fromJS(cur_profile));
+    }
        
   }, initialState); 

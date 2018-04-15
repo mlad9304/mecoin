@@ -39,7 +39,11 @@ const initialState = Map({
         username: null,
         email: null,
         firstname: null,
-        lastname: null
+        lastname: null,
+        address1: null,
+        address2: null,
+        zipcode: null,
+        city: null,
     }),
     logged: false
   }),
@@ -86,10 +90,11 @@ export default handleActions({
   ...pender({
     type: UPDATE_USER_INFO,
     onSuccess: (state, action) => {
-      // const { data: result } = action.payload;
-      // const { user } = result;
+      const { data: result } = action.payload;
+      const { user } = result;
       
-      // return state.setIn(['session', 'user'], fromJS(user));
+      return state.setIn(['session', 'user'], fromJS(user));
+      return state;
     },
     onFailure: (state, action) => {
       

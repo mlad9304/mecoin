@@ -20,6 +20,10 @@ const User = new Schema({
   password: String,
   firstname: String,
   lastname: String,
+  address1: String,
+  address2: String,
+  zipcode: String,
+  city: String,
   social: {
     facebook: {
       id: String,
@@ -222,12 +226,21 @@ User.methods.generateToken = function() {
 User.statics.findById = function(id) {
   return this.findOne({
     _id: id
-  });
+  }).exec();
 };
 
-User.statics.updateInfo = (userId, firstname, lastname) => {
-  console.log(userId, firstname, lastname);
-  
-} 
+User.methods.updateInfo = (userinfo) => {
+  console.log(this);
+  return this.update({
+          $set: {
+            firstname: userinfo.firstname,
+            lastname: userinfo.lastname,
+            address1: userinfo.address1,
+            address2: userinfo.address2,
+            zipcode: userinfo.zipcode,
+            city: userinfo.city
+          }
+        }).exec();
+}
 
 module.exports = mongoose.model('User', User);

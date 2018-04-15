@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Profile from 'components/dashboard/Profile';
+import { withRouter } from 'react-router';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,7 +19,7 @@ class ProfileContainer extends Component {
 
 export default connect(
   (state) => ({
-    balance: state.dashboard.getIn(['transaction', 'balance']),
+    logged: state.auth.getIn(['session', 'logged']),
     user: state.auth.getIn(["session", "user"]).toJS(),
     form: state.form.getIn(["profile"]).toJS(),
   }),
@@ -26,4 +27,4 @@ export default connect(
     FormActions: bindActionCreators(formActions, dispatch),
     AuthActions: bindActionCreators(authActions, dispatch),
   })
-)(ProfileContainer);
+)(withRouter(ProfileContainer));
