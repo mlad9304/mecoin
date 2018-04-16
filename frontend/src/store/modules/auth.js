@@ -10,12 +10,17 @@ const LOCAL_LOGIN = 'auth/LOCAL_LOGIN';
 const SET_SUBMIT_STATUS = 'auth/SET_SUBMIT_STATUS';
 const LOGOUT = 'auth/LOGOUT';
 const UPDATE_USER_INFO = 'auth/UPDATE_USER_INFO';
+const UPDATE_EMAIL = 'auth/UPDATE_EMAIL';
+const UPDATE_PASSWORD = 'auth/UPDATE_PASSWORD';
 
 // action creator
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin); // ({email, password})
 export const setSubmitStatus = createAction(SET_SUBMIT_STATUS);
 export const logout = createAction(LOGOUT, AuthAPI.logout);
 export const updateUserInfo = createAction(UPDATE_USER_INFO, UserAPI.updateUserInfo);
+export const updateEmail = createAction(UPDATE_EMAIL, UserAPI.updateEmail);
+export const updatePassword = createAction(UPDATE_EMAIL, UserAPI.updatePassword);
+
 
 // initial state
 const initialState = Map({
@@ -94,6 +99,29 @@ export default handleActions({
       const { user } = result;
       
       return state.setIn(['session', 'user'], fromJS(user));
+    },
+    onFailure: (state, action) => {
+      
+    }
+  }),
+
+  ...pender({
+    type: UPDATE_EMAIL,
+    onSuccess: (state, action) => {
+      const { data: result } = action.payload;
+      const { user } = result;
+      
+      return state.setIn(['session', 'user'], fromJS(user));
+    },
+    onFailure: (state, action) => {
+      
+    }
+  }),
+
+  ...pender({
+    type: UPDATE_PASSWORD,
+    onSuccess: (state, action) => {
+            
       return state;
     },
     onFailure: (state, action) => {

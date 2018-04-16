@@ -7,6 +7,7 @@ const SET_INPUT_ERROR = 'form/SET_INPUT_ERROR';
 const FORM_RESET = 'form/FORM_RESET';
 const FORM_ERROR_RESET = 'form/FORM_ERROR_RESET';
 const SET_PROFILE_FORM = 'form/SET_PROFILE_FORM';
+const SET_EMAIL_FORM = 'form/SET_EMAIL_FORM';
 
 // action creator
 /*
@@ -23,6 +24,7 @@ export const formReset = createAction(FORM_RESET);
 export const resetError = createAction(FORM_ERROR_RESET);
 
 export const setProfileForm = createAction(SET_PROFILE_FORM);
+export const setEmailForm = createAction(SET_EMAIL_FORM);
 
 // initial state
 const initialState = Map({
@@ -120,7 +122,7 @@ const initialState = Map({
     }),
     emailSetting: Map({
         email: '',
-        newEmail: ''
+        newemail: ''
     })
 });
 
@@ -151,6 +153,13 @@ export default handleActions({
         }
 
         return state.set('profile', fromJS(cur_profile));
+    },
+
+    [SET_EMAIL_FORM]: (state, action) => {
+
+        const email = action.payload;
+
+        return state.setIn(['emailSetting', 'email'], email);
     }
        
   }, initialState); 

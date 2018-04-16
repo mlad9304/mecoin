@@ -10,5 +10,7 @@ user.get('/', (ctx) => {
 
 
 user.post('/update/info', needAuth, userCtrl.updateInfo);
+user.post('/update/email', needAuth, userCtrl.updateEmail);
+user.post('/update/password', needAuth, userCtrl.updatePassword);
 
 module.exports = user;

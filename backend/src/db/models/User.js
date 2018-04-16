@@ -8,7 +8,7 @@ const token = require('lib/token');
 const { PASSWORD_HASH_KEY: secret } = process.env;
 
 function hash(password) {
-  let temp = "1234";
+  let temp = secret;
   let result;
   result = crypto.createHmac('sha256', temp).update(password).digest('hex');
   return result;

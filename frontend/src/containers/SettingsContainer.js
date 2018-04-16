@@ -18,8 +18,10 @@ class SettingsContainer extends Component {
 export default connect(
   (state) => ({
     logged: state.auth.getIn(['session', 'logged']),
-    user: state.auth.getIn(["session", "user"]).toJS(),
-    form: state.form.getIn(["profile"]).toJS(),
+    userId: state.auth.getIn(["session", "user", "_id"]),
+    email: state.auth.getIn(["session", "user", "email"]),
+    passwordSetting: state.form.getIn(["passwordSetting"]).toJS(),
+    emailSetting: state.form.getIn(["emailSetting"]).toJS(),
   }),
   (dispatch) => ({
     FormActions: bindActionCreators(formActions, dispatch),

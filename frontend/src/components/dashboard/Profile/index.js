@@ -19,12 +19,6 @@ class Profile extends Component {
     this.onChangeCity = (city) => this.setState({ city })
   }
 
-  componentDidMount() {
-    // var input = document.getElementById('searchTextField');
-    // new window.google.maps.places.Autocomplete(input);
-  }
-
-
   handleChange = (e) => {
     this.setState({
       updated: false
