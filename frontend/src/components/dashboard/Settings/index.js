@@ -140,6 +140,7 @@ class Settings extends Component {
               name="newpassword"
               value={newpassword}
               onChange={handleChangePasswordSetting}
+              type="password"
             />
             <input
               className="inputForm"
@@ -147,6 +148,7 @@ class Settings extends Component {
               name="confirmpassword"
               value={confirmpassword}
               onChange={handleChangePasswordSetting}
+              type="password"
             />
             <br />
             <br />
