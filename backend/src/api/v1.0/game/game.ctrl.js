@@ -23,7 +23,8 @@ export const findGame = async (ctx) => {
       deposits: game.deposits,
       state: game.state,
       winners: game.winners,
-      currentTimeLimit: game.currentTimeLimit
+      currentTimeLimit: game.currentTimeLimit,
+      userTicketRange: game.userTicketRange,
     };
 
     ctx.body = {
@@ -64,10 +65,10 @@ export const deposit = async (ctx) => {
   }
 
   const {_id} = user;
-  console.log(_id);
 
-  const { userId, type, gameId, amount } = ctx.request.body;
-  console.log(userId);
+  let { userId, type, gameId, amount } = ctx.request.body;
+  amount = parseInt(amount);
+
   if(_id !== userId){
     ctx.status = 400;
     return;
@@ -92,13 +93,21 @@ export const deposit = async (ctx) => {
     return;
   }
 
-  if(game.hasDeposit(userId)){
-    result_cc = DEPOSIT_CC.ALREADY_DEPOSIT;
+  if(!game.isValidDepositAmount(userId, amount)) {
+    result_cc = DEPOSIT_CC.TOO_MUCH_DEPOSIT;
     ctx.body = {
       cc : result_cc
     };
     return;
   }
+
+  // if(game.hasDeposit(userId)){
+  //   result_cc = DEPOSIT_CC.ALREADY_DEPOSIT;
+  //   ctx.body = {
+  //     cc : result_cc
+  //   };
+  //   return;
+  // }
 
   console.log('------------Game Deposit request-------------');
   try {

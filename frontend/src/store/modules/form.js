@@ -98,14 +98,13 @@ const initialState = Map({
         statusMessage: ''
     },
     deposit: Map({
-        balance: '500',
-        amount: null
+        amount: ''
     }),
     walletDeposit: Map({
-        gemamount: null
+        gemamount: ''
     }),
     withdraw: Map({
-        amount: null
+        amount: ''
     }),
     profile: Map({
         firstname: '',

@@ -48,6 +48,7 @@ function Game(type, gameId) {
   this.tickets = new Array(this.numberOfTickets).fill(null); // generate ticket array
   this.currentTimeLimit = this.timeLimit;
   this.killGameTimeInterval = null;
+  this.userTicketRange = [];
 
   /* example
   { aaa : { rank: 1, price:3928.2, percent: 80}, 
@@ -70,9 +71,9 @@ function Game(type, gameId) {
 
   // assign `amount` number of tickets with raffle number to a user with `userId`
   this.assign_raffle_ticket = (amount, userId) => {
-    for (let i = 0; i < amount; i ++) {
-      const rnd = this.generate_ticket_number();
-      this.tickets[rnd] = userId;
+    for (let i = this.sold; i < this.sold + amount; i ++) {
+      // const rnd = this.generate_ticket_number();
+      this.tickets[i] = userId;
     }
   }
 
@@ -86,12 +87,24 @@ function Game(type, gameId) {
   }
 
   // check already deposited
-  this.hasDeposit = (userId) => {
-    if( userId && this.deposits[userId] ){
-      console.log('already deposited');
-      return true; 
+  // this.hasDeposit = (userId) => {
+  //   if( userId && this.deposits[userId] ){
+  //     console.log('already deposited');
+  //     return true; 
+  //   }
+  //   return false;
+  // }
+  this.isValidDepositAmount = (userId, amount) => {
+    let currentDepositAmount = 0;
+
+    if(this.deposits[userId]) {
+      currentDepositAmount = this.deposits[userId];
     }
-    return false;
+    if(currentDepositAmount + amount < this.numberOfTickets) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // deposit to escrow for game
@@ -102,11 +115,18 @@ function Game(type, gameId) {
     // add userID
     this.users.push(userId);
     this.usernames[userId] = username;
-    this.deposits[userId] = amount;
-    this.sold += parseInt(amount, 10);
 
+    if(this.deposits[userId])
+      this.deposits[userId] += amount;
+    else 
+      this.deposits[userId] = amount;
+    
     // assign ticket
     this.assign_raffle_ticket(amount, userId);
+
+    const prevSold = this.sold;
+    this.sold += parseInt(amount, 10); 
+    this.userTicketRange.push([username, prevSold+1, this.sold]);
 
     // update db
     // const curGame = await GameTbl.find()
@@ -124,7 +144,8 @@ function Game(type, gameId) {
       deposits: this.deposits,
       state: this.state,
       winners: this.winners,
-      currentTimeLimit: this.currentTimeLimit
+      currentTimeLimit: this.currentTimeLimit,
+      userTicketRange: this.userTicketRange,
     };
 
     if(rm) {
@@ -200,7 +221,8 @@ function Game(type, gameId) {
         deposits: this.deposits,
         state: this.state,
         winners: this.winners,
-        currentTimeLimit: this.currentTimeLimit
+        currentTimeLimit: this.currentTimeLimit,
+        userTicketRange: this.userTicketRange
       };
   
       if(rm) {

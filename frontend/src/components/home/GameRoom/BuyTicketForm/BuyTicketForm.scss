@@ -1,13 +1,15 @@
 .buyTicketFormContainer {
-
+    width: 100%;
+    margin: 0 !important;
     .ticketBalance {
         color: #f2f2f2;
         font-size: 1.5rem;
     }
     
     .buyTicketInputContainer {
-        width: 80%;
+        width: 100%;
         height: 60px;
+        margin: 0;
         
         .buyTicketInput {
             background-color: #b5b7ba;
@@ -39,5 +41,7 @@
         background: -webkit-linear-gradient(#1e6017, #46da33);
         color: #082f0f !important;
         border: 2px;
+        font-weight: 600;
+        cursor: pointer;
     }
 }

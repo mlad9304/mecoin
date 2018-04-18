@@ -33,7 +33,7 @@ class TimeCountDown extends Component {
         const { init } = this;
         
         return(
-            <div>
+            <div className="mx-auto m-3">
                 <div className="your-clock"></div>
                 <Script 
                     url="/flipclock/flipclock.min.js"

@@ -9,7 +9,7 @@ import { pender } from 'redux-pender';
 
 const DEPOSIT_CC = {
   DEPOSIT_OK: 0x00,
-  ALREADY_DEPOSIT: 0x01,
+  TOO_MUCH_DEPOSIT: 0x01,
   GAME_CLOSED: 0x02,
   DEPOSIT_FAIL : 0xFF
 };
@@ -59,7 +59,7 @@ const initialState = Map({
       state: 0, // OPEN
       winners: [],
       currentTimeLimit: 0,
-      // usernames : [],
+      ticketRange : [],
       // depositHistory : [],
     }),
     socket: Map({
@@ -129,8 +129,8 @@ export default handleActions({
         console.log(`DEPOSIT reqeust result=${cc}`);
         let errStr = '';
         switch (cc) {
-          case DEPOSIT_CC.ALREADY_DEPOSIT:
-            errStr = 'Already deposited';
+          case DEPOSIT_CC.TOO_MUCH_DEPOSIT:
+            errStr = 'Too much deposit';
             break;
           case DEPOSIT_CC.GAME_CLOSED:
             errStr = 'Game is closed';

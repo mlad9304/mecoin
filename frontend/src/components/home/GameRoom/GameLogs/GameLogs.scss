@@ -1,0 +1,21 @@
+.gameLogsContainer {
+
+    .gameLogsHeader {
+        background: #13192a;
+        height: 13%;
+        color: #7fe533;
+    }
+
+    .gameLogsBody {
+        color: #787878;
+        background: #13192a;
+        height: 87%;
+
+        .gameLogsScrollbarContainer {
+            width: '100%';
+            height: '100%';
+            padding: '0 5px 10px 5px';
+        }
+    }
+
+}

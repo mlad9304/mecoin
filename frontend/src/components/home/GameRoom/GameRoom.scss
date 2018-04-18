@@ -1,9 +1,33 @@
+@import 'utils';
+
 .gameroomContainer {
+  .gameRoomTitle {
+    font-family: 'Lobster', cursive;
+    color: material-color('red', '500');
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    z-index: 100;
+    font-size: 2.5rem;
+    
+    div {
+      position: relative;
+      left: -50%;
+      .gemImg {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        left: 2px;
+        top: 0px;
+      }
+    }
+  }
+
+
   position: relative;
   background-color: #1c243a;
   height: 600px;
   width: 100%;
-  padding: 20px;
   margin-top: 15px;
 
   .markContainer {
@@ -65,7 +89,7 @@
     width: 1px;
     background-color: #0d121f;
     position: absolute;
-    height: 95%;
+    height: 100%;
     left: 50%;
   }
 
