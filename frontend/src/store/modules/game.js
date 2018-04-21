@@ -23,6 +23,7 @@ const GAME_ROOM_RESET='game/GAME_ROOM_RESET';
 const SET_JOIN = 'game/SET_JOIN';
 const GET_GAME_ROOM_INFO = 'game/GET_GAME_ROOM_INFO';
 const UPDATE_GAME_ROOM_INFO = 'game/UPDATE_GAME_ROOM_INFO';
+const UPDATE_RANDOM_NUMBER = 'game/UPDATE_RANDOM_NUMBER';
 
 // action creator
 export const doTestAction = createAction(TEST_ACTION); // test redux
@@ -33,6 +34,7 @@ export const gameRoomReset = createAction(GAME_ROOM_RESET); // reset game room
 export const setJoin = createAction(SET_JOIN); // set join
 export const getGameRoomInfo = createAction(GET_GAME_ROOM_INFO, GameApi.getGameRoomInfo); // find game
 export const updateGameRoomInfo = createAction(UPDATE_GAME_ROOM_INFO); // update game room information from server by socket
+export const updateRandomNumber = createAction(UPDATE_RANDOM_NUMBER); // update random number
 
 // initial state
 
@@ -57,10 +59,10 @@ const initialState = Map({
       usernames: {},
       deposits: {},
       state: 0, // OPEN
-      winners: [],
+      winners: null,
       currentTimeLimit: 0,
       ticketRange : [],
-      // depositHistory : [],
+      randomNumber: 0
     }),
     socket: Map({
         enter: false,
@@ -162,4 +164,12 @@ export default handleActions({
       
     }
   }),
+
+  [UPDATE_RANDOM_NUMBER]: (state, action) => {
+    const { randomNumber } = action.payload;
+    if( randomNumber ){
+      return state.setIn(['channel', 'game', 'randomNumber'], randomNumber);
+    }
+  },
+  
 }, initialState);

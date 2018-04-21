@@ -8,7 +8,6 @@ const UserDeposit = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: User},
   username: { type: String, default: '' },
   deposit: { type: Number, default: 0 },
-  transId: { type: Schema.Types.ObjectId, default: null},
   date: { type: Date, default: Date.now },
 });
 
@@ -20,8 +19,8 @@ const Game = new Schema({
   total: Number,
   sold: { type: Number, default: 0 },
   state: { type: Number, min:0, max:2, default: 0},
-  tickets: [Schema.Types.ObjectId],
-  winners: [Schema.Types.ObjectId],
+  winner: Schema.Types.ObjectId,
+  winnerTicket: { type: Number, default: null },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
@@ -66,12 +65,12 @@ Game.statics.updateByDeposit = function(gameObj) {
 };
 
 Game.statics.updateState = function(gameObj) {
-  const {_id, state, winners} = gameObj;
+  const {_id, state, winner} = gameObj;
 
   this.findByIdAndUpdate(_id, {
     $set: {
       state,
-      winners,
+      winner,
       updatedAt : new Date()
     }
   }).exec();

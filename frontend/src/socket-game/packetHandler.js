@@ -8,7 +8,7 @@ import * as dashboardActions from 'store/modules/dashboard';
 import storage from 'helpers/storage';
 
 const updateGame = (payload) => {
-  if(payload.game.winners.length > 0) {
+  if(payload.game.winner) {
     const { userId } = storage.get('__USER__');
     
     store.dispatch(dashboardActions.getBalance(userId));
@@ -20,6 +20,10 @@ const updateGame = (payload) => {
 
 const updateGameRoomInfo = (payload) => {
   store.dispatch(gameActions.updateGameRoomInfo(payload));
+}
+
+const updateRandomNumber = (payload) => {
+  store.dispatch(gameActions.updateRandomNumber(payload));
 }
 
 const service = {
@@ -53,6 +57,12 @@ const service = {
     log('RECEIVE UPDATED GAME ROOM INFORMATION');
     if( packet && packet.payload )
     updateGameRoomInfo(packet.payload);
+  },
+
+  randomNumber: (packet) => {
+    log('RECEIVE RANDOM NUMBER FOR CHOOSING WINNER');
+    if( packet && packet.payload )
+    updateRandomNumber(packet.payload);
   }
 
 }
@@ -79,6 +89,9 @@ export default function packetHandler(packet) {
       break;
     case RECEIVE.GAMEROOMINFO:
       service.gameRoomInfo(o);
+      break;
+    case RECEIVE.RANDOM_NUMBER: 
+      service.randomNumber(o);
       break;
     default:
       break;

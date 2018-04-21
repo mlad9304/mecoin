@@ -13,12 +13,16 @@ import store from 'store';
 import * as gameActions from 'store/modules/game';
 
 import TimeCountDown from 'components/common/TimeCountDown';
+import RandomNumberView from './RandomNumberView';
 import gemImg from 'static/images/gem.png';
 
 const GAME_STATE = {
     OPEN : 0, 
-    PLAY : 1, 
-    CLOSE : 2,
+    ENTER: 1,
+    PREPARE_TO_START: 2,
+    PLAY : 3, 
+    WINNER_SELECTED: 4,
+    CLOSE : 5,
 }
 
 class GameRoom extends Component {
@@ -149,14 +153,13 @@ class GameRoom extends Component {
 
         const { handleJoin, handleDeposit, handleChange, leaveGame } = this;
         const { form, status } = this.props;
-        const { game, gameState } = status;
-        const { users, usernames, winners, currentTimeLimit, userTicketRange } = game;
+        const { game, gameState, random } = status;
+        const { users, usernames, winner, winnerTicket, currentTimeLimit, userTicketRange, randomNumber } = game;
 
         let winner_name = '';
-        if(gameState === GAME_STATE.CLOSE && winners.length > 0 && Object.keys(usernames).length > 0 ){
-            winner_name = usernames[winners[0]];
+        if((gameState === GAME_STATE.WINNER_SELECTED || gameState === GAME_STATE.CLOSE) && winner && Object.keys(usernames).length > 0 ){
+            winner_name = usernames[winner];
         }
-
         const totalAlias = (total) => {
             if(total === 1000)
                 return '1K';
@@ -169,7 +172,6 @@ class GameRoom extends Component {
 
             return total;
         }
-
         return (
             
             <div className="gameroomContainer px-3">
@@ -214,6 +216,7 @@ class GameRoom extends Component {
 
                     {this.state.joined &&
                     <div className="row h-100">
+                        {gameState <= GAME_STATE.PREPARE_TO_START && 
                         <div className="col">
                             <div className="markContainer">
                                 <img src={mark} role="presentation" alt="mark"/>
@@ -240,12 +243,24 @@ class GameRoom extends Component {
                                     />
                             </div>
                         </div>
+                        }
+                        {gameState >= GAME_STATE.PLAY && 
+                        <div className="col text-center">
+                            <RandomNumberView randomNumber={gameState>=GAME_STATE.WINNER_SELECTED ? winnerTicket : randomNumber}/>
+                            <p>
+                                <a className="btnLeave" onClick={() => leaveGame()}>LEAVE</a>
+                            </p>
+                            
+                        </div>
+                        }
                         <div className="col pt-3">
                             <div className="row h-25">
-                            {gameState === GAME_STATE.PLAY ? <TimeCountDown milliseconds={currentTimeLimit} /> : <TimeCountDown/>}
+                            {gameState <= GAME_STATE.PREPARE_TO_START ? <TimeCountDown milliseconds={currentTimeLimit} /> : <TimeCountDown/>}
                             </div>
                             <div className="row h-75">
-                                <GameLogs logs={userTicketRange} total={game.total}/>
+                            {gameState >= GAME_STATE.WINNER_SELECTED 
+                                ? <GameLogs logs={userTicketRange} total={game.total} showHeader={true} winner={winner_name} winnerTicket={winnerTicket}/> 
+                                : <GameLogs logs={userTicketRange} total={game.total}/>}    
                             </div>
                         </div>
                         <div className="divider"/>
@@ -289,7 +304,7 @@ class GameRoom extends Component {
                 
                     { !this.state.depositForm && gameState === GAME_STATE.CLOSE && 
                     <div className="col">
-                        <div className="winners">
+                        <div className="winner">
                         Winner : @{winner_name}@
                         </div>
                     </div>

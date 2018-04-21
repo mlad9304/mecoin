@@ -22,7 +22,7 @@ export const findGame = async (ctx) => {
       usernames: game.usernames,
       deposits: game.deposits,
       state: game.state,
-      winners: game.winners,
+      winner: game.winner,
       currentTimeLimit: game.currentTimeLimit,
       userTicketRange: game.userTicketRange,
     };
@@ -85,7 +85,7 @@ export const deposit = async (ctx) => {
   console.log('ccc');
   // check amount
 
-  if(!game.isOpen() && !game.isPlay()){
+  if(!game.isOpen() && !game.isEnter()){
     result_cc = DEPOSIT_CC.GAME_CLOSED;
     ctx.body = {
       cc : result_cc
@@ -119,7 +119,7 @@ export const deposit = async (ctx) => {
     //  Transaction.update(transId);
     //  return;
     //}
-    const result = await game.deposit(user, amount);
+    const result = await game.deposit(user, amount, transId);
 
     if(!result) result_cc = 'DEPOSIT_FAIL';
 
