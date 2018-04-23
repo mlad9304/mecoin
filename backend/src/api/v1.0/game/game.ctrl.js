@@ -153,3 +153,38 @@ export const getGameRoomInfo = (ctx) => {
   
 }
 
+export const getGameroomTicketsByUser = async (ctx) => {
+
+  const { user } = ctx.request;
+
+  if(!user) {
+      ctx.status = 401;
+      return;
+  }
+
+  const { _id } = user;
+  const { userid, gameid } = ctx.params;
+
+  if( _id !== userid ) {
+      ctx.status = 400;
+      return;
+  }
+
+  try {
+      const result = await Game.getGameroomTicketsByUser(userid, gameid);
+
+      let tickets;
+
+      try {
+          tickets = result[0].depositList[0].deposit;
+      } catch(e) {
+          tickets = 0;
+      }
+
+      ctx.body = {
+          tickets
+      }
+  } catch (e) {
+      ctx.throw(e, 500);
+  }
+}

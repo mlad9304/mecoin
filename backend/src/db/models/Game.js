@@ -80,4 +80,25 @@ Game.statics.findById = function(_id){
   return this.findOne({ _id }).exec();
 }
 
+Game.statics.getGameroomTicketsByUser = function(userid, gameid) {
+  return this.aggregate([
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(gameid)
+      }
+    },
+    {
+      $project: {
+        depositList: {
+          $filter: {
+            "input": "$depositList",
+            "as": "item",
+            "cond": { "$eq": ["$$item.userId", new mongoose.Types.ObjectId(userid)] }
+          }
+        },
+      }
+    }
+  ])
+}
+
 module.exports = mongoose.model('Game', Game);

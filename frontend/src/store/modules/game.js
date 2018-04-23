@@ -24,6 +24,7 @@ const SET_JOIN = 'game/SET_JOIN';
 const GET_GAME_ROOM_INFO = 'game/GET_GAME_ROOM_INFO';
 const UPDATE_GAME_ROOM_INFO = 'game/UPDATE_GAME_ROOM_INFO';
 const UPDATE_RANDOM_NUMBER = 'game/UPDATE_RANDOM_NUMBER';
+const GET_GAME_ROOM_TICKETS_BY_USER = 'dashboard/GET_GAME_ROOM_TICKETS_BY_USER';
 
 // action creator
 export const doTestAction = createAction(TEST_ACTION); // test redux
@@ -35,6 +36,7 @@ export const setJoin = createAction(SET_JOIN); // set join
 export const getGameRoomInfo = createAction(GET_GAME_ROOM_INFO, GameApi.getGameRoomInfo); // find game
 export const updateGameRoomInfo = createAction(UPDATE_GAME_ROOM_INFO); // update game room information from server by socket
 export const updateRandomNumber = createAction(UPDATE_RANDOM_NUMBER); // update random number
+export const getGameroomTicketsByUser = createAction(GET_GAME_ROOM_TICKETS_BY_USER, GameApi.getGameroomTicketsByUser);
 
 // initial state
 
@@ -64,6 +66,7 @@ const initialState = Map({
       ticketRange : [],
       randomNumber: 0
     }),
+    ticketsOfCurrentUser: 0,
     socket: Map({
         enter: false,
         auth: null,
@@ -171,5 +174,21 @@ export default handleActions({
       return state.setIn(['channel', 'game', 'randomNumber'], randomNumber);
     }
   },
+
+  ...pender({
+    type: GET_GAME_ROOM_TICKETS_BY_USER,
+    onSuccess: (state, action) => {
+      const { data: result } = action.payload;
+      const { tickets } = result;
+      if( tickets ){
+        return state.setIn(['channel', 'ticketsOfCurrentUser'], tickets);
+      } else {
+        return state;
+      }
+    },
+    onFailure: (state, action) => {
+      
+    }
+  }),
   
 }, initialState);

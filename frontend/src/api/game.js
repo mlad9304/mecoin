@@ -18,3 +18,7 @@ export const getGameData = (gameId) => {
 export const getGameRoomInfo = () => {
   return axios.post(process.env.API_ROOT+`/api/v1.0/game/gameroominfo`);
 }
+
+export const getGameroomTicketsByUser = (userid, gameid) => {
+  return axios.get(process.env.API_ROOT+`/api/v1.0/game/tickets/userid/${userid}/gameid/${gameid}`);
+}

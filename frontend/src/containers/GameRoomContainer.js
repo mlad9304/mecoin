@@ -27,7 +27,8 @@ export default connect(
         game: state.game.getIn(['channel', 'game']).toJS(),
         gameState: state.game.getIn(['channel', 'game', 'state']),
         balance: state.dashboard.getIn(['transaction', 'balance']),
-      }
+      },
+      ticketsOfCurrentUser: state.game.getIn(['channel', 'ticketsOfCurrentUser']),
   }),
   (dispatch) => ({
     GameActions: bindActionCreators(gameActions, dispatch),

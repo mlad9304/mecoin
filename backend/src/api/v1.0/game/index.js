@@ -15,6 +15,6 @@ game.get('/find/type/:type', gameCtrl.findGame);
 game.get('/create/type/:type', needAuth, gameCtrl.createGame);
 game.post('/deposit', needAuth, gameCtrl.deposit);
 game.post('/gameroominfo', gameCtrl.getGameRoomInfo);
-
+game.get('/tickets/userid/:userid/gameid/:gameid', needAuth, gameCtrl.getGameroomTicketsByUser);
 
 module.exports = game;

@@ -45,6 +45,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dev-utils": "^4.2.0",
     "react-dom": "^16.0.0",
+    "react-highcharts": "^16.0.2",
     "react-intl": "^2.4.0",
     "react-load-script": "^0.0.6",
     "react-places-autocomplete": "^6.1.3",

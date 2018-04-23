@@ -15,6 +15,7 @@ import * as gameActions from 'store/modules/game';
 import TimeCountDown from 'components/common/TimeCountDown';
 import RandomNumberView from './RandomNumberView';
 import gemImg from 'static/images/gem.png';
+import TicketStatusChart from 'components/common/TicketStatusChart';
 
 const GAME_STATE = {
     OPEN : 0, 
@@ -113,13 +114,9 @@ class GameRoom extends Component {
 
         // deposit process
         try {
-            console.log(userId, type, gameId, amount);
             await GameActions.deposit(userId, type, gameId, amount);
             const { join, depositResult } = this.props.status;
             
-            console.log('Join: ', join, ' Deposit Result: ', depositResult);
-
-
             if(!join) {
                 notify({type: 'error', message: depositResult});
                 return;
@@ -131,7 +128,8 @@ class GameRoom extends Component {
         }
 
         this.setState({joined: true});
-        await DashboardActions.getBalance(userId);
+        DashboardActions.getBalance(userId);
+        GameActions.getGameroomTicketsByUser(userId, gameId);
 
         this
           .props
@@ -152,7 +150,7 @@ class GameRoom extends Component {
     render() {
 
         const { handleJoin, handleDeposit, handleChange, leaveGame } = this;
-        const { form, status } = this.props;
+        const { form, status, ticketsOfCurrentUser } = this.props;
         const { game, gameState, random } = status;
         const { users, usernames, winner, winnerTicket, currentTimeLimit, userTicketRange, randomNumber } = game;
 
@@ -184,17 +182,16 @@ class GameRoom extends Component {
                     </div>
                     {!this.state.joined &&
                     <div className="row h-100">
-                        <div className="col">
+                        <div className="col h-100">
                             <div className="markContainer">
                                 <img src={mark} role="presentation" alt="mark"/>
                                 <p className="markLetter">{game.sold}/{totalAlias(game.total)}</p>
                             </div>
-                            <div className="row">
+                            <div className="row h-100">
                                 <div className="col text-center">
-                                    <p className="diceContainer">
-                                        <img src={diceImg} role="presentation" alt="dice"/>
-                                    </p>
-                                    <br />
+                                    <div className="chartContainer w-100 h-75">
+                                        <TicketStatusChart mode='default' total={game.total} sold={game.sold} ticketsOfCurrentUser={ticketsOfCurrentUser}/>
+                                    </div>
                                     <p className="text-center">
                                         <a className="btnJoin" onClick={() => handleJoin()}>JOIN</a>
                                         <a className="btnLeave" onClick={() => leaveGame()}>LEAVE</a>
@@ -217,21 +214,19 @@ class GameRoom extends Component {
                     {this.state.joined &&
                     <div className="row h-100">
                         {gameState <= GAME_STATE.PREPARE_TO_START && 
-                        <div className="col">
+                        <div className="col h-100">
                             <div className="markContainer">
                                 <img src={mark} role="presentation" alt="mark"/>
                                 <p className="markLetter">{game.sold}/{totalAlias(game.total)}</p>
                             </div>
-                            <div className="row">
+                            <div className="row h-60">
                                 <div className="col text-center">
-                                    <p className="diceContainer">
-                                        <img src={diceImg} role="presentation" alt="dice"/>
-                                    </p>
-                                    <br />
-                                    
+                                    <div className="chartContainer w-100 h-100">
+                                        <TicketStatusChart mode='default' total={game.total} sold={game.sold} ticketsOfCurrentUser={ticketsOfCurrentUser}/>
+                                    </div>                                    
                                 </div>
                             </div>
-                            <div className="row">
+                            <div className="row position-absolute h-40" style={{bottom: 30}}>
                             <BuyTicketForm 
                                         onBuyTicket={handleDeposit}
                                         onChange={handleChange}

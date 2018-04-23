@@ -115,9 +115,12 @@ class BuyTicketBoxContainer extends Component {
             const { _id: gameId } = game;
             const balance = game.total - game.sold;
 
+            await GameActions.getGameroomTicketsByUser(userId, gameId);
+
             if(session.logged && userId !== null && game && game.users && game.users.indexOf(userId) > -1)
                 store.dispatch(gameActions.setJoin(true));
             gameSocket.init();
+            
             history.push(`/game/${type}/id/${gameId}`);
 
         } catch(e){

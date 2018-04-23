@@ -246,7 +246,7 @@ function Game(type, gameId) {
   }
 
   this.sendRandomNumber = () => {
-    console.log(this.currentChooseWinnerTimeLimit, this.randomNumber+1);
+    // console.log(this.currentChooseWinnerTimeLimit, this.randomNumber+1);
     const rm = RoomManager.get(this._id);
 
     if(!rm) return;

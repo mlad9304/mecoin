@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import './BuyTicketBox.scss';
 import dice from 'static/images/dice.png';
 import ticket from 'static/images/ticket.png';
-import chart from 'static/images/chart.png';
 import clock from 'static/images/clock.png';
 
 import CountDown from 'components/common/CountDown';
+
+import TicketStatusChart from 'components/common/TicketStatusChart';
 
 const BuyTicketBox = ({ total, sold, onClick, currentTimeLimit }) => {
   return (
@@ -25,9 +26,9 @@ const BuyTicketBox = ({ total, sold, onClick, currentTimeLimit }) => {
             <img className="ticket" src={ticket} alt="ticket"/>
             &nbsp;&nbsp;Tickets sold: &nbsp;&nbsp; {sold}
           </p>
-          <p className="text-center">
-            <img className="chart" src={chart} alt="chart"/>
-          </p>
+          <div className="chart">
+            <TicketStatusChart mode='simple' total={total} sold={sold}/>
+          </div>
           <p className="text-center color-whitegrey mb-0">
             <img className="clock" src={clock} alt="clock"/>
             &nbsp;<CountDown time={currentTimeLimit}/>
