@@ -18,7 +18,6 @@ class GameRoomContainer extends Component {
 
 export default connect(
   (state) => ({
-      form: state.form.get('deposit').toJS(),
       status: {
         logged: state.auth.getIn('session', 'logged'),
         userId:  state.auth.getIn(['session', 'user', '_id']),

@@ -28,8 +28,11 @@ const GAME_STATE = {
 
 class GameRoom extends Component {
 
-    state = {
-        joined: false
+    constructor(props) {
+        super(props);
+
+        this.ticketAmount = 0; 
+        // the reason not used state is because when state is changed render function is called so time countdown is refreshing every time
     }
 
     componentDidMount() {
@@ -47,13 +50,6 @@ class GameRoom extends Component {
           .props
           .FormActions
           .formReset();
-    
-        //disconnect socket
-        // console.log("Disconnect Game Socket", gameSocket);
-
-        // if (gameSocket.getSocket()) {
-        //     gameSocket.close();
-        // }
     }
 
 
@@ -64,15 +60,13 @@ class GameRoom extends Component {
             notify({type: 'error', message: 'Sorry, This room has closed'});
             return;
         }
-
-        this.setState({joined: true});
     }
 
     handleDeposit = async() => {
 
-        const { form, status, GameActions, DashboardActions, history } = this.props;
+        const { status, GameActions, DashboardActions, history } = this.props;
         const { type, id: gameId } = this.props.match.params;
-        const { amount } = form;
+        const amount = this.ticketAmount;
         const { logged, userId, game, balance, gameState } = status;
         const { balanceGem } = balance;
         const roomBalance = game.total - game.sold;
@@ -127,19 +121,16 @@ class GameRoom extends Component {
             return;
         }
 
-        this.setState({joined: true});
         DashboardActions.getBalance(userId);
         GameActions.getGameroomTicketsByUser(userId, gameId);
 
-        this
-          .props
-          .FormActions
-          .formReset();
+        this.ticketAmount = 0;
+        document.getElementById("buyTicketInput").value = null;
     }
 
     handleChange = (e) => {
-        const {FormActions} = this.props;
-        FormActions.changeInput({form: 'deposit', name: e.target.name, value: e.target.value})
+        
+        this.ticketAmount = e.target.value;
     }
 
     leaveGame = () => {
@@ -150,9 +141,9 @@ class GameRoom extends Component {
     render() {
 
         const { handleJoin, handleDeposit, handleChange, leaveGame } = this;
-        const { form, status, ticketsOfCurrentUser } = this.props;
+        const { status, ticketsOfCurrentUser } = this.props;
         const { game, gameState, random } = status;
-        const { users, usernames, winner, winnerTicket, currentTimeLimit, userTicketRange, randomNumber } = game;
+        const { users, usernames, winner, winnerTicket, winnerTicketCount, currentTimeLimit, userTicketRange, randomNumber } = game;
 
         let winner_name = '';
         if((gameState === GAME_STATE.WINNER_SELECTED || gameState === GAME_STATE.CLOSE) && winner && Object.keys(usernames).length > 0 ){
@@ -170,6 +161,7 @@ class GameRoom extends Component {
 
             return total;
         }
+
         return (
             
             <div className="gameroomContainer px-3">
@@ -180,38 +172,7 @@ class GameRoom extends Component {
                             <img className="gemImg" src={gemImg} alt="gem_img"/> Room
                         </div>
                     </div>
-                    {!this.state.joined &&
-                    <div className="row h-100">
-                        <div className="col h-100">
-                            <div className="markContainer">
-                                <img src={mark} role="presentation" alt="mark"/>
-                                <p className="markLetter">{game.sold}/{totalAlias(game.total)}</p>
-                            </div>
-                            <div className="row h-100">
-                                <div className="col text-center">
-                                    <div className="chartContainer w-100 h-75">
-                                        <TicketStatusChart mode='default' total={game.total} sold={game.sold} ticketsOfCurrentUser={ticketsOfCurrentUser}/>
-                                    </div>
-                                    <p className="text-center">
-                                        <a className="btnJoin" onClick={() => handleJoin()}>JOIN</a>
-                                        <a className="btnLeave" onClick={() => leaveGame()}>LEAVE</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col pt-4">
-                            <BuyTicketForm 
-                                onBuyTicket={handleDeposit}
-                                onChange={handleChange}
-                                form = {form}
-                                status = {status}    
-                            />
-                        </div>
-                        <div className="divider"/>
-                    </div>
-                    }
 
-                    {this.state.joined &&
                     <div className="row h-100">
                         {gameState <= GAME_STATE.PREPARE_TO_START && 
                         <div className="col h-100">
@@ -231,7 +192,6 @@ class GameRoom extends Component {
                                         onBuyTicket={handleDeposit}
                                         onChange={handleChange}
                                         onLeaveGame={leaveGame}
-                                        form = {form}
                                         status = {status}    
                                         align = "center"
                                         leaveBtn = {true}
@@ -250,68 +210,19 @@ class GameRoom extends Component {
                         }
                         <div className="col pt-3">
                             <div className="row h-25">
-                            {gameState <= GAME_STATE.PREPARE_TO_START ? <TimeCountDown milliseconds={currentTimeLimit} /> : <TimeCountDown/>}
+                            {(gameState === GAME_STATE.OPEN || gameState >= GAME_STATE.PLAY) && <TimeCountDown/> }
+                            {(gameState === GAME_STATE.ENTER || gameState === GAME_STATE.PREPARE_TO_START) &&
+                            <TimeCountDown milliseconds={currentTimeLimit} />
+                            }
                             </div>
                             <div className="row h-75">
                             {gameState >= GAME_STATE.WINNER_SELECTED 
-                                ? <GameLogs logs={userTicketRange} total={game.total} showHeader={true} winner={winner_name} winnerTicket={winnerTicket}/> 
+                                ? <GameLogs logs={userTicketRange} total={game.total} showHeader={true} winner={winner_name} winnerTicket={winnerTicket} winnerTicketCount={winnerTicketCount}/> 
                                 : <GameLogs logs={userTicketRange} total={game.total}/>}    
                             </div>
                         </div>
                         <div className="divider"/>
                     </div>
-                    }
-                    
-                    
-
-                    {/* <div className="col">
-                        <div className="markContainer">
-                            <img src={mark} role="presentation" alt="mark"/>
-                            <p className="markLetter">{game.sold}/{totalAlias(game.total)}</p>
-                        </div>
-                        <div className="row">
-                            <div className="col text-center">
-                                <p className="diceContainer">
-                                    <img src={diceImg} role="presentation" alt="dice"/>
-                                </p>
-                                <br />
-                                <p className="text-center">
-                                    {
-                                    !status.join && (gameState === GAME_STATE.OPEN || gameState === GAME_STATE.PLAY) &&
-                                    <a className="btnJoin" onClick={() => handleJoin()}>JOIN</a>
-                                    }
-                                    <a className="btnLeave" onClick={() => leaveGame()}>LEAVE</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    { this.state.depositForm && 
-                    <div className="col">
-                        <BuyTicketForm 
-                            onBuyTicket={handleDeposit}
-                            onChange={handleChange}
-                            form = {form}
-                            status = {status}    
-                        />
-                    </div>
-                    }
-                
-                    { !this.state.depositForm && gameState === GAME_STATE.CLOSE && 
-                    <div className="col">
-                        <div className="winner">
-                        Winner : @{winner_name}@
-                        </div>
-                    </div>
-                    }
-
-                    { !this.state.depositForm && gameState === GAME_STATE.PLAY && 
-                    <div className="col">
-                        <TimeCountDown milliseconds={currentTimeLimit}/>
-                    </div>
-                    }
-
-                    */}
                 
             </div>
         );

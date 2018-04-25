@@ -97,9 +97,6 @@ const initialState = Map({
     channelSetting: {
         statusMessage: ''
     },
-    deposit: Map({
-        amount: ''
-    }),
     walletDeposit: Map({
         gemamount: ''
     }),

@@ -14,12 +14,12 @@ import sockets from 'game/sockets';
 import { Promise } from 'core-js';
 
 const TIME_OUT = {
-  [GAME_TYPE.ONE] : 1000 * 30, // 1 minute
-  [GAME_TYPE.TEN] : 1000 * 60 * 10, // 10 minutes
-  [GAME_TYPE.HUNDRED] : 1000 * 60 * 10 * 10, // 100 minutes
-  [GAME_TYPE.THOUSAND] : 1000 * 60 * 10 * 10 * 5, // 500 minutes
-  [GAME_TYPE.TENTHOUSAND] : 1000 * 60 * 10 * 10 * 10, // 1000 minutes =~ 16 hours
-  [GAME_TYPE.MILLION] : 1000 * 60 * 10 * 10 * 10 * 10, // 10000 minutes =~ 1 week
+  [GAME_TYPE.ONE] : 1000 * 30, // 30 seconds
+  [GAME_TYPE.TEN] : 1000 * 60, // 1 minute
+  [GAME_TYPE.HUNDRED] : 1000 * 60 * 2, // 2 minutes
+  [GAME_TYPE.THOUSAND] : 1000 * 60 * 3, // 3 minutes
+  [GAME_TYPE.TENTHOUSAND] : 1000 * 60 * 4, // 4 minutes
+  [GAME_TYPE.MILLION] : 1000 * 60 * 5, // 5 minutes
 }
 
 const MAX_LIMIT = {
@@ -46,6 +46,7 @@ function Game(type, gameId) {
   this.sold = 0; // total of sold amount
   this.winner = null;
   this.winnerTicket = null;
+  this.winnerTicketCount = null;
   this.killGameTimeout = null;
   this.tickets = new Array(this.numberOfTickets).fill(null); // generate ticket array
   this.currentTimeLimit = this.timeLimit;
@@ -134,7 +135,7 @@ function Game(type, gameId) {
 
     const prevSold = this.sold;
     this.sold += parseInt(amount, 10); 
-    this.userTicketRange.push([username, prevSold+1, this.sold]);
+    this.userTicketRange.push([username, prevSold+1, this.sold, this.deposits[userId]]);
 
     // update db
     // const curGame = await GameTbl.find()
@@ -153,6 +154,7 @@ function Game(type, gameId) {
       state: this.state,
       winner: this.winner,
       winnerTicket: this.winnerTicket,
+      winnerTicketCount: this.winnerTicketCount,
       currentTimeLimit: this.currentTimeLimit,
       userTicketRange: this.userTicketRange,
     };
@@ -233,6 +235,7 @@ function Game(type, gameId) {
         state: this.state,
         winner: this.winner,
         winnerTicket: this.winnerTicket,
+        winnerTicketCount: this.winnerTicketCount,
         currentTimeLimit: this.currentTimeLimit,
         userTicketRange: this.userTicketRange
       };
@@ -264,6 +267,7 @@ function Game(type, gameId) {
 
     this.winner = this.tickets[this.randomNumber];
     this.winnerTicket = this.randomNumber + 1;
+    this.winnerTicketCount = this.deposits[this.winner];
     await this.updateState(GAME_STATE.WINNER_SELECTED);
     
     this.completeGame();

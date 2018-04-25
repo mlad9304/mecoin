@@ -5,8 +5,7 @@ import cx from 'classnames';
 class BuyTicketForm extends Component {
   render() {
 
-    const { close, onBuyTicket, onChange, onLeaveGame, form, status, align, leaveBtn } = this.props;
-    const { amount } = form;
+    const { close, onBuyTicket, onChange, onLeaveGame, status, align, leaveBtn } = this.props;
     const { game } = status;
     const balance = game.total - game.sold;
 
@@ -16,7 +15,7 @@ class BuyTicketForm extends Component {
                 <p className="ticketBalance">Ticket Balance: {balance}</p>
                 <div className="row buyTicketInputContainer">
                     <div className="col-12 p-0">
-                        <input className="buyTicketInput" placeholder="0" onChange={onChange} name="amount" value={amount}/>
+                        <input id="buyTicketInput" className="buyTicketInput" placeholder="0" onChange={onChange} name="amount"/>
                     </div>
                 </div>
                 <br />
