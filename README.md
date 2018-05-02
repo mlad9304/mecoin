@@ -1,11 +1,6 @@
 # Onetap game on ethereum platform
 
 
-## Online example
-
-http://18.217.60.113:5000/ 
-
-
 ## Stack
 
 Everything in this project is in JavaScript. 

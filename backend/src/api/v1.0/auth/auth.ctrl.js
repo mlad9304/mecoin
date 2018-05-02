@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const User = require('db/models/User');
+const lightwallet = require('eth-lightwallet');
 
 
 exports.checkEmail = async (ctx) => {
@@ -86,16 +87,19 @@ exports.localRegister = async (ctx) => {
     //   currency,
     //   value
     // };
-    
+
+    const {wallet_address, private_key} = await generateNewWalletAddress();
+    console.log(wallet_address, private_key);
     // creates user account
     const user = await User.localRegister({
-      username, email, password, firstname, lastname, /*, initial */
+      username, email, password, firstname, lastname, wallet_address, private_key
     });
 
     ctx.body = {
       username,
-      _id: user._id
-      // metaInfo: user.metaInfo
+      _id: user._id,
+      wallet_address,
+      private_key
     };
     
     const accessToken = await user.generateToken();
@@ -105,10 +109,44 @@ exports.localRegister = async (ctx) => {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7
     });
+
+
+    
   } catch (e) {
     ctx.throw(e, 500);
   }
 };
+
+const generateNewWalletAddress = () => new Promise((resolve, reject) => {
+  
+  var password = 'LLd:Tr>q<N-s/pkn7U?X9H+t';
+  var seed = lightwallet.keystore.generateRandomSeed();
+
+  lightwallet.keystore.createVault({
+      password: password,
+      seedPhrase: seed,
+      hdPathString: "m/0'/0'/0'"
+  }, function (err, ks) {
+
+      ks.keyFromPassword(password, function (err, pwDerivedKey) {
+          if (!ks.isDerivedKeyCorrect(pwDerivedKey)) {
+              throw new Error("Incorrect derived key!");
+          }
+
+          try {
+              ks.generateNewAddress(pwDerivedKey, 1);
+          } catch (err) {
+              console.log(err);
+              console.trace();
+          }
+          var wallet_address = ks.getAddresses()[0];
+          var private_key = ks.exportPrivateKey(wallet_address, pwDerivedKey);
+
+          resolve({wallet_address, private_key});
+
+      });
+  });
+});
 
 
 exports.localLogin = async (ctx) => {
