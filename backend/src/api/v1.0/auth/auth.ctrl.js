@@ -88,18 +88,14 @@ exports.localRegister = async (ctx) => {
     //   value
     // };
 
-    const {wallet_address, private_key} = await generateNewWalletAddress();
-    console.log(wallet_address, private_key);
     // creates user account
     const user = await User.localRegister({
-      username, email, password, firstname, lastname, wallet_address, private_key
+      username, email, password, firstname, lastname
     });
 
     ctx.body = {
       username,
       _id: user._id,
-      wallet_address,
-      private_key
     };
     
     const accessToken = await user.generateToken();

@@ -24,8 +24,6 @@ const User = new Schema({
   address2: String,
   zipcode: String,
   city: String,
-  wallet_address: String,
-  private_key: String,
   social: {
     facebook: {
       id: String,
@@ -68,7 +66,7 @@ User.statics.findSocialId = function({provider, id}) {
   });
 };
 
-User.statics.localRegister = async function({ username, email, password, firstname, lastname, wallet_address, private_key}) {
+User.statics.localRegister = async function({ username, email, password, firstname, lastname}) {
   
   let temp = hash(password);
   const user = new this({
@@ -77,8 +75,6 @@ User.statics.localRegister = async function({ username, email, password, firstna
     password: temp, 
     firstname,
     lastname,
-    wallet_address,
-    private_key
   });
 
   // sets initial money
